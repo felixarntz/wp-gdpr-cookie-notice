@@ -12,4 +12,5 @@ Simple performant GDPR-compliant cookie consent notice that supports granular co
 
 ## Requirements
 
-WP GDPR Cookie Notice requires at least PHP 7.0 and WordPress 4.9.6 in order to work.
+* PHP >= 7.0
+* WordPress >= 4.9.6
