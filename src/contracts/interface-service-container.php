@@ -20,7 +20,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exc
 interface Service_Container {
 
 	/**
-	 * Registers a service.
+	 * Adds a service.
 	 *
 	 * @since 1.0.0
 	 *
@@ -30,10 +30,10 @@ interface Service_Container {
 	 * @throws Invalid_Identifier_Exception Thrown when the identifier is invalid.
 	 * @throws Duplicate_Identifier_Exception Thrown when the identifier is already in use.
 	 */
-	public function register_service( string $id, Service $service );
+	public function add( string $id, Service $service );
 
 	/**
-	 * Retrieves a registered service.
+	 * Retrieves an available service.
 	 *
 	 * @since 1.0.0
 	 *
@@ -42,14 +42,24 @@ interface Service_Container {
 	 *
 	 * @throws Unregistered_Identifier_Exception Thrown when the service for the identifier is not registered.
 	 */
-	public function get_service( string $id ) : Service;
+	public function get( string $id ) : Service;
 
 	/**
-	 * Gets the registered services.
+	 * Checks if a service is available.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $id Unique identifier of the service.
+	 * @return bool True if the service is available, false otherwise.
+	 */
+	public function has( string $id ) : bool;
+
+	/**
+	 * Gets the available services.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array Map of $id => $service instance pairs.
 	 */
-	public function get_services() : array;
+	public function get_all() : array;
 }
