@@ -14,6 +14,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Settings;
 
 /**
  * Class controlling the plugin functionality.
@@ -56,6 +57,8 @@ class Plugin implements Initializable, Service_Container {
 
 		$this->main_file = $main_file;
 		$this->container = $container;
+
+		$this->add( 'settings', new Plugin_Settings() );
 	}
 
 	/**
@@ -64,7 +67,7 @@ class Plugin implements Initializable, Service_Container {
 	 * @since 1.0.0
 	 */
 	public function initialize() {
-		array_walk( $this->container->get_services(), function( Service $service ) {
+		array_walk( $this->container->get_all(), function( Service $service ) {
 			$service->initialize();
 		} );
 	}
