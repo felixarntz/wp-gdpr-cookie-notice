@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="WP GDPR Cookie Notice PHPCS Rules">
+	<description>A custom set of PHPCS rules for WP GDPR Cookie Notice.</description>
+
+	<file>./wp-gdpr-cookie-notice.php</file>
+	<file>./src</file>
+
+	<exclude-pattern>*/tests/*</exclude-pattern>
+
+	<rule ref="WordPress" />
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="string" value="wp-gdpr-cookie-notice"/>
+		</properties>
+	</rule>
+
+	<config name="testVersion" value="7.0-99.0"/>
+	<rule ref="PHPCompatibility"/>
+</ruleset>

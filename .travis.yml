@@ -1,0 +1,86 @@
+sudo: false
+language: php
+cache:
+  directories:
+    - node_modules
+    - vendor
+    - $HOME/.composer/cache
+matrix:
+  include:
+    - php: 7.2
+      env: WP_VERSION=latest WP_MULTISITE=1 PHPLINT=1 PHPCS=1 COVERAGE=1
+    - php: 7.0
+      env: WP_VERSION=4.9.6 WP_MULTISITE=1 PHPLINT=1
+    - php: 7.2
+      env: WP_VERSION=4.9.6
+    - php: 7.1
+      env: WP_VERSION=4.9.6
+    - php: 7.0
+      env: WP_VERSION=4.9.6
+    - php: nightly
+      env: WP_VERSION=master
+  allow_failures:
+    - php: nightly
+      env: WP_VERSION=master
+before_script:
+- |
+  if [[ "$COVERAGE" != "1" ]]; then
+    stable='^[0-9\.]+$'
+    if [[ "$TRAVIS_PHP_VERSION" =~ $stable ]]; then
+      phpenv config-rm xdebug.ini
+    fi
+  else
+    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    chmod +x ./cc-test-reporter
+    ./cc-test-reporter before-build
+  fi
+- composer selfupdate 1.0.0 --no-interaction
+- composer install --no-interaction
+- composer config-phpcs
+- npm install &>/dev/null
+- |
+  if [[ "$WP_VERSION" == "latest" ]]; then
+    curl -s http://api.wordpress.org/core/version-check/1.7/ > /tmp/wp-latest.json
+    grep '[0-9]+\.[0-9]+(\.[0-9]+)?' /tmp/wp-latest.json
+    WP_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
+  fi
+- PLUGIN_SLUG=$(basename $(pwd))
+- export WP_DEVELOP_DIR=/tmp/wordpress/
+- git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+- cd ..
+- cp -r "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+- cd /tmp/wordpress/
+- cp wp-tests-config-sample.php wp-tests-config.php
+- sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
+- sed -i "s/yourusernamehere/travis/" wp-tests-config.php
+- sed -i "s/yourpasswordhere//" wp-tests-config.php
+- mysql -e "CREATE DATABASE wordpress_tests;" -uroot
+- cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+- phpenv rehash
+script:
+- |
+  if [[ "$PHPLINT" == "1" ]]; then
+    find -L .  -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+  fi
+- |
+  if [[ "$PHPCS" == "1" ]]; then
+    vendor/bin/phpcs -v --runtime-set ignore_warnings_on_exit 1
+  fi
+- |
+  if [[ -z "$CC_TEST_REPORTER_ID" ]]; then
+    COVERAGE="0"
+  fi
+- |
+  if [[ "$COVERAGE" == "1" ]]; then
+    mkdir -p build/logs
+    vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
+  else
+    vendor/bin/phpunit -c phpunit.xml
+  fi
+after_script:
+- |
+  if [[ "$COVERAGE" == "1" ]]; then
+    ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  fi
+notifications:
+  email: false

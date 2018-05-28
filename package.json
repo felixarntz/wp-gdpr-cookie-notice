@@ -1,0 +1,42 @@
+{
+  "name": "wp-gdpr-cookie-notice",
+  "version": "1.0.0",
+  "description": "Simple performant GDPR-compliant cookie consent notice that supports granular cookie control and live preview customization.",
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "gdpr",
+    "cookie notice",
+    "cookie consent",
+    "granular cookie control",
+    "customizer"
+  ],
+  "author": {
+    "name": "Felix Arntz",
+    "email": "felix-arntz@leaves-and-love.net",
+    "url": "https://leaves-and-love.net"
+  },
+  "contributors": [
+    {
+      "name": "Felix Arntz",
+      "email": "felix-arntz@leaves-and-love.net",
+      "url": "https://leaves-and-love.net"
+    }
+  ],
+  "homepage": "https://wordpress.org/plugins/wp-gdpr-cookie-notice/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/felixarntz/wp-gdpr-cookie-notice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/felixarntz/wp-gdpr-cookie-notice/issues"
+  },
+  "license": "GPL-2.0-or-later",
+  "engines": {
+    "node": ">= 6.9.4"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.1",
+    "gulp-replace": "~0.5.4"
+  }
+}
