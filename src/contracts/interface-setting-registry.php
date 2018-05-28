@@ -52,7 +52,7 @@ interface Setting_Registry {
 	 * @param string $id Unique identifier of the setting.
 	 * @return bool True if the setting is registered, false otherwise.
 	 */
-	public function is_registered( string $id ) : boolean;
+	public function is_registered( string $id ) : bool;
 
 	/**
 	 * Gets the registered settings.
