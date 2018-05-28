@@ -24,6 +24,6 @@ class Unregistered_Identifier_Exception extends Exception {
 	 * @return Unregistered_Identifier_Exception New exception instance.
 	 */
 	public static function from_id( string $id ) : self {
-		return new self( __( 'The service for the identifier %s is not registered.', 'wp-gdpr-cookie-notice' ), $id );
+		return new self( __( 'The identifier %s is not registered.', 'wp-gdpr-cookie-notice' ), $id );
 	}
 }
