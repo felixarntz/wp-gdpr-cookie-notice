@@ -12,13 +12,6 @@ GITPATH="$CURRENTDIR/" # this file should be in the base of your git repository
 # svn config
 SVNPATH="/tmp/$PLUGINSLUG" # Path to a temp SVN repo. No trailing slash required.
 SVNURL="https://plugins.svn.wordpress.org/$PLUGINSLUG/" # Remote SVN repo on wordpress.org
-SVNUSER=$1
-SVNPASS=$2
-
-if [ "$SVNUSER" == "" ] || [ "$SVNPASS" == "" ]
-	then echo "Please enter a SVN username and password (e.g. deploy USERNAME PASSWORD)"
-	exit 1
-fi
 
 # Let's begin...
 echo
@@ -91,62 +84,22 @@ fi
 
 cd $SVNPATH/trunk/
 
-printf "Installing Composer dependencies..."
-if [ -f composer.lock ]
-	then rm composer.lock
-fi
-rm -rf vendor/
-composer install --prefer-dist --no-dev
-echo "Done."
-
-printf "Installing NPM dependencies..."
-rm -rf node_modules/
-npm install --only=production &>/dev/null
-echo "Done."
-
 printf "Removing unnecessary source and test files..."
 rm LICENSE.md
 rm README.md
-rm -rf assets/src
-rm -rf node_modules/c3/extensions
-rm -rf node_modules/c3/htdocs
-rm -rf node_modules/c3/spec
-rm -rf node_modules/c3/src
-rm -rf node_modules/d3/bin
-rm -rf node_modules/d3/src
 rm -rf tests
-rm -rf vendor/api-api/core/tests
-rm -rf vendor/api-api/storage-wordpress-option/tests
-rm -rf vendor/api-api/transporter-wordpress/tests
-rm -rf vendor/composer/installers/tests
-rm -rf vendor/felixarntz/plugin-lib/assets/src
-rm -rf vendor/felixarntz/plugin-lib/node_modules/almond
-rm -rf vendor/felixarntz/plugin-lib/node_modules/jquery
-rm -rf vendor/felixarntz/plugin-lib/node_modules/jquery-datetimepicker/tests
-rm -rf vendor/felixarntz/plugin-lib/node_modules/jquery-mousewheel
-rm -rf vendor/felixarntz/plugin-lib/node_modules/php-date-formatter
-rm -rf vendor/felixarntz/plugin-lib/node_modules/select2/src
-rm -rf vendor/felixarntz/plugin-lib/tests
-rm -rf vendor/phpoffice/phpspreadsheet/bin
-rm -rf vendor/phpoffice/phpspreadsheet/docs
-rm -rf vendor/phpoffice/phpspreadsheet/samples
 echo "Done."
 
 printf "Ignoring GitHub specific files and deployment script..."
 svn propset --quiet svn:ignore ".codeclimate.yml
-.csscomb.json
 .git
 .github
 .gitignore
-.jscsrc
-.jshintrc
 .travis.yml
 composer.json
 composer.lock
-conf
 CONTRIBUTING.md
 deploy.sh
-docker-compose.yml
 gulpfile.js
 LICENSE.md
 package.json
@@ -173,7 +126,7 @@ rm /tmp/wppdcommitmsg.tmp
 echo "Done."
 
 printf "Committing new SVN version..."
-svn commit --username "$SVNUSER" --password "$SVNPASS" --quiet -m "$COMMITMSG"
+svn commit --quiet -m "$COMMITMSG"
 echo "Done."
 
 printf "Tagging and committing new SVN tag..."
