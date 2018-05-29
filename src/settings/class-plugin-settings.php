@@ -53,7 +53,7 @@ class Plugin_Settings implements Service, Option_Reader {
 	/**
 	 * Constructor.
 	 *
-	 * Sets the data repository and cookie types to use.
+	 * Sets the data repository to use.
 	 *
 	 * @since 1.0.0
 	 *
