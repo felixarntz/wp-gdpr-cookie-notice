@@ -17,6 +17,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exc
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Settings;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Plugin_Customizer;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
 
@@ -64,11 +65,13 @@ class Plugin implements Initializable, Service_Container {
 
 		$wordpress_options  = new WordPress_Option_Data_Repository();
 		$settings           = new Plugin_Settings( $wordpress_options );
+		$customizer         = new Plugin_Customizer();
 		$cookie_policy_page = new Cookie_Policy_Page( $settings );
 		$cookies            = new Cookie_Data_Repository();
 		$cookie_preferences = new Cookie_Preferences( $cookies, $cookie_policy_page );
 
 		$this->add( 'settings', $settings );
+		$this->add( 'customizer', $customizer );
 		$this->add( 'cookie_policy_page', $cookie_policy_page );
 		$this->add( 'cookie_preferences', $cookie_preferences );
 	}
