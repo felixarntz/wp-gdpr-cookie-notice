@@ -13,6 +13,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator;
 
 /**
  * Class representing an aggregate setting that bundles multiple settings.
@@ -20,6 +21,8 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exc
  * @since 1.0.0
  */
 class Aggregate_Setting extends Object_Setting implements Setting_Registry {
+
+	use ID_Validator;
 
 	/**
 	 * Registers a setting.
@@ -92,17 +95,5 @@ class Aggregate_Setting extends Object_Setting implements Setting_Registry {
 	 */
 	public function get_all_registered() : array {
 		return $this->properties_settings;
-	}
-
-	/**
-	 * Checks whether an identifier is valid.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $id Identifier to check.
-	 * @return bool True if valid, false otherwise.
-	 */
-	protected function is_valid_id( string $id ) : bool {
-		return preg_match( '/^[a-z0-9_]+$/', $id );
 	}
 }

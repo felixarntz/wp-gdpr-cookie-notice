@@ -13,6 +13,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator;
 
 /**
  * Class for registering, retrieving and initializing plugin services.
@@ -20,6 +21,8 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exc
  * @since 1.0.0
  */
 class Plugin_Service_Container implements Service_Container {
+
+	use ID_Validator;
 
 	/**
 	 * Registered services.
@@ -91,17 +94,5 @@ class Plugin_Service_Container implements Service_Container {
 	 */
 	public function get_all() : array {
 		return $this->services;
-	}
-
-	/**
-	 * Checks whether an identifier is valid.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $id Identifier to check.
-	 * @return bool True if valid, false otherwise.
-	 */
-	protected function is_valid_id( string $id ) : bool {
-		return preg_match( '/^[a-z0-9_]+$/', $id );
 	}
 }
