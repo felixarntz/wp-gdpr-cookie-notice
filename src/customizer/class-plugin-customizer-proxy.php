@@ -68,8 +68,7 @@ class Plugin_Customizer_Proxy implements Service {
 	 * @param WP_Customize_Control $control Control instance.
 	 */
 	public function add_policies_control( WP_Customize_Control $control ) {
-		$control->section = self::SECTION_POLICIES;
-		$this->wp_customize->add_control( $control );
+		$this->add_control( self::SECTION_POLICIES );
 	}
 
 	/**
@@ -80,8 +79,7 @@ class Plugin_Customizer_Proxy implements Service {
 	 * @param WP_Customize_Control $control Control instance.
 	 */
 	public function add_content_control( WP_Customize_Control $control ) {
-		$control->section = self::SECTION_CONTENT;
-		$this->wp_customize->add_control( $control );
+		$this->add_control( self::SECTION_CONTENT );
 	}
 
 	/**
@@ -92,7 +90,21 @@ class Plugin_Customizer_Proxy implements Service {
 	 * @param WP_Customize_Control $control Control instance.
 	 */
 	public function add_appearance_control( WP_Customize_Control $control ) {
-		$control->section = self::SECTION_APPEARANCE;
+		$this->add_control( self::SECTION_APPEARANCE );
+	}
+
+	/**
+	 * Adds a control to a given section.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @param string               $section Section identifier.
+	 */
+	protected function add_control( WP_Customize_Control $control, string $section ) {
+		$control->section    = $section;
+		$control->capability = 'manage_options';
+
 		$this->wp_customize->add_control( $control );
 	}
 
