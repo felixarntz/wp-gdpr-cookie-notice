@@ -67,7 +67,9 @@ class Plugin implements Initializable, Service_Container {
 	 * @since 1.0.0
 	 */
 	public function initialize() {
-		array_walk( $this->container->get_all(), function( Service $service ) {
+		$services = $this->container->get_all();
+
+		array_walk( $services, function( Service $service ) {
 			$service->initialize();
 		} );
 	}
