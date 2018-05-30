@@ -9,6 +9,7 @@
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
 use WP_Customize_Manager;
 use WP_Customize_Control;
 
@@ -65,17 +66,18 @@ class Plugin_Customizer_Proxy implements Customizer {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param WP_Customize_Control $control Control instance.
+	 * @param Customizer_Control $control Control instance.
 	 */
-	public function add_control( WP_Customize_Control $control ) {
-		$control->id       = $this->prefix_setting_name( $control->id );
-		$control->setting  = $this->wp_customize->get_setting( $control->id );
-		$control->settings = [ 'default' => $control->setting ];
+	public function add_control( Customizer_Control $control ) {
+		$control->parse_args( function( $args ) {
+			$args['id']                                 = $this->prefix_setting_name( $args['id'] );
+			$args[ Customizer_Control::ARG_SECTION ]    = $this->section;
+			$args[ Customizer_Control::ARG_CAPABILITY ] = 'manage_options';
 
-		$control->section    = $this->section;
-		$control->capability = 'manage_options';
+			return $args;
+		} );
 
-		$this->wp_customize->add_control( $control );
+		$this->wp_customize->add_control( $control->map( $this->wp_customize ) );
 	}
 
 	/**
