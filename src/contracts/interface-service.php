@@ -13,6 +13,6 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
  *
  * @since 1.0.0
  */
-interface Service extends Initializable {
+interface Service {
 
 }

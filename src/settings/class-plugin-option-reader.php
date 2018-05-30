@@ -1,6 +1,6 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Settings class
+ * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
@@ -9,17 +9,16 @@
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 
 /**
- * Class for registering plugin settings.
+ * Class for accessing plugin option values.
  *
  * @since 1.0.0
  */
-class Plugin_Settings implements Service, Option_Reader {
+class Plugin_Option_Reader implements Service, Option_Reader {
 
 	/**
 	 * Identifier for the plugin's aggregate setting.
@@ -102,45 +101,22 @@ class Plugin_Settings implements Service, Option_Reader {
 	}
 
 	/**
-	 * Initializes the class functionality.
+	 * Sets the internal flag that the options in the internal storage are outdated.
 	 *
 	 * @since 1.0.0
 	 */
-	public function initialize() {
-		add_action( 'init', function() {
-			$this->register_settings();
-
-			$this->options_dirty = true;
-		}, 10, 0 );
-
-		$make_dirty = function() {
-			$this->options_dirty = true;
-		};
-
-		add_action( 'add_option_' . self::SETTING_ID, $make_dirty, 10, 0 );
-		add_action( 'update_option_' . self::SETTING_ID, $make_dirty, 10, 0 );
-		add_action( 'delete_option_' . self::SETTING_ID, $make_dirty, 10, 0 );
+	public function set_options_dirty() {
+		$this->options_dirty = true;
 	}
 
 	/**
-	 * Registers plugin settings.
+	 * Gets the setting identifier used by the option reader.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return string Setting identifier.
 	 */
-	protected function register_settings() {
-		$setting_registry = new Aggregate_Setting( self::SETTING_ID, [
-			Aggregate_Setting::ARG_DESCRIPTION => __( 'Settings for the WP GDPR Cookie Notice plugin.', 'wp-gdpr-cookie-notice' ),
-		] );
-
-		/**
-		 * Fires when the plugin's settings are registered.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param Setting_Registry $setting_registry Setting registry to register plugin settings with.
-		 */
-		do_action( 'wp_gdpr_cookie_notice_register_settings', $setting_registry );
-
-		( new WordPress_Setting_Registry( self::SETTING_ID ) )->register( self::SETTING_ID, $setting_registry );
+	public function get_setting_id() : string {
+		return self::SETTING_ID;
 	}
 }

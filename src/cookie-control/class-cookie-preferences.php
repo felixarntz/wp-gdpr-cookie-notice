@@ -143,16 +143,6 @@ class Cookie_Preferences implements Service {
 	}
 
 	/**
-	 * Initializes the class functionality.
-	 *
-	 * @since 1.0.0
-	 */
-	public function initialize() {
-
-		/* Register settings and Customizer controls. */
-	}
-
-	/**
 	 * Gets the default preferences.
 	 *
 	 * @since 1.0.0

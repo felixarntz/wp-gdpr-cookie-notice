@@ -8,7 +8,7 @@
 
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Initializable;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service_Container;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
@@ -16,8 +16,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Except
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Settings;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Plugin_Customizer;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
 
@@ -26,7 +25,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
  *
  * @since 1.0.0
  */
-class Plugin implements Initializable, Service_Container {
+class Plugin implements Integration, Service_Container {
 
 	/**
 	 * Plugin main file.
@@ -63,29 +62,30 @@ class Plugin implements Initializable, Service_Container {
 		$this->main_file = $main_file;
 		$this->container = $container;
 
-		$wordpress_options  = new WordPress_Option_Data_Repository();
-		$settings           = new Plugin_Settings( $wordpress_options );
-		$customizer         = new Plugin_Customizer();
-		$cookie_policy_page = new Cookie_Policy_Page( $settings );
-		$cookies            = new Cookie_Data_Repository();
-		$cookie_preferences = new Cookie_Preferences( $cookies, $cookie_policy_page );
+		$option_reader      = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
+		$cookie_policy_page = new Cookie_Policy_Page( $option_reader );
+		$cookie_preferences = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page );
 
-		$this->add( 'settings', $settings );
-		$this->add( 'customizer', $customizer );
+		$this->add( 'options', $option_reader );
 		$this->add( 'cookie_policy_page', $cookie_policy_page );
 		$this->add( 'cookie_preferences', $cookie_preferences );
 	}
 
 	/**
-	 * Initializes the class functionality.
+	 * Adds the necessary hooks to integrate.
 	 *
 	 * @since 1.0.0
 	 */
-	public function initialize() {
-		$services = $this->container->get_all();
+	public function add_hooks() {
+		$option_reader = $this->get( 'options' );
 
-		array_walk( $services, function( Service $service ) {
-			$service->initialize();
+		$integrations = [
+			new Plugin_Settings( $option_reader ),
+			new Plugin_Customizer( $option_reader ),
+		];
+
+		array_walk( $integrations, function( Integration $integration ) {
+			$integration->add_hooks();
 		} );
 	}
 

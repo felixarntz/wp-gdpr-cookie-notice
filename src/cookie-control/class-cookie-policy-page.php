@@ -11,7 +11,7 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Settings;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 
 /**
  * Class representing the cookie policy page.
@@ -44,7 +44,7 @@ class Cookie_Policy_Page implements Service, Page {
 	 */
 	public function __construct( Option_Reader $options = null ) {
 		if ( null === $options ) {
-			$options = new Plugin_Settings();
+			$options = new Plugin_Option_Reader();
 		}
 
 		$this->options = $options;
@@ -143,15 +143,5 @@ class Cookie_Policy_Page implements Service, Page {
 		}
 
 		return $post->post_modified;
-	}
-
-	/**
-	 * Initializes the class functionality.
-	 *
-	 * @since 1.0.0
-	 */
-	public function initialize() {
-
-		/* Register settings and Customizer controls. */
 	}
 }

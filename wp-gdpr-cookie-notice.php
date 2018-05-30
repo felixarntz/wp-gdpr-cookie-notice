@@ -67,7 +67,7 @@ function wp_gdpr_cookie_notice() {
 
 	$plugin_class = $namespace . '\\Plugin';
 	$plugin       = new $plugin_class( __FILE__ );
-	$plugin->initialize();
+	$plugin->add_hooks();
 
 	return $plugin;
 }
