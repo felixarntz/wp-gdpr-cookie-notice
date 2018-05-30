@@ -11,9 +11,6 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service_Container;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
@@ -25,7 +22,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
  *
  * @since 1.0.0
  */
-class Plugin implements Integration, Service_Container {
+class Plugin implements Integration {
 
 	/**
 	 * Plugin main file.
@@ -66,9 +63,9 @@ class Plugin implements Integration, Service_Container {
 		$cookie_policy_page = new Cookie_Policy_Page( $option_reader );
 		$cookie_preferences = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page );
 
-		$this->add( 'options', $option_reader );
-		$this->add( 'cookie_policy_page', $cookie_policy_page );
-		$this->add( 'cookie_preferences', $cookie_preferences );
+		$this->container->add( 'options', $option_reader );
+		$this->container->add( 'cookie_policy_page', $cookie_policy_page );
+		$this->container->add( 'cookie_preferences', $cookie_preferences );
 	}
 
 	/**
@@ -77,7 +74,7 @@ class Plugin implements Integration, Service_Container {
 	 * @since 1.0.0
 	 */
 	public function add_hooks() {
-		$option_reader = $this->get( 'options' );
+		$option_reader = $this->container->get( 'options' );
 
 		$integrations = [
 			new Plugin_Settings( $option_reader ),
@@ -90,54 +87,14 @@ class Plugin implements Integration, Service_Container {
 	}
 
 	/**
-	 * Adds a service.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string  $id      Unique identifier for the service.
-	 * @param Service $service Service instance.
-	 *
-	 * @throws Invalid_Identifier_Exception Thrown when the identifier is invalid.
-	 * @throws Duplicate_Identifier_Exception Thrown when the identifier is already in use.
-	 */
-	public function add( string $id, Service $service ) {
-		$this->container->add( $id, $service );
-	}
-
-	/**
-	 * Retrieves an available service.
+	 * Retrieves a plugin service.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $id Unique identifier of the service.
 	 * @return Service Service instance.
-	 *
-	 * @throws Unregistered_Identifier_Exception Thrown when the service for the identifier is not registered.
 	 */
-	public function get( string $id ) : Service {
+	public function get_service( string $id ) : Service {
 		return $this->container->get( $id );
-	}
-
-	/**
-	 * Checks if a service is available.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $id Unique identifier of the service.
-	 * @return bool True if the service is available, false otherwise.
-	 */
-	public function has( string $id ) : bool {
-		return $this->container->has( $id );
-	}
-
-	/**
-	 * Gets the available services.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array Map of $id => $service instance pairs.
-	 */
-	public function get_all() : array {
-		return $this->container->get_all();
 	}
 }
