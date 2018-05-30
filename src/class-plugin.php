@@ -15,6 +15,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
 
 /**
@@ -59,11 +60,13 @@ class Plugin implements Integration {
 		$this->main_file = $main_file;
 		$this->container = $container;
 
-		$option_reader      = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
-		$cookie_policy_page = new Cookie_Policy_Page( $option_reader );
-		$cookie_preferences = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page );
+		$option_reader       = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
+		$cookie_policy_page  = new Cookie_Policy_Page( $option_reader );
+		$privacy_policy_page = new Privacy_Policy_Page();
+		$cookie_preferences  = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page, $privacy_policy_page );
 
 		$this->container->add( 'options', $option_reader );
+		$this->container->add( 'privacy_policy_page', $privacy_policy_page );
 		$this->container->add( 'cookie_policy_page', $cookie_policy_page );
 		$this->container->add( 'cookie_preferences', $cookie_preferences );
 	}

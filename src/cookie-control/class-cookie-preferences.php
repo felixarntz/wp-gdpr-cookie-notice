@@ -48,6 +48,14 @@ class Cookie_Preferences implements Service {
 	protected $cookie_policy_page;
 
 	/**
+	 * Privacy policy page.
+	 *
+	 * @since 1.0.0
+	 * @var Page
+	 */
+	protected $privacy_policy_page;
+
+	/**
 	 * Cookie type enum.
 	 *
 	 * @since 1.0.0
@@ -62,10 +70,11 @@ class Cookie_Preferences implements Service {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param Data_Repository $data_repository    Optional. Data repository to use.
-	 * @param Page            $cookie_policy_page Optional. Cookie policy page instance.
+	 * @param Data_Repository $data_repository     Optional. Data repository to use.
+	 * @param Page            $cookie_policy_page  Optional. Cookie policy page instance.
+	 * @param Page            $privacy_policy_page Optional. Privacy policy page instance.
 	 */
-	public function __construct( Data_Repository $data_repository = null, Page $cookie_policy_page = null ) {
+	public function __construct( Data_Repository $data_repository = null, Page $cookie_policy_page = null, Page $privacy_policy_page = null ) {
 		if ( null === $data_repository ) {
 			$data_repository = new Cookie_Data_Repository();
 		}
@@ -74,9 +83,14 @@ class Cookie_Preferences implements Service {
 			$cookie_policy_page = new Cookie_Policy_Page();
 		}
 
-		$this->data_repository    = $data_repository;
-		$this->cookie_policy_page = $cookie_policy_page;
-		$this->cookie_types       = new Cookie_Type_Enum();
+		if ( null === $privacy_policy_page ) {
+			$privacy_policy_page = new Privacy_Policy_Page();
+		}
+
+		$this->data_repository     = $data_repository;
+		$this->cookie_policy_page  = $cookie_policy_page;
+		$this->privacy_policy_page = $privacy_policy_page;
+		$this->cookie_types        = new Cookie_Type_Enum();
 	}
 
 	/**
@@ -166,10 +180,15 @@ class Cookie_Preferences implements Service {
 	 */
 	protected function is_out_of_date( array $preferences ) : bool {
 		if ( empty( $preferences[ self::COOKIE_LAST_MODIFIED ] ) ) {
-			return false;
+			return true;
 		}
 
-		$policy_last_modified = (int) strtotime( $this->cookie_policy_page->get_last_modified_date() );
+		$policy_page = $this->cookie_policy_page;
+		if ( ! $policy_page->get_id() ) {
+			$policy_page = $this->privacy_policy_page;
+		}
+
+		$policy_last_modified = (int) strtotime( $policy_page->get_last_modified_date() );
 
 		return $preferences[ self::COOKIE_LAST_MODIFIED ] < $policy_last_modified;
 	}
