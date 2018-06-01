@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Customizer_Control_Factory class
+ * Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
+namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Type_Exception;
