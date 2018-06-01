@@ -88,6 +88,8 @@ class Plugin implements Integration {
 		array_walk( $integrations, function( Integration $integration ) {
 			$integration->add_hooks();
 		} );
+
+		$this->add_plugin_customize_link();
 	}
 
 	/**
@@ -100,5 +102,28 @@ class Plugin implements Integration {
 	 */
 	public function get_service( string $id ) : Service {
 		return $this->container->get( $id );
+	}
+
+	/**
+	 * Adds a link to customize the cookie notice to the plugin row.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function add_plugin_customize_link() {
+		$plugin_file = plugin_basename( $this->main_file );
+
+		add_filter( "plugin_action_links_{$plugin_file}", function( $actions ) {
+			if ( current_user_can( 'customize' ) && current_user_can( 'manage_options' ) ) {
+				$url = add_query_arg(
+					'autofocus[panel]',
+					$this->container->get( 'options' )->get_setting_id() . '_' . Plugin_Customizer::PANEL,
+					admin_url( 'customize.php' )
+				);
+
+				array_unshift( $actions, '<a href="' . esc_url( $url ) . '">' . esc_html_x( 'Customize', 'plugin action link', 'wp-gdpr-cookie-notice' ) . '</a>' );
+			}
+
+			return $actions;
+		}, 10, 1 );
 	}
 }
