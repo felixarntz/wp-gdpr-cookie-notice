@@ -52,14 +52,6 @@ class Setting_Factory {
 		}
 
 		switch ( $args[ Setting::ARG_TYPE ] ) {
-			case 'string':
-				return new String_Setting( $id, $args );
-			case 'integer':
-				return new Integer_Setting( $id, $args );
-			case 'float':
-				return new Float_Setting( $id, $args );
-			case 'boolean':
-				return new Boolean_Setting( $id, $args );
 			case 'array':
 				return new Array_Setting( $id, $args, $this->get_array_items_setting( $args ) );
 			case 'object':
@@ -67,7 +59,20 @@ class Setting_Factory {
 			case 'aggregate':
 				return new Aggregate_Setting( $id, $args, $this->get_object_properties_settings( $args ) );
 			default:
-				throw Invalid_Type_Exception::from_setting_type( $args[ Setting::ARG_TYPE ] );
+				$type_map = [
+					'string'  => String_Setting::class,
+					'integer' => Integer_Setting::class,
+					'float'   => Float_Setting::class,
+					'boolean' => Boolean_Setting::class,
+				];
+
+				if ( ! isset( $type_map[ $args[ Setting::ARG_TYPE ] ] ) ) {
+					throw Invalid_Type_Exception::from_setting_type( $args[ Setting::ARG_TYPE ] );
+				}
+
+				$classname = $type_map[ $args[ Setting::ARG_TYPE ] ];
+
+				return new $classname( $id, $args );
 		}
 	}
 

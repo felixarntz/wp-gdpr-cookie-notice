@@ -19,6 +19,11 @@ use WP_Customize_Control;
 interface Customizer_Control {
 
 	/**
+	 * Type argument name.
+	 */
+	const ARG_TYPE = 'type';
+
+	/**
 	 * Label argument name.
 	 */
 	const ARG_LABEL = 'label';
