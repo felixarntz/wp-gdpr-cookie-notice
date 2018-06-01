@@ -67,7 +67,7 @@ class Abstract_Customizer_Control implements Customizer_Control {
 	 *
 	 * @return string Customizer control identifier.
 	 */
-	public function get_id() : string {
+	final public function get_id() : string {
 		return $this->id;
 	}
 
@@ -78,7 +78,7 @@ class Abstract_Customizer_Control implements Customizer_Control {
 	 *
 	 * @return array Customizer control arguments.
 	 */
-	public function get_args() : array {
+	final public function get_args() : array {
 		return $this->args;
 	}
 
@@ -89,7 +89,7 @@ class Abstract_Customizer_Control implements Customizer_Control {
 	 *
 	 * @param callable $parse_callback Parse callback. Must filter the arguments passed and return them.
 	 */
-	public function parse_args( $parse_callback ) {
+	final public function parse_args( $parse_callback ) {
 		$args       = $this->args;
 		$args['id'] = $this->id;
 

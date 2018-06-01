@@ -18,7 +18,7 @@ use WP_Error;
 interface Setting {
 
 	/**
-	 * Default argument name.
+	 * Type argument name.
 	 */
 	const ARG_TYPE = 'type';
 
