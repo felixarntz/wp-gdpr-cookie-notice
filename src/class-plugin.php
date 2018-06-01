@@ -82,6 +82,7 @@ class Plugin implements Integration {
 		$integrations = [
 			new Plugin_Settings( $option_reader ),
 			new Plugin_Customizer( $option_reader ),
+			new Plugin_Policies_Settings( $option_reader ),
 		];
 
 		array_walk( $integrations, function( Integration $integration ) {
