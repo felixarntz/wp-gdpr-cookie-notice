@@ -21,6 +21,11 @@ interface Context_Shortcode extends Shortcode {
 	const ARG_CONTEXTS = 'contexts';
 
 	/**
+	 * Default shortcode context.
+	 */
+	const DEFAULT_CONTEXT = 'default';
+
+	/**
 	 * Gets the contexts that are supported by the shortcode.
 	 *
 	 * @since 1.0.0

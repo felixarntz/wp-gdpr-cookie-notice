@@ -14,6 +14,8 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Registry;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
@@ -60,12 +62,15 @@ class Plugin implements Integration {
 		$this->main_file = $main_file;
 		$this->container = $container;
 
-		$option_reader       = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
-		$cookie_policy_page  = new Cookie_Policy_Page( $option_reader );
-		$privacy_policy_page = new Privacy_Policy_Page();
-		$cookie_preferences  = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page, $privacy_policy_page );
+		$option_reader             = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
+		$shortcode_registry        = new WordPress_Shortcode_Registry();
+		$shortcode_parser_registry = new WordPress_Shortcode_Parser_Registry( $shortcode_registry );
+		$cookie_policy_page        = new Cookie_Policy_Page( $option_reader );
+		$privacy_policy_page       = new Privacy_Policy_Page();
+		$cookie_preferences        = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page, $privacy_policy_page );
 
 		$this->container->add( 'options', $option_reader );
+		$this->container->add( 'shortcodes', $shortcode_parser_registry );
 		$this->container->add( 'privacy_policy_page', $privacy_policy_page );
 		$this->container->add( 'cookie_policy_page', $cookie_policy_page );
 		$this->container->add( 'cookie_preferences', $cookie_preferences );
@@ -77,12 +82,14 @@ class Plugin implements Integration {
 	 * @since 1.0.0
 	 */
 	public function add_hooks() {
-		$option_reader = $this->container->get( 'options' );
+		$option_reader      = $this->container->get( 'options' );
+		$shortcode_registry = $this->container->get( 'shortcodes' );
 
 		$integrations = [
 			new Plugin_Settings( $option_reader ),
 			new Plugin_Customizer( $option_reader ),
 			new Plugin_Policies_Settings( $option_reader ),
+			new Plugin_Shortcodes( $shortcode_registry ),
 		];
 
 		array_walk( $integrations, function( Integration $integration ) {

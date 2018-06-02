@@ -38,7 +38,7 @@ class Base_Context_Shortcode extends Base_Shortcode implements Context_Shortcode
 		parent::__construct( $id, $callback, $args );
 
 		$this->args = wp_parse_args( $args, [
-			Shortcode::ARG_CONTEXTS => [ 'default' ],
+			Context_Shortcode::ARG_CONTEXTS => [ Context_Shortcode::DEFAULT_CONTEXT ],
 		] );
 	}
 
@@ -50,7 +50,7 @@ class Base_Context_Shortcode extends Base_Shortcode implements Context_Shortcode
 	 * @return array Supported shortcode contexts.
 	 */
 	final public function get_contexts() : array {
-		return (array) $this->args[ Shortcode::ARG_CONTEXTS ];
+		return (array) $this->args[ Context_Shortcode::ARG_CONTEXTS ];
 	}
 
 	/**
@@ -62,6 +62,6 @@ class Base_Context_Shortcode extends Base_Shortcode implements Context_Shortcode
 	 * @return bool True if the context is supported, false otherwise.
 	 */
 	final public function supports_context( string $context ) : bool {
-		return in_array( $context, (array) $this->args[ Shortcode::ARG_CONTEXTS ], true );
+		return in_array( $context, (array) $this->args[ Context_Shortcode::ARG_CONTEXTS ], true );
 	}
 }
