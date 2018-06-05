@@ -11,6 +11,7 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Page;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Labelled_Enum;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Cookie_Type_Exception;
 
@@ -94,6 +95,17 @@ class Cookie_Preferences implements Service {
 	}
 
 	/**
+	 * Gets the enum used for cookie types.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Labelled_Enum Enum instance with labels.
+	 */
+	public function get_cookie_types() : Labelled_Enum {
+		return $this->cookie_types;
+	}
+
+	/**
 	 * Checks whether cookies are accepted for a given type.
 	 *
 	 * @since 1.0.0
@@ -154,6 +166,15 @@ class Cookie_Preferences implements Service {
 		$preferences = $this->set_last_modified( $preferences );
 
 		$this->data_repository->set( self::COOKIE_ID, $preferences );
+	}
+
+	/**
+	 * Resets the user's cookie preferences.
+	 *
+	 * @since 1.0.0
+	 */
+	public function reset_preferences() {
+		$this->data_repository->delete( self::COOKIE_ID );
 	}
 
 	/**
