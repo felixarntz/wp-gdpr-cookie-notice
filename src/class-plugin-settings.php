@@ -36,9 +36,9 @@ class Plugin_Settings implements Integration {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param Option_Reader $option_reader Optional. Option reader to use.
+	 * @param Option_Reader $option_reader Option reader to use.
 	 */
-	public function __construct( Option_Reader $option_reader = null ) {
+	public function __construct( Option_Reader $option_reader ) {
 		$this->option_reader = $option_reader;
 	}
 
