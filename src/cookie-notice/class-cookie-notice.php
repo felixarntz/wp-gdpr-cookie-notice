@@ -10,8 +10,10 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Notice;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\With_Assets;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Parser;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Inline_Asset;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
@@ -22,7 +24,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
  *
  * @since 1.0.0
  */
-class Cookie_Notice implements Notice, With_Assets {
+class Cookie_Notice implements Notice, With_Assets, Service {
 
 	/**
 	 * Identifier for the 'notice_heading' setting.
@@ -76,6 +78,22 @@ class Cookie_Notice implements Notice, With_Assets {
 	protected $options;
 
 	/**
+	 * Cookie notice stylesheet.
+	 *
+	 * @since 1.0.0
+	 * @var Cookie_Notice_Stylesheet
+	 */
+	protected $stylesheet;
+
+	/**
+	 * Cookie notice script.
+	 *
+	 * @since 1.0.0
+	 * @var Cookie_Notice_Script
+	 */
+	protected $script;
+
+	/**
 	 * Constructor.
 	 *
 	 * Sets the preferences and option reader to use.
@@ -97,6 +115,8 @@ class Cookie_Notice implements Notice, With_Assets {
 		$this->preferences      = $preferences;
 		$this->shortcode_parser = $shortcode_parser;
 		$this->options          = $options;
+		$this->stylesheet       = new Cookie_Notice_Stylesheet( $this->options );
+		$this->script           = new Cookie_Notice_Script( $this->options );
 	}
 
 	/**
@@ -170,7 +190,43 @@ class Cookie_Notice implements Notice, With_Assets {
 	 * @since 1.0.0
 	 */
 	public function enqueue_assets() {
+		$action          = current_action();
+		$enqueue_scripts = '_enqueue_scripts';
 
+		$prefix = 'wp';
+		if ( strpos( $action, $enqueue_scripts ) === strlen( $action ) - strlen( $enqueue_scripts ) ) {
+			$prefix = substr( $action, 0, strlen( $action ) - strlen( $enqueue_scripts ) );
+		}
+
+		add_action( "{$prefix}_head", array( $this->stylesheet, 'print' ), 1000 );
+
+		if ( is_customize_preview() ) {
+			return;
+		}
+
+		add_action( "{$prefix}_footer", array( $this->script, 'print' ), 1000 );
+	}
+
+	/**
+	 * Gets the notice inline stylesheet instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Inline_Asset Inline stylesheet instance.
+	 */
+	public function get_stylesheet() : Inline_Asset {
+		return $this->stylesheet;
+	}
+
+	/**
+	 * Gets the notice inline script instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Inline_Asset Inline script instance.
+	 */
+	public function get_script() : Inline_Asset {
+		return $this->script;
 	}
 
 	/**
