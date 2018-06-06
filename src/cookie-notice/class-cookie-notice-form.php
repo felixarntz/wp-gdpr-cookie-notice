@@ -258,7 +258,7 @@ class Cookie_Notice_Form implements Form {
 	 * @param string $button_text Text to use for the link anchor.
 	 */
 	protected function render_learn_more_link( string $link_text ) {
-		$link = $this->shortcode_parser->parse_shortcodes( '[cookie_policy_link text="' . $link_text . '" show_if_empty="0"]', self::CONTEXT );
+		$link = $this->shortcode_parser->parse_shortcodes( '[cookie_policy_link text="' . $link_text . '" show_if_empty="0"]', Cookie_Notice::CONTEXT );
 		if ( empty( $link ) ) {
 			return;
 		}

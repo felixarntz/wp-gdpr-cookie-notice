@@ -13,11 +13,13 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Partial;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Setting_Factory;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Partial_Factory;
 
 /**
  * Class for registering the plugin's content settings and Customizer controls.
@@ -150,6 +152,41 @@ class Plugin_Content_Settings implements Integration {
 
 		foreach ( $controls as $control ) {
 			$customizer->add_control( $control );
+		}
+
+		$factory = new Customizer_Partial_Factory();
+
+		$partials = [
+			$factory->create( 'cookie_notice_heading', [
+				Customizer_Partial::ARG_SETTINGS            => [ Cookie_Notice::SETTING_NOTICE_HEADING ],
+				Customizer_Partial::ARG_SELECTOR            => '.wp-gdpr-cookie-notice-heading',
+				Customizer_Partial::ARG_RENDER_CALLBACK     => [ $this->cookie_notice, 'render_heading' ],
+				Customizer_Partial::ARG_CONTAINER_INCLUSIVE => false,
+				Customizer_Partial::ARG_FALLBACK_REFRESH    => true,
+			] ),
+			$factory->create( 'cookie_notice_content', [
+				Customizer_Partial::ARG_SETTINGS            => [ Cookie_Notice::SETTING_NOTICE_CONTENT ],
+				Customizer_Partial::ARG_SELECTOR            => '.wp-gdpr-cookie-notice-content',
+				Customizer_Partial::ARG_RENDER_CALLBACK     => [ $this->cookie_notice, 'render_content' ],
+				Customizer_Partial::ARG_CONTAINER_INCLUSIVE => false,
+				Customizer_Partial::ARG_FALLBACK_REFRESH    => true,
+			] ),
+			$factory->create( 'cookie_notice_controls', [
+				Customizer_Partial::ARG_SETTINGS            => [
+					Cookie_Notice_Form::SETTING_SUBMIT_TEXT,
+					Cookie_Notice_Form::SETTING_SHOW_TOGGLES,
+					Cookie_Notice_Form::SETTING_SHOW_LEARN_MORE,
+					Cookie_Notice_Form::SETTING_LEARN_MORE_TEXT,
+				],
+				Customizer_Partial::ARG_SELECTOR            => '.wp-gdpr-cookie-notice-controls',
+				Customizer_Partial::ARG_RENDER_CALLBACK     => [ $this->cookie_notice->get_form(), 'render_controls' ],
+				Customizer_Partial::ARG_CONTAINER_INCLUSIVE => false,
+				Customizer_Partial::ARG_FALLBACK_REFRESH    => true,
+			] ),
+		];
+
+		foreach ( $partials as $partial ) {
+			$customizer->add_partial( $partial );
 		}
 	}
 }
