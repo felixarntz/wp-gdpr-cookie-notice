@@ -145,17 +145,14 @@ class Cookie_Notice_Form implements Form {
 
 		$first = true;
 		foreach ( $cookie_type_values as $value ) {
-			$result = filter_input( INPUT_POST, $value, FILTER_VALIDATE_BOOLEAN );
-
 			if ( $first ) {
-				if ( ! $result ) {
-					throw new Notice_Submission_Exception( __( 'The first preference must be enabled.', 'wp-gdpr-cookie-notice' ) );
-				}
+				$form_data[ $value ] = true;
+				$first               = false;
 
-				$first = false;
+				continue;
 			}
 
-			$form_data[ $value ] = $result;
+			$form_data[ $value ] = filter_input( INPUT_POST, $value, FILTER_VALIDATE_BOOLEAN );
 		}
 
 		$this->notice->dismiss( $form_data );
@@ -216,7 +213,7 @@ class Cookie_Notice_Form implements Form {
 					<?php
 					if ( $first ) {
 						?>
-						<input type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $value ); ?>" value="1" checked readonly required>
+						<input type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $value ); ?>" value="1" checked disabled>
 						<?php
 
 						$first = false;
