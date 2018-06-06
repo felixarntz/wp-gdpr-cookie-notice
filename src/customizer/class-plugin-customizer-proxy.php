@@ -10,8 +10,8 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Partial;
 use WP_Customize_Manager;
-use WP_Customize_Control;
 
 /**
  * Class wrapping the WordPress Customizer as a plugin-specific proxy.
@@ -62,7 +62,7 @@ class Plugin_Customizer_Proxy implements Customizer {
 	}
 
 	/**
-	 * Adds a control to the Customizer..
+	 * Adds a control to the Customizer.
 	 *
 	 * @since 1.0.0
 	 *
@@ -78,6 +78,28 @@ class Plugin_Customizer_Proxy implements Customizer {
 		} );
 
 		$this->wp_customize->add_control( $control->map( $this->wp_customize ) );
+	}
+
+	/**
+	 * Adds a partial to the Customizer.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Customizer_Partial $partial Control instance.
+	 */
+	public function add_partial( Customizer_Partial $partial ) {
+		$partial->parse_args( function( $args ) {
+			$args['id']                                 = $this->prefix_setting_name( $args['id'] );
+			$args[ Customizer_Partial::ARG_CAPABILITY ] = 'manage_options';
+
+			if ( ! empty( $args[ Customizer_Partial::ARG_SETTINGS ] ) ) {
+				$args[ Customizer_Partial::ARG_SETTINGS ] = array_map( [ $this, 'prefix_setting_name' ], $args[ Customizer_Partial::ARG_SETTINGS ] );
+			}
+
+			return $args;
+		} );
+
+		$this->wp_customize->selective_refresh->add_partial( $partial->map( $this->wp_customize ) );
 	}
 
 	/**
