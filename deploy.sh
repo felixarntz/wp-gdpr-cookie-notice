@@ -85,30 +85,28 @@ fi
 cd $SVNPATH/trunk/
 
 printf "Removing unnecessary source and test files..."
+rm CONTRIBUTING.md
 rm LICENSE.md
 rm README.md
+rm -rf .github
 rm -rf tests
 echo "Done."
 
 printf "Ignoring GitHub specific files and deployment script..."
 svn propset --quiet svn:ignore ".codeclimate.yml
 .git
-.github
 .gitignore
 .travis.yml
 composer.json
 composer.lock
-CONTRIBUTING.md
 deploy.sh
 gulpfile.js
-LICENSE.md
 package.json
 package-lock.json
 phpcs.xml
 phpmd.xml
-phpunit.xml
-README.md
-tests" .
+phpunit.integration.xml
+phpunit.unit.xml" .
 echo "Done."
 
 printf "Adding new files..."
