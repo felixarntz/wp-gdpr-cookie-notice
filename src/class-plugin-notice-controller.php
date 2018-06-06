@@ -77,6 +77,9 @@ class Plugin_Notice_Controller implements Integration {
 			return;
 		}
 
+		add_filter( 'body_class', [ $this, 'add_notice_body_class' ], 100, 1 );
+		add_filter( 'login_body_class', [ $this, 'add_notice_body_class' ], 100, 1 );
+
 		add_action( 'wp_enqueue_scripts', [ $this->notice, 'enqueue_assets' ], 100, 0 );
 		add_action( 'login_enqueue_scripts', [ $this->notice, 'enqueue_assets' ], 100, 0 );
 	}
@@ -119,5 +122,19 @@ class Plugin_Notice_Controller implements Integration {
 		}
 
 		wp_send_json_success( $result, 200 );
+	}
+
+	/**
+	 * Filters the body classes to ensure a class to indicate the cookie notice is present.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $classes Body classes to filter.
+	 * @return array Filtered body classes.
+	 */
+	public function add_notice_body_class( array $classes ) : array {
+		$classes[] = 'wp-gdpr-has-cookie-notice';
+
+		return $classes;
 	}
 }
