@@ -13,6 +13,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Partial;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Stylesheet;
@@ -20,6 +21,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Position_Enum;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Button_Size_Enum;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Setting_Factory;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Partial_Factory;
 
 /**
  * Class for registering the plugin's appearance settings and Customizer controls.
@@ -193,8 +195,20 @@ class Plugin_Appearance_Settings implements Integration {
 			] ),
 		];
 
+		$control_ids = [];
 		foreach ( $controls as $control ) {
+			$control_ids[] = $control->get_id();
 			$customizer->add_control( $control );
 		}
+
+		$stylesheet = $this->cookie_notice->get_stylesheet();
+		$partial    = ( new Customizer_Partial_Factory() )->create( $stylesheet->get_id(), [
+			Customizer_Partial::ARG_SETTINGS            => $control_ids,
+			Customizer_Partial::ARG_SELECTOR            => '#' . $stylesheet->get_id(),
+			Customizer_Partial::ARG_RENDER_CALLBACK     => [ $stylesheet, 'print_content' ],
+			Customizer_Partial::ARG_CONTAINER_INCLUSIVE => false,
+			Customizer_Partial::ARG_FALLBACK_REFRESH    => true,
+		] );
+		$customizer->add_partial( $partial );
 	}
 }
