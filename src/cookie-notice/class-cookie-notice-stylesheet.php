@@ -208,7 +208,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 
 		.wp-gdpr-cookie-notice-heading,
 		.wp-gdpr-cookie-notice-content {
-			margin-bottom: 0.5rem;
+			margin-bottom: 0.2rem !important;
 		}
 
 		.wp-gdpr-cookie-notice-heading > * {
