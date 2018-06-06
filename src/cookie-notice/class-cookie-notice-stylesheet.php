@@ -214,11 +214,13 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 
 		.wp-gdpr-cookie-notice-heading > * {
 			margin: 0 !important;
+			padding: 0 !important;
 			font-size: 110%;
 		}
 
 		.wp-gdpr-cookie-notice-content > * {
 			margin: 0 0 0.5rem !important;
+			padding: 0 !important;
 		}
 
 		.wp-gdpr-cookie-notice-content > *:last-child {
@@ -247,7 +249,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 
 		.wp-gdpr-cookie-notice-toggles {
 			display: block;
-			margin: 0;
+			margin: 0 0.8rem 0 0;
 			padding: 0;
 			border: 0;
 			flex: 1;
