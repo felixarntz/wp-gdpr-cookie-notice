@@ -92,6 +92,7 @@ class Plugin implements Integration {
 			new Plugin_Settings( $option_reader ),
 			new Plugin_Customizer( $option_reader ),
 			new Plugin_Policies_Settings( $option_reader ),
+			new Plugin_Content_Settings( $cookie_notice ),
 			new Plugin_Shortcodes( $shortcode_registry ),
 			new Plugin_Notice_Controller( $cookie_notice ),
 		];

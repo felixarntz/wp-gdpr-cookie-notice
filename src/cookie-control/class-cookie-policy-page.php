@@ -64,7 +64,7 @@ class Cookie_Policy_Page extends Abstract_Page implements Service {
 	public function get_id() : int {
 		$id = $this->options->get_option( self::SETTING_COOKIE_POLICY_PAGE );
 
-		if ( ! $id && $this->options->get( self::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID ) ) {
+		if ( ! $id && $this->options->get_option( self::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID ) ) {
 			return (int) get_option( 'wp_page_for_privacy_policy' );
 		}
 
@@ -82,7 +82,7 @@ class Cookie_Policy_Page extends Abstract_Page implements Service {
 		$url = parent::get_url();
 
 		if ( ! empty( $url ) && $this->get_id() === (int) get_option( 'wp_page_for_privacy_policy' ) ) {
-			$url .= '#' . $this->options->get( self::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID );
+			$url .= '#' . $this->options->get_option( self::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID );
 		}
 
 		return $url;
