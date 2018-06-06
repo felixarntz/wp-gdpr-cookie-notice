@@ -97,22 +97,30 @@ class String_Setting extends Abstract_Setting {
 	 * @param mixed    $value    Value to validate.
 	 */
 	protected function validate_format( string $format, WP_Error $validity, $value ) {
-		switch ( $format ) {
-			case 'date-time':
-				if ( ! rest_parse_date( $value ) ) {
-					$validity->add( 'value_no_date', __( 'The value is not a valid date.', 'wp-gdpr-cookie-notice' ) );
-				}
-				break;
-			case 'email':
-				if ( ! is_email( $value ) ) {
-					$validity->add( 'value_no_email', __( 'The value is not a valid email address.', 'wp-gdpr-cookie-notice' ) );
-				}
-				break;
-			case 'ip':
-				if ( ! rest_is_ip_address( $value ) ) {
-					$validity->add( 'value_no_ip', __( 'The value is not a valid IP address.', 'wp-gdpr-cookie-notice' ) );
-				}
-				break;
+		$formats = [
+			'date-time' => [
+				'callback'      => 'rest_parse_date',
+				'error_code'    => 'value_no_date',
+				'error_message' => __( 'The value is not a valid date.', 'wp-gdpr-cookie-notice' ),
+			],
+			'email'    => [
+				'callback'      => 'is_email',
+				'error_code'    => 'value_no_email',
+				'error_message' => __( 'The value is not a valid email address.', 'wp-gdpr-cookie-notice' ),
+			],
+			'ip'       => [
+				'callback'      => 'rest_is_ip_address',
+				'error_code'    => 'value_no_ip',
+				'error_message' => __( 'The value is not a valid IP address.', 'wp-gdpr-cookie-notice' ),
+			],
+		];
+
+		if ( ! isset( $formats[ $format ] ) ) {
+			return;
+		}
+
+		if ( ! call_user_func( $formats[ $format ]['callback'] ) ) {
+			$validity->add( $formats[ $format ]['error_code'], $formats[ $format ]['error_message'] );
 		}
 	}
 }

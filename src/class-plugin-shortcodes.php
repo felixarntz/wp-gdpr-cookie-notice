@@ -139,17 +139,50 @@ class Plugin_Shortcodes implements Integration {
 			return esc_html( $text );
 		}
 
-		$classname = str_replace( '_', '-', $policy_service_id );
-		$target    = '';
-		$a11y_text = '';
-		if ( ! empty( $atts['target'] ) ) {
-			$target = ' target="' . esc_attr( $atts['target'] ) . '"';
+		return $this->get_link( $url, $text, [
+			'class'  => str_replace( '_', '-', $policy_service_id ),
+			'target' => $atts['target'],
+		] );
+	}
 
-			if ( '_blank' === $atts['target'] ) {
-				$a11y_text = ' <span class="screen-reader-text"> ' . _x( '(opens in a new window)', 'accessibility hint', 'wp-gdpr-cookie-notice' ) . '</span>';
-			}
+	/**
+	 * Gets a link tag from a given URL, text and attributes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $url  Link URL.
+	 * @param string $text Link anchor text.
+	 * @param array  $atts Optional. Extra attributes for the link tag. Default empty array.
+	 * @return string Link tag.
+	 */
+	protected function get_link( string $url, string $text, array $atts = [] ) : string {
+		$a11y_text = '';
+		if ( ! empty( $atts['target'] ) && '_blank' === $atts['target'] ) {
+			$a11y_text = ' <span class="screen-reader-text"> ' . _x( '(opens in a new window)', 'accessibility hint', 'wp-gdpr-cookie-notice' ) . '</span>';
 		}
 
-		return '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $classname ) . '"' . $target . '>' . esc_html( $text ) . $a11y_text . '</a>';
+		return '<a href="' . esc_url( $url ) . '"' . $this->atts( $atts ) . '>' . esc_html( $text ) . $a11y_text . '</a>';
+	}
+
+	/**
+	 * Creates an attribute string from given attributes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $atts Attributes as $attr => $value pairs.
+	 * @return string Attribute string.
+	 */
+	protected function atts( array $atts ) : string {
+		$output = '';
+
+		foreach ( $atts as $attr => $value ) {
+			if ( empty( $value ) ) {
+				continue;
+			}
+
+			$output .= ' ' . $attr . '="' . esc_attr( $value ) . '"';
+		}
+
+		return $output;
 	}
 }

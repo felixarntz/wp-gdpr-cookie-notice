@@ -107,23 +107,23 @@ class Setting_Factory {
 	 * @return array Array of setting instances, or empty array if not applicable.
 	 */
 	protected function get_object_properties_settings( array $args ) : array {
-		if ( isset( $args[ Setting::ARG_PROPERTIES ] ) && is_array( $args[ Setting::ARG_PROPERTIES ] ) ) {
-			$properties = [];
+		$properties = [];
 
-			foreach ( $args[ Setting::ARG_PROPERTIES ] as $id => $property ) {
-				if ( $property instanceof Setting ) {
-					$properties[] = $property;
-					continue;
-				}
-
-				if ( is_string( $id ) && is_array( $property ) ) {
-					$properties[] = $this->create( $id, $property );
-				}
-			}
-
+		if ( empty( $args[ Setting::ARG_PROPERTIES ] ) || ! is_array( $args[ Setting::ARG_PROPERTIES ] ) ) {
 			return $properties;
 		}
 
-		return [];
+		foreach ( $args[ Setting::ARG_PROPERTIES ] as $id => $property ) {
+			if ( $property instanceof Setting ) {
+				$properties[] = $property;
+				continue;
+			}
+
+			if ( is_string( $id ) && is_array( $property ) ) {
+				$properties[] = $this->create( $id, $property );
+			}
+		}
+
+		return $properties;
 	}
 }
