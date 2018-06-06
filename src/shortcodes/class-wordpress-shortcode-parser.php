@@ -101,9 +101,9 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 			return false;
 		} );
 
-		$shortcode_tags = [];
+		$shortcode_tags = []; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
 		foreach ( $shortcodes as $shortcode ) {
-			$shortcode_tags[ $shortcode->get_id() ] = [ $shortcode, 'get_output' ];
+			$shortcode_tags[ $shortcode->get_id() ] = [ $shortcode, 'get_output' ]; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
 		}
 	}
 
@@ -121,6 +121,6 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 			return;
 		}
 
-		$shortcode_tags = array_pop( $this->context_stack );
+		$shortcode_tags = array_pop( $this->context_stack ); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
 	}
 }

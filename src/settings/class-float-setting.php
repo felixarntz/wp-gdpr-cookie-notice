@@ -8,6 +8,7 @@
 
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
 
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\Minmax_Validatable;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\Enum_Validatable;
 use WP_Error;
 
@@ -18,7 +19,7 @@ use WP_Error;
  */
 class Float_Setting extends Abstract_Setting {
 
-	use Enum_Validatable;
+	use Minmax_Validatable, Enum_Validatable;
 
 	/**
 	 * Performs default validation for a value for the setting.
@@ -32,14 +33,12 @@ class Float_Setting extends Abstract_Setting {
 	protected function default_validation_callback( WP_Error $validity, $value ) {
 		$value = (float) $value;
 
-		if ( isset( $this->schema[ self::ARG_MINIMUM ] )
-			&& $value < (float) $this->schema[ self::ARG_MINIMUM ] ) {
-			$validity->add( 'value_too_small', sprintf( __( 'The value must not be smaller than %s.', 'wp-gdpr-cookie-notice' ), number_format_i18n( (float) $this->schema[ self::ARG_MINIMUM ] ) ) );
+		if ( isset( $this->schema[ self::ARG_MINIMUM ] ) ) {
+			$this->validate_min( (float) $this->schema[ self::ARG_MINIMUM ], $validity, $value );
 		}
 
-		if ( isset( $this->schema[ self::ARG_MAXIMUM ] )
-			&& $value > (float) $this->schema[ self::ARG_MAXIMUM ] ) {
-			$validity->add( 'value_too_great', sprintf( __( 'The value must not be greater than %s.', 'wp-gdpr-cookie-notice' ), number_format_i18n( (float) $this->schema[ self::ARG_MAXIMUM ] ) ) );
+		if ( isset( $this->schema[ self::ARG_MAXIMUM ] ) ) {
+			$this->validate_max( (float) $this->schema[ self::ARG_MAXIMUM ], $validity, $value );
 		}
 
 		if ( isset( $this->schema[ self::ARG_ENUM ] ) ) {

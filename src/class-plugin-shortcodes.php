@@ -57,6 +57,21 @@ class Plugin_Shortcodes implements Integration {
 	 * @since 1.0.0
 	 */
 	public function register_shortcodes() {
+		$shortcodes = $this->get_shortcodes();
+
+		foreach ( $shortcodes as $shortcode ) {
+			$this->shortcode_registry->register( $shortcode->get_id(), $shortcode );
+		}
+	}
+
+	/**
+	 * Gets the default shortcodes to register.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Array of Shortcode instances.
+	 */
+	protected function get_shortcodes() : array {
 		$factory = new Shortcode_Factory();
 
 		$shortcodes_args = [
@@ -72,10 +87,11 @@ class Plugin_Shortcodes implements Integration {
 			],
 		];
 
+		$shortcodes = [];
 		foreach ( $shortcodes_args as $shortcode_args ) {
 			$service_id = $shortcode_args['service_id'];
 
-			$shortcode = $factory->create(
+			$shortcodes[] = $factory->create(
 				$shortcode_args['id'],
 				function( $atts ) use ( $service_id ) {
 					return $this->get_policy_link( $service_id, $atts );
@@ -89,9 +105,9 @@ class Plugin_Shortcodes implements Integration {
 					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
 				]
 			);
-
-			$this->shortcode_registry->register( $shortcode->get_id(), $shortcode );
 		}
+
+		return $shortcodes;
 	}
 
 	/**

@@ -24,6 +24,8 @@ class Invalid_Identifier_Exception extends Exception {
 	 * @return Invalid_Identifier_Exception New exception instance.
 	 */
 	public static function from_id( string $id ) : self {
+
+		/* translators: %s: string identifier */
 		return new self( __( 'The identifier %s is invalid.', 'wp-gdpr-cookie-notice' ), $id );
 	}
 }

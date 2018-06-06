@@ -146,7 +146,7 @@ abstract class Abstract_Setting implements Setting {
 		}
 
 		if ( ! $validity ) {
-			return new WP_Error( 'invalid_value', __( 'Invalid value.', 'super-awesome-theme' ) );
+			return new WP_Error( 'invalid_value', __( 'Invalid value.', 'wp-gdpr-cookie-notice' ) );
 		}
 
 		return true;

@@ -115,7 +115,7 @@ class Cookie_Data_Repository implements Data_Repository {
 	 * @param array  $data Data array.
 	 */
 	protected function write_cookie( string $id, array $data ) {
-		setcookie( $id, json_encode( $data ), 0, COOKIEPATH );
+		setcookie( $id, wp_json_encode( $data ), 0, COOKIEPATH );
 	}
 
 	/**
@@ -146,7 +146,6 @@ class Cookie_Data_Repository implements Data_Repository {
 	 * @since 1.0.0
 	 *
 	 * @param string $id Identifier.
-	 * @return array|null Data array on success, or null on failure.
 	 */
 	protected function unset_cookie( string $id ) {
 		setcookie( $id, '', time() - 3600 );

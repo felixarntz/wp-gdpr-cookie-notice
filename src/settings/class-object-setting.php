@@ -33,8 +33,8 @@ class Object_Setting extends Abstract_Setting {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string  $id            Setting identifier.
-	 * @param array   $args          {
+	 * @param string $id            Setting identifier.
+	 * @param array  $args          {
 	 *     Optional. Setting arguments.
 	 *
 	 *     @type string    $description       Setting description.
@@ -49,7 +49,7 @@ class Object_Setting extends Abstract_Setting {
 	 *     @type callable  $sanitize_callback Setting sanitization callback.
 	 *     @type callable  $parse_callback    Setting parse callback.
 	 * }
-	 * @param array $properties_settings Optional. Settings to use for each individual object property.
+	 * @param array  $properties_settings Optional. Settings to use for each individual object property.
 	 */
 	public function __construct( string $id, array $args = [], array $properties_settings = [] ) {
 		$this->properties_settings = array_filter( $properties_settings, function( $setting ) {

@@ -24,6 +24,8 @@ class Invalid_Type_Exception extends Exception {
 	 * @return Invalid_Type_Exception New exception instance.
 	 */
 	public static function from_setting_type( string $type ) : self {
+
+		/* translators: %s: setting type */
 		return new self( __( 'The setting type %s is invalid.', 'wp-gdpr-cookie-notice' ), $type );
 	}
 
@@ -36,6 +38,8 @@ class Invalid_Type_Exception extends Exception {
 	 * @return Invalid_Type_Exception New exception instance.
 	 */
 	public static function from_customizer_control_type( string $type ) : self {
+
+		/* translators: %s: Customizer control type */
 		return new self( __( 'The Customizer control type %s is invalid.', 'wp-gdpr-cookie-notice' ), $type );
 	}
 }

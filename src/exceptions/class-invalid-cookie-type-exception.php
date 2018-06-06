@@ -24,6 +24,8 @@ class Invalid_Cookie_Type_Exception extends Exception {
 	 * @return Invalid_Cookie_Type_Exception New exception instance.
 	 */
 	public static function from_type( string $type ) : self {
+
+		/* translators: %s: cookie type */
 		return new self( __( 'The cookie type %s is invalid.', 'wp-gdpr-cookie-notice' ), $type );
 	}
 }

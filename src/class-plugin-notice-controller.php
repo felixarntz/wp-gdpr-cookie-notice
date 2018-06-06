@@ -103,7 +103,7 @@ class Plugin_Notice_Controller implements Integration {
 		try {
 			$form->handle_submission();
 		} catch ( Notice_Submission_Exception $e ) {
-			wp_die( $e->getMessage(), __( 'Cookie Notice Error', 'wp-gdpr-cookie-notice' ), 400 );
+			wp_die( esc_html( $e->getMessage() ), esc_html__( 'Cookie Notice Error', 'wp-gdpr-cookie-notice' ), 400 );
 		}
 	}
 

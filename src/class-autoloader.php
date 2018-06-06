@@ -115,7 +115,7 @@ class Autoloader {
 	public function get_possible_files( string $name ) : Generator {
 		$parts = explode( '\\', $name );
 
-		$path  = '';
+		$path = '';
 		while ( ! empty( $parts ) ) {
 			$path      = '/' . $this->partial_name_to_partial_path( array_pop( $parts ) ) . $path;
 			$namespace = implode( '\\', $parts );

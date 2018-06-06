@@ -67,6 +67,42 @@ class Plugin_Content_Settings implements Integration {
 	 * @param Setting_Registry $setting_registry Setting registry instance.
 	 */
 	public function register_settings( Setting_Registry $setting_registry ) {
+		$settings = $this->get_settings();
+
+		foreach ( $settings as $setting ) {
+			$setting_registry->register( $setting->get_id(), $setting );
+		}
+	}
+
+	/**
+	 * Registers Customizer controls.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Customizer $customizer Customizer instance.
+	 */
+	public function register_customizer_controls( Customizer $customizer ) {
+		$controls = $this->get_controls();
+
+		foreach ( $controls as $control ) {
+			$customizer->add_control( $control );
+		}
+
+		$partials = $this->get_partials();
+
+		foreach ( $partials as $partial ) {
+			$customizer->add_partial( $partial );
+		}
+	}
+
+	/**
+	 * Gets the default content settings to register.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Array of Setting instances.
+	 */
+	protected function get_settings() : array {
 		$factory = new Setting_Factory();
 
 		$settings = [
@@ -100,19 +136,17 @@ class Plugin_Content_Settings implements Integration {
 			] ),
 		];
 
-		foreach ( $settings as $setting ) {
-			$setting_registry->register( $setting->get_id(), $setting );
-		}
+		return $settings;
 	}
 
 	/**
-	 * Registers Customizer controls.
+	 * Gets the default content controls to register.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param Customizer $customizer Customizer instance.
+	 * @return array Array of Customizer_Control instances.
 	 */
-	public function register_customizer_controls( Customizer $customizer ) {
+	protected function get_controls() : array {
 		$factory = new Customizer_Control_Factory();
 
 		$cookie_policy_link  = '<code>[cookie_policy_link text="' . __( 'Cookie Policy', 'wp-gdpr-cookie-notice' ) . '"]</code>';
@@ -150,12 +184,20 @@ class Plugin_Content_Settings implements Integration {
 			] ),
 		];
 
-		foreach ( $controls as $control ) {
-			$customizer->add_control( $control );
-		}
+		return $controls;
+	}
 
+	/**
+	 * Gets the default content partials to register.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Array of Customizer_Partial instances.
+	 */
+	protected function get_partials() : array {
 		$factory = new Customizer_Partial_Factory();
 
+		// @codingStandardsIgnoreStart WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 		$partials = [
 			$factory->create( 'cookie_notice_heading', [
 				Customizer_Partial::ARG_SETTINGS            => [ Cookie_Notice::SETTING_NOTICE_HEADING ],
@@ -184,9 +226,8 @@ class Plugin_Content_Settings implements Integration {
 				Customizer_Partial::ARG_FALLBACK_REFRESH    => true,
 			] ),
 		];
+		// @codingStandardsIgnoreEnd WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 
-		foreach ( $partials as $partial ) {
-			$customizer->add_partial( $partial );
-		}
+		return $partials;
 	}
 }

@@ -163,14 +163,14 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				position: fixed;
 				right: 0;
 				left: 0;
-				<?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? 'top' : 'bottom' ?>: 0;
+				<?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? 'top' : 'bottom'; ?>: 0;
 				z-index: 999999;
 			}
 
 			.wp-gdpr-cookie-notice {
 				border-width: <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '0 0 ' . esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px' : esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px 0 0'; ?>;
 				<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] ) : ?>
-					box-shadow: 0 <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '3px' : '-3px' ?> 5px 0 rgba(0, 0, 0, 0.1);
+					box-shadow: 0 <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '3px' : '-3px'; ?> 5px 0 rgba(0, 0, 0, 0.1);
 				<?php endif; ?>
 			}
 			<?php
@@ -298,9 +298,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			background-color: <?php echo esc_attr( $options[ self::SETTING_BUTTON_BACKGROUND_COLOR ] ); ?>;
 			border: 0;
 			border-radius: 0;
-			-webkit-appearance: none;
-			   -moz-appearance: none;
-			        appearance: none;
+			appearance: none;
 		}
 
 		.wp-gdpr-cookie-notice-button:hover,

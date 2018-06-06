@@ -66,27 +66,7 @@ class Plugin_Policies_Settings implements Integration {
 	 * @param Setting_Registry $setting_registry Setting registry instance.
 	 */
 	public function register_settings( Setting_Registry $setting_registry ) {
-		$factory = new Setting_Factory();
-
-		$settings = [
-			$factory->create( Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE, [
-				Setting::ARG_TYPE              => 'integer',
-				Setting::ARG_DESCRIPTION       => __( 'The cookie policy page ID.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_MINIMUM           => 0,
-				Setting::ARG_VALIDATE_CALLBACK => function( $validity, $value ) {
-					if ( ! empty( $value ) && 'page' !== get_post_type( (int) $value ) ) {
-						$validity->add( 'value_no_page', __( 'The value is not an existing page.', 'wp-gdpr-cookie-notice' ) );
-					}
-
-					return $validity;
-				},
-			] ),
-			$factory->create( Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The ID attribute for the cookie information section in the privacy policy.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_SANITIZE_CALLBACK => 'sanitize_title',
-			] ),
-		];
+		$settings = $this->get_settings();
 
 		foreach ( $settings as $setting ) {
 			$setting_registry->register( $setting->get_id(), $setting );
@@ -101,23 +81,7 @@ class Plugin_Policies_Settings implements Integration {
 	 * @param Customizer $customizer Customizer instance.
 	 */
 	public function register_customizer_controls( Customizer $customizer ) {
-		$factory = new Customizer_Control_Factory();
-
-		$controls = [
-			$factory->create( Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE, [
-				Customizer_Control::ARG_TYPE        => 'dropdown-pages',
-				Customizer_Control::ARG_LABEL       => __( 'Cookie Policy Page', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_DESCRIPTION => __( 'Select the page that contains your cookie policy, if available.', 'wp-gdpr-cookie-notice' ),
-				'allow_addition'                    => true,
-			] ),
-
-			// TODO: Only show this control if privacy policy page is set.
-			$factory->create( Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID, [
-				Customizer_Control::ARG_TYPE        => 'text',
-				Customizer_Control::ARG_LABEL       => __( 'Cookie Section ID', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_DESCRIPTION => __( 'If your privacy policy page contains a cookie policy section, enter the ID attribute of that section.', 'wp-gdpr-cookie-notice' ),
-			] ),
-		];
+		$controls = $this->get_controls();
 
 		foreach ( $controls as $control ) {
 			$customizer->add_control( $control );
@@ -161,5 +125,67 @@ class Plugin_Policies_Settings implements Integration {
 			'priority'       => 5,
 			'allow_addition' => true,
 		] );
+	}
+
+	/**
+	 * Gets the default policies settings to register.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Array of Setting instances.
+	 */
+	protected function get_settings() : array {
+		$factory = new Setting_Factory();
+
+		$settings = [
+			$factory->create( Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE, [
+				Setting::ARG_TYPE              => 'integer',
+				Setting::ARG_DESCRIPTION       => __( 'The cookie policy page ID.', 'wp-gdpr-cookie-notice' ),
+				Setting::ARG_MINIMUM           => 0,
+				Setting::ARG_VALIDATE_CALLBACK => function( $validity, $value ) {
+					if ( ! empty( $value ) && 'page' !== get_post_type( (int) $value ) ) {
+						$validity->add( 'value_no_page', __( 'The value is not an existing page.', 'wp-gdpr-cookie-notice' ) );
+					}
+
+					return $validity;
+				},
+			] ),
+			$factory->create( Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID, [
+				Setting::ARG_TYPE              => 'string',
+				Setting::ARG_DESCRIPTION       => __( 'The ID attribute for the cookie information section in the privacy policy.', 'wp-gdpr-cookie-notice' ),
+				Setting::ARG_SANITIZE_CALLBACK => 'sanitize_title',
+			] ),
+		];
+
+		return $settings;
+	}
+
+	/**
+	 * Gets the default policies controls to register.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Array of Customizer_Control instances.
+	 */
+	protected function get_controls() : array {
+		$factory = new Customizer_Control_Factory();
+
+		$controls = [
+			$factory->create( Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE, [
+				Customizer_Control::ARG_TYPE        => 'dropdown-pages',
+				Customizer_Control::ARG_LABEL       => __( 'Cookie Policy Page', 'wp-gdpr-cookie-notice' ),
+				Customizer_Control::ARG_DESCRIPTION => __( 'Select the page that contains your cookie policy, if available.', 'wp-gdpr-cookie-notice' ),
+				'allow_addition'                    => true,
+			] ),
+
+			// TODO: Only show this control if privacy policy page is set.
+			$factory->create( Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID, [
+				Customizer_Control::ARG_TYPE        => 'text',
+				Customizer_Control::ARG_LABEL       => __( 'Cookie Section ID', 'wp-gdpr-cookie-notice' ),
+				Customizer_Control::ARG_DESCRIPTION => __( 'If your privacy policy page contains a cookie policy section, enter the ID attribute of that section.', 'wp-gdpr-cookie-notice' ),
+			] ),
+		];
+
+		return $controls;
 	}
 }

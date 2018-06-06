@@ -23,6 +23,32 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Checks whether the plugin requirements are met.
+ *
+ * @since 1.0.0
+ *
+ * @throws RuntimeException Thrown when the PHP or WordPress versions used are insufficient.
+ */
+function wp_gdpr_cookie_notice_check_requirements() {
+	$required_php_version = '7.0';
+	$required_wp_version  = '4.9.6';
+	$php_version          = phpversion();
+	$wp_version           = $GLOBALS['wp_version'];
+
+	if ( version_compare( $php_version, $required_php_version, '<' ) ) {
+
+		/* translators: 1: required version, 2: active version */
+		throw new RuntimeException( sprintf( __( 'WP GDPR Cookie Notice requires at least PHP version %1$s, but you are only running version %2$s.', 'wp-gdpr-cookie-notice' ), $required_php_version, $php_version ) );
+	}
+
+	if ( version_compare( $wp_version, $required_wp_version, '<' ) ) {
+
+		/* translators: 1: required version, 2: active version */
+		throw new RuntimeException( sprintf( __( 'WP GDPR Cookie Notice requires at least WordPress version %1$s, but you are only running version %2$s.', 'wp-gdpr-cookie-notice' ), $required_wp_version, $wp_version ) );
+	}
+}
+
+/**
  * Gets the plugin controller instance.
  *
  * Initializes the instance if it does not exist yet.
@@ -30,8 +56,6 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.0.0
  *
  * @return Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin Plugin controller instance.
- *
- * @throws RuntimeException Thrown when the PHP or WordPress versions used are insufficient.
  */
 function wp_gdpr_cookie_notice() {
 	static $plugin = null;
@@ -40,18 +64,7 @@ function wp_gdpr_cookie_notice() {
 		return $plugin;
 	}
 
-	$required_php_version = '7.0';
-	$required_wp_version  = '4.9.6';
-	$php_version          = phpversion();
-	$wp_version           = $GLOBALS['wp_version'];
-
-	if ( version_compare( $php_version, $required_php_version, '<' ) ) {
-		throw new RuntimeException( sprintf( __( 'WP GDPR Cookie Notice requires at least PHP version %1$s, but you are only running version %2$s.', 'wp-gdpr-cookie-notice' ), $required_php_version, $php_version ) );
-	}
-
-	if ( version_compare( $wp_version, $required_wp_version, '<' ) ) {
-		throw new RuntimeException( sprintf( __( 'WP GDPR Cookie Notice requires at least WordPress version %1$s, but you are only running version %2$s.', 'wp-gdpr-cookie-notice' ), $required_wp_version, $wp_version ) );
-	}
+	wp_gdpr_cookie_notice_check_requirements();
 
 	$namespace = 'Leaves_And_Love\\WP_GDPR_Cookie_Notice';
 	$basedir   = plugin_dir_path( __FILE__ ) . 'src';

@@ -24,6 +24,8 @@ class Duplicate_Identifier_Exception extends Exception {
 	 * @return Duplicate_Identifier_Exception New exception instance.
 	 */
 	public static function from_id( string $id ) : self {
+
+		/* translators: %s: string identifier */
 		return new self( __( 'The identifier %s is already in use.', 'wp-gdpr-cookie-notice' ), $id );
 	}
 }
