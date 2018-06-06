@@ -115,7 +115,7 @@ class Cookie_Data_Repository implements Data_Repository {
 	 * @param array  $data Data array.
 	 */
 	protected function write_cookie( string $id, array $data ) {
-		setcookie( $id, json_encode( $data ) );
+		setcookie( $id, json_encode( $data ), 0, COOKIEPATH );
 	}
 
 	/**
