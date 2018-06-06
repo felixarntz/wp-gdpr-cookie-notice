@@ -12,6 +12,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\Shortcode_Factory;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
 
 /**
  * Class for registering plugin shortcodes.
@@ -66,10 +67,11 @@ class Plugin_Shortcodes implements Integration {
 				},
 				[
 					Context_Shortcode::ARG_DEFAULTS => [
-						'text'   => __( 'Privacy Policy', 'wp-gdpr-cookie-notice' ),
-						'target' => '',
+						'text'          => __( 'Privacy Policy', 'wp-gdpr-cookie-notice' ),
+						'target'        => '',
+						'show_if_empty' => '1',
 					],
-					Context_Shortcode::ARG_CONTEXTS => [ 'cookie_notice' ],
+					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
 				]
 			),
 			$factory->create(
@@ -79,10 +81,11 @@ class Plugin_Shortcodes implements Integration {
 				},
 				[
 					Context_Shortcode::ARG_DEFAULTS => [
-						'text'   => __( 'Cookie Policy', 'wp-gdpr-cookie-notice' ),
-						'target' => '',
+						'text'          => __( 'Cookie Policy', 'wp-gdpr-cookie-notice' ),
+						'target'        => '',
+						'show_if_empty' => '1',
 					],
-					Context_Shortcode::ARG_CONTEXTS => [ 'cookie_notice' ],
+					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
 				]
 			),
 		];
@@ -99,9 +102,9 @@ class Plugin_Shortcodes implements Integration {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $policy_service_identifier Policy service identifier. Either 'privacy_policy_page',
-	 *                                          or 'cookie_policy_page'.
-	 * @param array  $atts                      {
+	 * @param string $policy_service_id Policy service identifier. Either 'privacy_policy_page',
+	 *                                  or 'cookie_policy_page'.
+	 * @param array  $atts              {
 	 *     Attributes for the link.
 	 *
 	 *     @type string $text   Text to display for the link.
@@ -109,16 +112,21 @@ class Plugin_Shortcodes implements Integration {
 	 * }
 	 * @return string HTML markup.
 	 */
-	protected function get_policy_link( string $policy_service_identifier, array $atts ) : string {
-		$url       = wp_gdpr_cookie_notice()->get_service( $policy_service_identifier )->get_url();
-		$text      = $atts['text'];
-		$target    = '';
-		$a11y_text = '';
+	protected function get_policy_link( string $policy_service_id, array $atts ) : string {
+		$url  = wp_gdpr_cookie_notice()->get_service( $policy_service_id )->get_url();
+		$text = $atts['text'];
 
 		if ( empty( $url ) ) {
+			if ( empty( $atts['show_if_empty'] ) || in_array( $atts['show_if_empty'], [ 'false', 'FALSE', 'no', 'NO', '0' ], true ) ) {
+				return '';
+			}
+
 			return esc_html( $text );
 		}
 
+		$classname = str_replace( '_', '-', $policy_service_id );
+		$target    = '';
+		$a11y_text = '';
 		if ( ! empty( $atts['target'] ) ) {
 			$target = ' target="' . esc_attr( $atts['target'] ) . '"';
 
@@ -127,6 +135,6 @@ class Plugin_Shortcodes implements Integration {
 			}
 		}
 
-		return '<a href="' . esc_url( $url ) . '"' . $target . '>' . esc_html( $text ) . $a11y_text . '</a>';
+		return '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $classname ) . '"' . $target . '>' . esc_html( $text ) . $a11y_text . '</a>';
 	}
 }
