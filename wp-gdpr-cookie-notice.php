@@ -33,7 +33,7 @@ function wp_gdpr_cookie_notice_check_requirements() {
 	$required_php_version = '7.0';
 	$required_wp_version  = '4.9.6';
 	$php_version          = phpversion();
-	$wp_version           = $GLOBALS['wp_version'];
+	$wp_version           = str_replace( '-src', '', $GLOBALS['wp_version'] );
 
 	if ( version_compare( $php_version, $required_php_version, '<' ) ) {
 
