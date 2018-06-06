@@ -1,20 +1,17 @@
 <?php
 /**
- * PHPUnit tests bootstrap script.
+ * Integration tests bootstrap script, using WordPress.
  *
  * @package WP_GDPR_Cookie_Notice
  */
 
-// Disable xdebug backtrace.
-if ( function_exists( 'xdebug_disable' ) ) {
-	xdebug_disable();
-}
+require __DIR__ . '/bootstrap-common.php';
 
 /**
  * Manually loads the main plugin file.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/wp-gdpr-cookie-notice.php';
+	require TESTS_PLUGIN_DIR . '/wp-gdpr-cookie-notice.php';
 }
 
 // Detect where to load the WordPress tests environment from.
@@ -28,7 +25,7 @@ if ( false !== getenv( 'WP_TESTS_DIR' ) ) {
 	$test_root    = '/tmp/wordpress-tests-lib';
 	$_manual_load = true;
 } else {
-	$test_root    = dirname( dirname( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) ) ) . '/tests/phpunit';
+	$test_root    = dirname( dirname( dirname( TESTS_PLUGIN_DIR ) ) ) . '/tests/phpunit';
 	$_manual_load = false;
 }
 

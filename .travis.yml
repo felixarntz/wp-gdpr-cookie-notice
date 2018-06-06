@@ -8,12 +8,12 @@ cache:
 matrix:
   include:
     - php: 7.2
-      env: WP_VERSION=latest WP_MULTISITE=1 PHPLINT=1 PHPCS=1 COVERAGE=1
-    - php: 7.0
-      env: WP_VERSION=4.9.6 WP_MULTISITE=1 PHPLINT=1
+      env: UNIT=1 PHPLINT=1 PHPCS=1 COVERAGE=1
     - php: 7.2
-      env: WP_VERSION=4.9.6
-    - php: 7.1
+      env: WP_VERSION=latest WP_MULTISITE=1
+    - php: 7.0
+      env: WP_VERSION=latest WP_MULTISITE=1
+    - php: 7.2
       env: WP_VERSION=4.9.6
     - php: 7.0
       env: WP_VERSION=4.9.6
@@ -37,25 +37,26 @@ before_script:
 - composer selfupdate 1.0.0 --no-interaction
 - composer install --no-interaction
 - composer config-phpcs
-- npm install &>/dev/null
 - |
-  if [[ "$WP_VERSION" == "latest" ]]; then
-    curl -s http://api.wordpress.org/core/version-check/1.7/ > /tmp/wp-latest.json
-    grep '[0-9]+\.[0-9]+(\.[0-9]+)?' /tmp/wp-latest.json
-    WP_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
+  if [[ "$UNIT" != "1" ]]; then
+    if [[ "$WP_VERSION" == "latest" ]]; then
+      curl -s http://api.wordpress.org/core/version-check/1.7/ > /tmp/wp-latest.json
+      grep '[0-9]+\.[0-9]+(\.[0-9]+)?' /tmp/wp-latest.json
+      WP_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
+    fi
+    PLUGIN_SLUG=$(basename $(pwd))
+    export WP_DEVELOP_DIR=/tmp/wordpress/
+    git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+    cd ..
+    cp -r "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+    cd /tmp/wordpress/
+    cp wp-tests-config-sample.php wp-tests-config.php
+    sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
+    sed -i "s/yourusernamehere/travis/" wp-tests-config.php
+    sed -i "s/yourpasswordhere//" wp-tests-config.php
+    mysql -e "CREATE DATABASE wordpress_tests;" -uroot
+    cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
   fi
-- PLUGIN_SLUG=$(basename $(pwd))
-- export WP_DEVELOP_DIR=/tmp/wordpress/
-- git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
-- cd ..
-- cp -r "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-- cd /tmp/wordpress/
-- cp wp-tests-config-sample.php wp-tests-config.php
-- sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
-- sed -i "s/yourusernamehere/travis/" wp-tests-config.php
-- sed -i "s/yourpasswordhere//" wp-tests-config.php
-- mysql -e "CREATE DATABASE wordpress_tests;" -uroot
-- cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
 - phpenv rehash
 script:
 - |
@@ -71,11 +72,17 @@ script:
     COVERAGE="0"
   fi
 - |
+  if [[ "$UNIT" == "1" ]]; then
+    PHPUNIT_CONFIG="phpunit.unit.xml"
+  else
+    PHPUNIT_CONFIG="phpunit.integration.xml"
+  fi
+- |
   if [[ "$COVERAGE" == "1" ]]; then
     mkdir -p build/logs
-    vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
+    vendor/bin/phpunit -c "$PHPUNIT_CONFIG" --coverage-clover build/logs/clover.xml
   else
-    vendor/bin/phpunit -c phpunit.xml
+    vendor/bin/phpunit -c "$PHPUNIT_CONFIG"
   fi
 after_script:
 - |
