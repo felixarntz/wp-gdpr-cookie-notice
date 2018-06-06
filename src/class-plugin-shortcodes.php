@@ -59,38 +59,37 @@ class Plugin_Shortcodes implements Integration {
 	public function register_shortcodes() {
 		$factory = new Shortcode_Factory();
 
-		$shortcodes = [
-			$factory->create(
-				'privacy_policy_link',
-				function( $atts ) {
-					return $this->get_policy_link( 'privacy_policy_page', $atts );
-				},
-				[
-					Context_Shortcode::ARG_DEFAULTS => [
-						'text'          => __( 'Privacy Policy', 'wp-gdpr-cookie-notice' ),
-						'target'        => '',
-						'show_if_empty' => '1',
-					],
-					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
-				]
-			),
-			$factory->create(
-				'cookie_policy_link',
-				function( $atts ) {
-					return $this->get_policy_link( 'cookie_policy_page', $atts );
-				},
-				[
-					Context_Shortcode::ARG_DEFAULTS => [
-						'text'          => __( 'Cookie Policy', 'wp-gdpr-cookie-notice' ),
-						'target'        => '',
-						'show_if_empty' => '1',
-					],
-					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
-				]
-			),
+		$shortcodes_args = [
+			[
+				'id'           => 'privacy_policy_link',
+				'service_id'   => 'privacy_policy_page',
+				'default_text' => __( 'Privacy Policy', 'wp-gdpr-cookie-notice' ),
+			],
+			[
+				'id'           => 'cookie_policy_link',
+				'service_id'   => 'cookie_policy_page',
+				'default_text' => __( 'Cookie Policy', 'wp-gdpr-cookie-notice' ),
+			],
 		];
 
-		foreach ( $shortcodes as $shortcode ) {
+		foreach ( $shortcodes_args as $shortcode_args ) {
+			$service_id = $shortcode_args['service_id'];
+
+			$shortcode = $factory->create(
+				$shortcode_args['id'],
+				function( $atts ) use ( $service_id ) {
+					return $this->get_policy_link( $service_id, $atts );
+				},
+				[
+					Context_Shortcode::ARG_DEFAULTS => [
+						'text'          => $shortcode_args['default_text'],
+						'target'        => '',
+						'show_if_empty' => '1',
+					],
+					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
+				]
+			);
+
 			$this->shortcode_registry->register( $shortcode->get_id(), $shortcode );
 		}
 	}

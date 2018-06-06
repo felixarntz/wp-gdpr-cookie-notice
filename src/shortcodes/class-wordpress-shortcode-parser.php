@@ -34,7 +34,7 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 	 * @since 1.0.0
 	 * @var array
 	 */
-	protected $shortcode_context_stack = [];
+	protected $context_stack = [];
 
 	/**
 	 * Constructor.
@@ -87,7 +87,7 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 	protected function switch_shortcode_context( string $context ) {
 		global $shortcode_tags;
 
-		$this->shortcode_context_stack[] = $shortcode_tags;
+		$this->context_stack[] = $shortcode_tags;
 
 		$shortcodes = array_filter( $this->shortcode_registry->get_all_registered(), function( Shortcode $shortcode ) use ( $context ) {
 			if ( $shortcode instanceof Context_Shortcode && $shortcode->supports_context( $context ) ) {
@@ -117,10 +117,10 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 	protected function restore_shortcode_context() {
 		global $shortcode_tags;
 
-		if ( empty( $this->shortcode_context_stack ) ) {
+		if ( empty( $this->context_stack ) ) {
 			return;
 		}
 
-		$shortcode_tags = array_pop( $this->shortcode_context_stack );
+		$shortcode_tags = array_pop( $this->context_stack );
 	}
 }

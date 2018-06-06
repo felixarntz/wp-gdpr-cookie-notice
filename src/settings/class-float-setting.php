@@ -8,6 +8,7 @@
 
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
 
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\Enum_Validatable;
 use WP_Error;
 
 /**
@@ -16,6 +17,8 @@ use WP_Error;
  * @since 1.0.0
  */
 class Float_Setting extends Abstract_Setting {
+
+	use Enum_Validatable;
 
 	/**
 	 * Performs default validation for a value for the setting.
@@ -39,9 +42,8 @@ class Float_Setting extends Abstract_Setting {
 			$validity->add( 'value_too_great', sprintf( __( 'The value must not be greater than %s.', 'wp-gdpr-cookie-notice' ), number_format_i18n( (float) $this->schema[ self::ARG_MAXIMUM ] ) ) );
 		}
 
-		if ( isset( $this->schema[ self::ARG_ENUM ] )
-			&& ! in_array( $value, array_map( 'floatval', $this->schema[ self::ARG_ENUM ] ), true ) ) {
-			$validity->add( 'value_not_supported', __( 'The value is not supported.', 'wp-gdpr-cookie-notice' ) );
+		if ( isset( $this->schema[ self::ARG_ENUM ] ) ) {
+			$this->validate_enum( array_map( 'floatval', $this->schema[ self::ARG_ENUM ] ), $validity, $value );
 		}
 
 		return $validity;

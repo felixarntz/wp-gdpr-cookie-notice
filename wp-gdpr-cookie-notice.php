@@ -42,9 +42,8 @@ function wp_gdpr_cookie_notice() {
 
 	$required_php_version = '7.0';
 	$required_wp_version  = '4.9.6';
-
-	$php_version = phpversion();
-	$wp_version  = $GLOBALS['wp_version'];
+	$php_version          = phpversion();
+	$wp_version           = $GLOBALS['wp_version'];
 
 	if ( version_compare( $php_version, $required_php_version, '<' ) ) {
 		throw new RuntimeException( sprintf( __( 'WP GDPR Cookie Notice requires at least PHP version %1$s, but you are only running version %2$s.', 'wp-gdpr-cookie-notice' ), $required_php_version, $php_version ) );
