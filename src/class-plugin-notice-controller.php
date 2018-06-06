@@ -90,6 +90,10 @@ class Plugin_Notice_Controller implements Integration {
 	 * @since 1.0.0
 	 */
 	public function handle_notice_submission_request() {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+
 		$form = $this->notice->get_form();
 
 		if ( ! $form->is_submission() ) {

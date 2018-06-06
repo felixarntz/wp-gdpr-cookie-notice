@@ -119,6 +119,7 @@ class Cookie_Notice_Form implements Form {
 				$this->render_hidden_toggles();
 			}
 			?>
+			<input type="hidden" name="action" value="<?php echo esc_attr( self::ACTION ); ?>">
 			<?php wp_nonce_field( self::ACTION, self::NONCE_NAME, false ); ?>
 		</form>
 		<?php
@@ -172,7 +173,7 @@ class Cookie_Notice_Form implements Form {
 	 * @return bool True if a submission, false otherwise.
 	 */
 	public function is_submission() : bool {
-		return (bool) filter_input( INPUT_POST, self::NONCE_NAME );
+		return self::ACTION === filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
 	}
 
 	/**
