@@ -10,4 +10,4 @@ if ( function_exists( 'xdebug_disable' ) ) {
 	xdebug_disable();
 }
 
-define( 'TESTS_PLUGIN_DIR', dirname( dirname( dirname( __DIR__ ) ) ) );
+define( 'TESTS_PLUGIN_DIR', dirname( dirname( __DIR__ ) ) );
