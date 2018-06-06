@@ -79,6 +79,51 @@ class Cookie_Notice_Script implements Inline_Asset {
 	 * @since 1.0.0
 	 */
 	public function print_content() {
+		?>
+		( function() {
+			var noticeWrap = document.getElementById( 'wp-gdpr-cookie-notice-wrap' );
+			var form       = document.getElementById( 'wp-gdpr-cookie-notice-form' );
 
+			if ( ! noticeWrap || ! form || 'function' !== typeof window.fetch || 'function' !== typeof window.FormData ) {
+				return;
+			}
+
+			form.addEventListener( 'submit', function( event ) {
+				event.preventDefault();
+
+				window.fetch( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', {
+					method: 'POST',
+					mode: 'same-origin',
+					credentials: 'same-origin',
+					body: new window.FormData( form )
+				})
+					.then( function( response ) {
+						var contentType = response.headers.get( 'content-type' );
+
+						if ( ! contentType || ! contentType.includes( 'application/json' ) ) {
+							throw new TypeError( '<?php esc_attr_e( 'Malformed response.', 'wp-gdpr-cookie-notice' ); ?>' );
+						}
+
+						return response.json().then( function( result ) {
+							return response.ok ? result : Promise.reject( result );
+						});
+					})
+					.then( function() {
+						noticeWrap.parentNode.removeChild( noticeWrap );
+						document.body.classList.remove( 'wp-gdpr-has-cookie-notice' );
+					})
+					.catch( function( result ) {
+						if ( ! result.data || ! result.data.message ) {
+							console.error( '<?php esc_attr_e( 'Bad request.', 'wp-gdpr-cookie-notice' ); ?>' );
+							return;
+						}
+
+						console.error( result.data.message );
+					});
+
+				return false;
+			});
+		})();
+		<?php
 	}
 }
