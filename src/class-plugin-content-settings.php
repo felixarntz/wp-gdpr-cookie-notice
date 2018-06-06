@@ -76,7 +76,7 @@ class Plugin_Content_Settings implements Integration {
 			$factory->create( Cookie_Notice::SETTING_NOTICE_CONTENT, [
 				Setting::ARG_TYPE        => 'string',
 				Setting::ARG_DESCRIPTION => __( 'The cookie notice content.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => __( 'This site, like many others, uses small files called cookies to help us improve and customize your experience. Learn more about how we use cookies in [cookie_policy_link text="our cookie policy"].', 'wp-gdpr-cookie-notice' ),
+				Setting::ARG_DEFAULT     => _x( 'This site, like many others, uses small files called cookies to help us improve and customize your experience. Learn more about how we use cookies in [cookie_policy_link text="our cookie policy"].', 'content containing shortcode', 'wp-gdpr-cookie-notice' ),
 			] ),
 			$factory->create( Cookie_Notice_Form::SETTING_SUBMIT_TEXT, [
 				Setting::ARG_TYPE        => 'string',

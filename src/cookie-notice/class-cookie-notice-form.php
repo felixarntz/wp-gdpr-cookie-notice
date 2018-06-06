@@ -52,7 +52,7 @@ class Cookie_Notice_Form implements Form {
 	/**
 	 * Form nonce name.
 	 */
-	const NONCE_NAME = 'nonce';
+	const NONCE_NAME = 'wp_gdpr_cookie_notice_nonce';
 
 	/**
 	 * Notice the form is part of.
@@ -114,6 +114,11 @@ class Cookie_Notice_Form implements Form {
 			<div class="wp-gdpr-cookie-notice-controls">
 				<?php $this->render_controls(); ?>
 			</div>
+			<?php
+			if ( ! $this->options->get_option( self::SETTING_SHOW_TOGGLES ) ) {
+				$this->render_hidden_toggles();
+			}
+			?>
 			<?php wp_nonce_field( self::ACTION, self::NONCE_NAME, false ); ?>
 		</form>
 		<?php
@@ -180,8 +185,6 @@ class Cookie_Notice_Form implements Form {
 
 		if ( ! empty( $options[ self::SETTING_SHOW_TOGGLES ] ) ) {
 			$this->render_toggles();
-		} else {
-			$this->render_hidden_toggles();
 		}
 
 		if ( ! empty( $options[ self::SETTING_SHOW_LEARN_MORE ] ) ) {

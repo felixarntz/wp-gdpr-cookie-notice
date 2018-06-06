@@ -27,9 +27,9 @@ class Customizer_Control_Factory {
 	 * @param array  $args {
 	 *     Optional. Customizer control arguments.
 	 *
-	 *     @type string $type        Control type. Either 'text', 'textarea', 'select',
-	 *                               'radio', 'checkbox', 'dropdown-pages', 'color', or
-	 *                               'media'. Default 'text'.
+	 *     @type string $type        Control type. Either 'text', 'number', 'textarea',
+	 *                               'select', 'radio', 'checkbox', 'dropdown-pages',
+	 *                               'color', or 'media'. Default 'text'.
 	 *     @type string $label       Control label.
 	 *     @type string $description Control description.
 	 *     @type string $capability  Control capability.
@@ -49,6 +49,7 @@ class Customizer_Control_Factory {
 
 		$type_map = [
 			'text'           => Text_Customizer_Control::class,
+			'number'         => Number_Customizer_Control::class,
 			'textarea'       => Textarea_Customizer_Control::class,
 			'select'         => Select_Customizer_Control::class,
 			'radio'          => Radio_Customizer_Control::class,
