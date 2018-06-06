@@ -134,7 +134,7 @@ class Cookie_Notice_Form implements Form {
 	 * @throws Notice_Submission_Exception Thrown when the submission is invalid.
 	 */
 	public function handle_submission() : array {
-		if ( ! wp_verify_nonce( self::NONCE_NAME, self::ACTION ) ) {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, self::NONCE_NAME, FILTER_SANITIZE_STRING ), self::ACTION ) ) {
 			throw new Notice_Submission_Exception( __( 'The form submission is invalid.', 'wp-gdpr-cookie-notice' ) );
 		}
 

@@ -10,7 +10,7 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Notice;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Form;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Form_Aware;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Assets_Aware;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form;
