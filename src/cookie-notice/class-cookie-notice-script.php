@@ -9,6 +9,8 @@
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Inline_Asset;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 
 /**
  * Class representing a cookie notice script.

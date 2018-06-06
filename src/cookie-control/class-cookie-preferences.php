@@ -57,14 +57,6 @@ class Cookie_Preferences implements Service {
 	protected $privacy_policy_page;
 
 	/**
-	 * Cookie type enum.
-	 *
-	 * @since 1.0.0
-	 * @var Cookie_Type_Enum
-	 */
-	protected $cookie_types;
-
-	/**
 	 * Constructor.
 	 *
 	 * Sets the data repository and cookie types to use.
@@ -91,18 +83,6 @@ class Cookie_Preferences implements Service {
 		$this->data_repository     = $data_repository;
 		$this->cookie_policy_page  = $cookie_policy_page;
 		$this->privacy_policy_page = $privacy_policy_page;
-		$this->cookie_types        = new Cookie_Type_Enum();
-	}
-
-	/**
-	 * Gets the enum used for cookie types.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return Labelled_Enum Enum instance with labels.
-	 */
-	public function get_cookie_types() : Labelled_Enum {
-		return $this->cookie_types;
 	}
 
 	/**
@@ -116,7 +96,7 @@ class Cookie_Preferences implements Service {
 	 * @throws Invalid_Cookie_Type_Exception Thrown when the cookie type is invalid.
 	 */
 	public function cookies_accepted( string $type = Cookie_Type_Enum::TYPE_FUNCTIONAL ) : bool {
-		if ( ! in_array( $type, $this->cookie_types->get_values(), true ) ) {
+		if ( ! in_array( $type, ( new Cookie_Type_Enum() )->get_values(), true ) ) {
 			throw Invalid_Cookie_Type_Exception::from_type( $type );
 		}
 
@@ -185,7 +165,7 @@ class Cookie_Preferences implements Service {
 	 * @return array Default preferences as $key => $value pairs.
 	 */
 	protected function get_default_preferences() : array {
-		return array_fill_keys( $this->cookie_types->get_values(), false );
+		return array_fill_keys( ( new Cookie_Type_Enum() )->get_values(), false );
 	}
 
 	/**
