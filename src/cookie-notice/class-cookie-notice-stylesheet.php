@@ -146,6 +146,8 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			@media (min-width: 42rem) {
 				.wp-gdpr-cookie-notice {
 					top: 50%;
+					right: auto;
+					bottom: auto;
 					left: 50%;
 					max-width: 40rem;
 					transform: translate(-50%, -50%);
