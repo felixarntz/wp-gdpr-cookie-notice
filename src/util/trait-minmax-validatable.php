@@ -8,6 +8,8 @@
 
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Util;
 
+use WP_Error;
+
 /**
  * Trait for classes that need to validate their values against a minimum or maximum.
  *
