@@ -19,7 +19,31 @@ Simple performant GDPR-compliant cookie consent notice that supports granular co
 
 == Description ==
 
-TODO
+With the cookie notice this plugin adds to your WordPress site, you can make sure you stay on the legal side of things.
+
+Not only does the notice allow you to have the regular pointer that your site uses cookies, you can also optionally grant your site visitors permission to granularly allow which cookie types are allowed, supporting groups of functional (always required), preferences, analytics and marketing cookies. This is compliant with how the new GDPR regulations recommend implementing cookie control for your site.
+
+In addition to the Privacy Policy page setting that WordPress core provides, you also get a settings to optionally set an extra Cookie Policy page, and you can easily link to either of them from the cookie consent notice.
+
+The cookie notice content and appearance can easily be tweaked using the Customizer, with an immediate live-preview of what your changes will look like.
+
+Last but not least, another important thing that this plugin takes care of, other than most other cookie consent plugins, is that it actually ensures cookies are only placed if the respective cookie type has been allowed by the visitor. The plugin does this by implementing cookie rules for WordPress itself, and also for the following plugins:
+
+* [Jetpack](https://wordpress.org/plugins/jetpack/)
+* [Google Analytics for WordPress by MonsterInsights](https://wordpress.org/plugins/google-analytics-for-wordpress/)
+* [Simple Analytics](https://wordpress.org/plugins/simple-analytics/)
+
+More plugins will be supported in the future. If you are a developer though, it's also very easy to add cookie rules for other code, by using the flexible cookie rule component the plugin provides as an extension point.
+
+=== Feature Summary ===
+
+* **Lightweight and easy-to-use:** Simply activate the plugin, and the notice will appear.
+* **Live Preview:** Use the Customizer to adjust the notice to your needs, with an instant live preview.
+* **Customizable Appearance:** Specify the notice position, colors, border, button size and more.
+* **Customizable Content:** Adjust the notice heading, text and button label to your preferences. You can easily link to your cookie policy page or privacy policy page, and even give visitors granular control about which cookie types they allow.
+* **Cookie Policy Support:** Define an optional cookie policy page if your site has one, or alternatively provide an ID attribute to the cookie section in your privacy policy.
+* **Cookies Rules:** Supported cookies are only set once the visitor has given their consent. The cookie rules implemented also respect the more granular cookie control.
+* **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints.
 
 == Installation ==
 
@@ -28,21 +52,25 @@ TODO
 
 == Frequently Asked Questions ==
 
-TODO
+= Where are the plugin settings? =
+
+Since the settings of the plugin are mostly of visual nature, the plugin does not have any settings page, but uses exclusively the Customizer. You can easily reach the plugin's Customizer panel either by using the link in the Settings menu or the link in the plugin's row on the Plugins screen.
 
 = Where should I submit my support request? =
 
-I preferably take support requests as [issues on Github](https://github.com/felixarntz/wp-gdpr-cookie-notice/issues), so I would appreciate if you created an issue for your request there. However, if you don't have an account there and do not want to sign up, you can of course use the [wordpress.org support forums](https://wordpress.org/support/plugin/wp-gdpr-cookie-notice) as well.
+For regular support requests, please use the [wordpress.org support forums](https://wordpress.org/support/plugin/wp-gdpr-cookie-notice). If you have a technical issue with the plugin where you already have more insight on how to fix it, you can also [open an issue on Github instead](https://github.com/felixarntz/wp-gdpr-cookie-notice/issues).
 
 = How can I contribute to the plugin? =
 
-If you're a developer and you have some ideas to improve the plugin or to solve a bug, feel free to raise an issue or submit a pull request in the [Github repository for the plugin](https://github.com/felixarntz/wp-gdpr-cookie-notice). Please stick to the [contributing guidelines](https://github.com/felixarntz/wp-gdpr-cookie-notice/blob/master/CONTRIBUTING.md).
+If you have some ideas to improve the plugin or to solve a bug, feel free to raise an issue or submit a pull request in the [Github repository for the plugin](https://github.com/felixarntz/wp-gdpr-cookie-notice). Please stick to the [contributing guidelines](https://github.com/felixarntz/wp-gdpr-cookie-notice/blob/master/CONTRIBUTING.md).
 
 You can also contribute to the plugin by translating it. Simply visit [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/wp-gdpr-cookie-notice) to get started.
 
 == Screenshots ==
 
-TODO
+1. The cookie notice with its default content and appearance
+2. Customizing the cookie notice behavior and content
+3. Customizing the cookie notice appearance
 
 == Changelog ==
 
