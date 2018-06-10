@@ -178,7 +178,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				right: 0;
 				bottom: 0;
 				left: 0;
-				z-index: 999999;
+				z-index: 9999999999;
 			}
 
 			@media (min-width: 640px) {
@@ -204,7 +204,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				right: 0;
 				left: 0;
 				<?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? 'top' : 'bottom'; ?>: 0;
-				z-index: 999999;
+				z-index: 9999999999;
 			}
 
 			.wp-gdpr-cookie-notice {
