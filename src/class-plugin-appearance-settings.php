@@ -18,6 +18,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Stylesheet;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Position_Enum;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Font_Size_Enum;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Button_Size_Enum;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Setting_Factory;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory;
@@ -114,6 +115,12 @@ class Plugin_Appearance_Settings implements Integration {
 				Setting::ARG_DEFAULT     => Cookie_Position_Enum::POSITION_BOTTOM,
 				Setting::ARG_ENUM        => ( new Cookie_Position_Enum() )->get_values(),
 			] ),
+			$factory->create( Cookie_Notice_Stylesheet::SETTING_FONT_SIZE, [
+				Setting::ARG_TYPE        => 'string',
+				Setting::ARG_DESCRIPTION => __( 'The notice font size.', 'wp-gdpr-cookie-notice' ),
+				Setting::ARG_DEFAULT     => Cookie_Font_Size_Enum::SIZE_MEDIUM,
+				Setting::ARG_ENUM        => ( new Cookie_Font_Size_Enum() )->get_values(),
+			] ),
 			$factory->create( Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR, [
 				Setting::ARG_TYPE              => 'string',
 				Setting::ARG_DESCRIPTION       => __( 'The notice text color.', 'wp-gdpr-cookie-notice' ),
@@ -187,6 +194,11 @@ class Plugin_Appearance_Settings implements Integration {
 				Customizer_Control::ARG_LABEL   => __( 'Position', 'wp-gdpr-cookie-notice' ),
 				Customizer_Control::ARG_CHOICES => ( new Cookie_Position_Enum() )->get_labels(),
 			] ),
+			$factory->create( Cookie_Notice_Stylesheet::SETTING_FONT_SIZE, [
+				Customizer_Control::ARG_TYPE    => 'radio',
+				Customizer_Control::ARG_LABEL   => __( 'Font Size', 'wp-gdpr-cookie-notice' ),
+				Customizer_Control::ARG_CHOICES => ( new Cookie_Font_Size_Enum() )->get_labels(),
+			] ),
 			$factory->create( Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR, [
 				Customizer_Control::ARG_TYPE  => 'color',
 				Customizer_Control::ARG_LABEL => __( 'Text Color', 'wp-gdpr-cookie-notice' ),
@@ -252,6 +264,7 @@ class Plugin_Appearance_Settings implements Integration {
 			$factory->create( $stylesheet->get_id(), [
 				Customizer_Partial::ARG_SETTINGS            => [
 					Cookie_Notice_Stylesheet::SETTING_POSITION,
+					Cookie_Notice_Stylesheet::SETTING_FONT_SIZE,
 					Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR,
 					Cookie_Notice_Stylesheet::SETTING_LINK_COLOR,
 					Cookie_Notice_Stylesheet::SETTING_BACKGROUND_COLOR,

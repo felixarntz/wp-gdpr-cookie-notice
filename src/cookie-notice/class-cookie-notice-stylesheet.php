@@ -25,6 +25,11 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 	const SETTING_POSITION = 'position';
 
 	/**
+	 * Identifier for the 'font_size' setting.
+	 */
+	const SETTING_FONT_SIZE = 'font_size';
+
+	/**
 	 * Identifier for the 'text_color' setting.
 	 */
 	const SETTING_TEXT_COLOR = 'text_color';
@@ -131,6 +136,22 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 	public function print_content() {
 		$options = $this->options->get_options();
 
+		$base_font_size = 90;
+		switch ( $options[ self::SETTING_FONT_SIZE ] ) {
+			case Cookie_Font_Size_Enum::SIZE_SMALL:
+				$base_font_size -= 10;
+				break;
+			case Cookie_Font_Size_Enum::SIZE_LARGE:
+				$base_font_size += 10;
+				break;
+			case Cookie_Font_Size_Enum::SIZE_EXTRA_LARGE:
+				$base_font_size += 20;
+				break;
+		}
+
+		$large_font_size = $base_font_size + 10;
+		$heading_font_size = $base_font_size + 20;
+
 		/**
 		 * Filters the maximum width of the cookie notice content.
 		 *
@@ -197,7 +218,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 
 		.wp-gdpr-cookie-notice {
 			padding: 0.75rem 1rem;
-			font-size: 90%;
+			font-size: <?php echo $base_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 			line-height: 1.4;
 			color: <?php echo esc_attr( $options[ self::SETTING_TEXT_COLOR ] ); ?>;
 			background-color: <?php echo esc_attr( $options[ self::SETTING_BACKGROUND_COLOR ] ); ?>;
@@ -229,7 +250,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 		.wp-gdpr-cookie-notice-heading > * {
 			margin: 0 !important;
 			padding: 0 !important;
-			font-size: 110%;
+			font-size: <?php echo $heading_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 		}
 
 		.wp-gdpr-cookie-notice-content > * {
@@ -267,7 +288,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			padding: 0;
 			border: 0;
 			flex: 1;
-			font-size: 90%;
+			font-size: <?php echo $base_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 		}
 
 		.wp-gdpr-cookie-notice-toggle {
@@ -291,19 +312,19 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				case Cookie_Button_Size_Enum::SIZE_SMALL:
 					?>
 					padding: 0.25rem 0.4rem;
-					font-size: 90%;
+					font-size: <?php echo $base_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 					<?php
 					break;
 				case Cookie_Button_Size_Enum::SIZE_LARGE:
 					?>
 					padding: 0.6rem 0.8rem;
-					font-size: 100%;
+					font-size: <?php echo $large_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 					<?php
 					break;
 				default:
 					?>
 					padding: 0.4rem 0.6rem;
-					font-size: 90%;
+					font-size: <?php echo $base_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 					<?php
 					break;
 			}
