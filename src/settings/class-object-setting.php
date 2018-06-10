@@ -94,7 +94,8 @@ class Object_Setting extends Abstract_Setting {
 
 		foreach ( $this->properties_settings as $setting ) {
 			$id             = $setting->get_id();
-			$property_value = array_key_exists( $id, $value ) ? $value[ $id ] : null;
+			$schema         = $setting->get_schema();
+			$property_value = array_key_exists( $id, $value ) ? $value[ $id ] : ( isset( $schema[ self::ARG_DEFAULT ] ) ? $schema[ self::ARG_DEFAULT ] : null );
 
 			$value[ $id ] = $setting->sanitize_value( $property_value );
 		}
