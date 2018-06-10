@@ -56,6 +56,13 @@ More plugins will be supported in the future. If you are a developer though, it'
 
 Since the settings of the plugin are mostly of visual nature, the plugin does not have any settings page, but uses exclusively the Customizer. You can easily reach the plugin's Customizer panel either by using the link in the Settings menu or the link in the plugin's row on the Plugins screen.
 
+= Which filters are available? =
+
+You can use the following filters:
+
+* `wp_gdpr_cookie_notice_max_content_width`: Filters the maximum width of the cookie notice content. By default, the `$content_width` global is used to determine this value, with a fallback of '640px' if none is defined.
+* `wp_gdpr_cookie_notice_heading_level`: Filters the heading level to use for the cookie notice heading. Default is 'h2'.
+
 = Where should I submit my support request? =
 
 For regular support requests, please use the [wordpress.org support forums](https://wordpress.org/support/plugin/wp-gdpr-cookie-notice). If you have a technical issue with the plugin where you already have more insight on how to fix it, you can also [open an issue on Github instead](https://github.com/felixarntz/wp-gdpr-cookie-notice/issues).
