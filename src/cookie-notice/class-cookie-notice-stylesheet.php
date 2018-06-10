@@ -75,6 +75,11 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 	const SETTING_BUTTON_BACKGROUND_COLOR = 'button_background_color';
 
 	/**
+	 * Identifier for the 'show_controls_beside_content' setting.
+	 */
+	const SETTING_SHOW_CONTROLS_BESIDE_CONTENT = 'show_controls_beside_content';
+
+	/**
 	 * ID attribute for the stylesheet.
 	 */
 	const ID_ATTR = 'wp-gdpr-cookie-notice-stylesheet';
@@ -226,11 +231,31 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			border-style: solid;
 		}
 
-		.wp-gdpr-cookie-notice > * {
+		.wp-gdpr-cookie-notice-inner {
 			display: block;
 			margin: 0 auto !important;
 			max-width: <?php echo esc_attr( $max_content_width ); ?>;
 		}
+
+		<?php
+		if ( $options[ self::SETTING_SHOW_CONTROLS_BESIDE_CONTENT ] ) {
+			?>
+			.wp-gdpr-cookie-notice-inner {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.wp-gdpr-cookie-notice-inner > * {
+				margin-right: 1rem;
+			}
+
+			.wp-gdpr-cookie-notice-inner > *:last-child {
+				margin-right: 0;
+			}
+			<?php
+		}
+		?>
 
 		.wp-gdpr-cookie-notice a,
 		.wp-gdpr-cookie-notice a:visited {

@@ -173,6 +173,11 @@ class Plugin_Appearance_Settings implements Integration {
 				Setting::ARG_DEFAULT           => '#21759b',
 				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
 			] ),
+			$factory->create( Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT, [
+				Setting::ARG_TYPE        => 'boolean',
+				Setting::ARG_DESCRIPTION => __( 'Whether to show the notice controls beside the notice content.', 'wp-gdpr-cookie-notice' ),
+				Setting::ARG_DEFAULT     => false,
+			] ),
 		];
 
 		return $settings;
@@ -242,6 +247,11 @@ class Plugin_Appearance_Settings implements Integration {
 				Customizer_Control::ARG_TYPE  => 'color',
 				Customizer_Control::ARG_LABEL => __( 'Button Background Color', 'wp-gdpr-cookie-notice' ),
 			] ),
+			$factory->create( Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT, [
+				Customizer_Control::ARG_TYPE        => 'checkbox',
+				Customizer_Control::ARG_LABEL       => __( 'Show controls beside content?', 'wp-gdpr-cookie-notice' ),
+				Customizer_Control::ARG_DESCRIPTION => __( 'This will make the button and the cookie control toggles appear beside the text.', 'wp-gdpr-cookie-notice' ),
+			] ),
 		];
 
 		return $controls;
@@ -274,6 +284,7 @@ class Plugin_Appearance_Settings implements Integration {
 					Cookie_Notice_Stylesheet::SETTING_BUTTON_SIZE,
 					Cookie_Notice_Stylesheet::SETTING_BUTTON_TEXT_COLOR,
 					Cookie_Notice_Stylesheet::SETTING_BUTTON_BACKGROUND_COLOR,
+					Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT,
 				],
 				Customizer_Partial::ARG_SELECTOR            => '#' . $stylesheet->get_id(),
 				Customizer_Partial::ARG_RENDER_CALLBACK     => [ $stylesheet, 'print_content' ],

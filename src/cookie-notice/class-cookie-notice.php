@@ -128,13 +128,17 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		?>
 		<div id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap">
 			<div id="wp-gdpr-cookie-notice" class="wp-gdpr-cookie-notice" role="alert" aria-label="<?php esc_attr_e( 'Cookie Consent Notice', 'wp-gdpr-cookie-notice' ); ?>">
-				<div class="wp-gdpr-cookie-notice-heading">
-					<?php $this->render_heading(); ?>
+				<div class="wp-gdpr-cookie-notice-inner">
+					<div class="wp-gdpr-cookie-notice-content-wrap">
+						<div class="wp-gdpr-cookie-notice-heading">
+							<?php $this->render_heading(); ?>
+						</div>
+						<div class="wp-gdpr-cookie-notice-content">
+							<?php $this->render_content(); ?>
+						</div>
+					</div>
+					<?php $this->form->render(); ?>
 				</div>
-				<div class="wp-gdpr-cookie-notice-content">
-					<?php $this->render_content(); ?>
-				</div>
-				<?php $this->form->render(); ?>
 			</div>
 		</div>
 		<?php
