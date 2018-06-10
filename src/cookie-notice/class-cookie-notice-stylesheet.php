@@ -131,6 +131,18 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 	public function print_content() {
 		$options = $this->options->get_options();
 
+		/**
+		 * Filters the maximum width of the cookie notice content.
+		 *
+		 * By default, the $content_width global is used to determine this value, with a fallback
+		 * of 640px if none is defined.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $max_content_width as CSS 'max-width' property value.
+		 */
+		$max_content_width = apply_filters( 'wp_gdpr_cookie_notice_max_content_width', ! empty( $GLOBALS['content_width'] ) ? (string) $GLOBALS['content_width'] . 'px' : '640px' );
+
 		if ( Cookie_Position_Enum::POSITION_OVERLAY === $options[ self::SETTING_POSITION ] ) {
 			?>
 			.wp-gdpr-cookie-notice-wrap,
@@ -143,13 +155,13 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				z-index: 999999;
 			}
 
-			@media (min-width: 42rem) {
+			@media (min-width: 640px) {
 				.wp-gdpr-cookie-notice {
 					top: 50%;
 					right: auto;
 					bottom: auto;
 					left: 50%;
-					max-width: 40rem;
+					max-width: <?php echo esc_attr( $max_content_width ); ?>;
 					transform: translate(-50%, -50%);
 					border-width: <?php echo esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px'; ?>;
 					<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] ) : ?>
@@ -196,7 +208,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 		.wp-gdpr-cookie-notice > * {
 			display: block;
 			margin: 0 auto !important;
-			max-width: 40rem;
+			max-width: <?php echo esc_attr( $max_content_width ); ?>;
 		}
 
 		.wp-gdpr-cookie-notice a,
