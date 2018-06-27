@@ -6,7 +6,7 @@
 [![Latest Stable Version](https://poser.pugx.org/felixarntz/wp-gdpr-cookie-notice/version)](https://packagist.org/packages/felixarntz/wp-gdpr-cookie-notice)
 [![License](https://poser.pugx.org/felixarntz/wp-gdpr-cookie-notice/license)](https://packagist.org/packages/felixarntz/wp-gdpr-cookie-notice)
 
-# Torro Forms
+# WP GDPR Cookie Notice
 
 Simple performant GDPR-compliant cookie consent notice that supports granular cookie control and live preview customization.
 
