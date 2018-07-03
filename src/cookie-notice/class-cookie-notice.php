@@ -126,21 +126,20 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 */
 	public function render() {
 		?>
-		<div id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap">
-			<div id="wp-gdpr-cookie-notice" class="wp-gdpr-cookie-notice" role="alert" aria-label="<?php esc_attr_e( 'Cookie Consent Notice', 'wp-gdpr-cookie-notice' ); ?>">
-				<div class="wp-gdpr-cookie-notice-inner">
-					<div class="wp-gdpr-cookie-notice-content-wrap">
-						<div class="wp-gdpr-cookie-notice-heading">
-							<?php $this->render_heading(); ?>
-						</div>
-						<div class="wp-gdpr-cookie-notice-content">
-							<?php $this->render_content(); ?>
-						</div>
-					</div>
-					<?php $this->form->render(); ?>
-				</div>
-			</div>
-		</div>
+		<script type="text/template" id="wp-gdpr-cookie-notice-template">
+			<?php $this->render_html(); ?>
+		</script>
+		<script type="text/javascript">
+			( function() {
+				var template = document.querySelector( '#wp-gdpr-cookie-notice-template' );
+				var notice   = document.createElement( 'div' );
+
+				notice.innerHTML = template.textContent;
+				notice           = notice.firstElementChild;
+
+				template.parentNode.insertBefore( notice, template );
+			})();
+		</script>
 		<?php
 	}
 
@@ -268,6 +267,31 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		}
 
 		echo $this->prepare_content( $content ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Renders the notice output HTML only.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function render_html() {
+		?>
+		<div id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap">
+			<div id="wp-gdpr-cookie-notice" class="wp-gdpr-cookie-notice" role="alert" aria-label="<?php esc_attr_e( 'Cookie Consent Notice', 'wp-gdpr-cookie-notice' ); ?>">
+				<div class="wp-gdpr-cookie-notice-inner">
+					<div class="wp-gdpr-cookie-notice-content-wrap">
+						<div class="wp-gdpr-cookie-notice-heading">
+							<?php $this->render_heading(); ?>
+						</div>
+						<div class="wp-gdpr-cookie-notice-content">
+							<?php $this->render_content(); ?>
+						</div>
+					</div>
+					<?php $this->form->render(); ?>
+				</div>
+			</div>
+		</div>
+		<?php
 	}
 
 	/**
