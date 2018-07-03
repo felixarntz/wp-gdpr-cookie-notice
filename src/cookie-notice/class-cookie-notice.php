@@ -125,6 +125,11 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @since 1.0.0
 	 */
 	public function render() {
+		if ( is_customize_preview() ) {
+			$this->render_html();
+			return;
+		}
+
 		?>
 		<script type="text/template" id="wp-gdpr-cookie-notice-template">
 			<?php $this->render_html(); ?>
