@@ -115,7 +115,7 @@ class Cookie_Data_Repository implements Data_Repository {
 	 * @param array  $data Data array.
 	 */
 	protected function write_cookie( string $id, array $data ) {
-		setcookie( $id, wp_json_encode( $data ), 0, COOKIEPATH );
+		$this->set_wp_cookie( $id, wp_json_encode( $data ), time() + YEAR_IN_SECONDS );
 	}
 
 	/**
@@ -148,6 +148,23 @@ class Cookie_Data_Repository implements Data_Repository {
 	 * @param string $id Identifier.
 	 */
 	protected function unset_cookie( string $id ) {
-		setcookie( $id, '', time() - 3600 );
+		$this->set_wp_cookie( $id, '', time() - HOUR_IN_SECONDS );
+	}
+
+	/**
+	 * Sets a cookie correctly.
+	 *
+	 * Uses cookie domain, path and secure definitions from WordPress.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $id      Cookie ID.
+	 * @param string $content Cookie content.
+	 * @param int    $expire  Optional. When the cookie should expire. Expects
+	 *                        a UNIX timestamp, or 0 in order to expire at the
+	 *                        end of the current session. Default 0.
+	 */
+	protected function set_wp_cookie( string $id, string $content, int $expire = 0 ) {
+		setcookie( $id, $content, $expire, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 	}
 }
