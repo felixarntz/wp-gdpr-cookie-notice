@@ -131,8 +131,13 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		</script>
 		<script type="text/javascript">
 			( function() {
-				var template = document.querySelector( '#wp-gdpr-cookie-notice-template' );
-				var notice   = document.createElement( 'div' );
+				var isGoogleBot = navigator.userAgent && ( -1 !== navigator.userAgent.indexOf( 'Googlebot' ) || -1 !== navigator.userAgent.indexOf( 'Speed Insights' ) );
+				var template    = document.querySelector( '#wp-gdpr-cookie-notice-template' );
+				var notice      = document.createElement( 'div' );
+
+				if ( isGoogleBot ) {
+					return;
+				}
 
 				notice.innerHTML = template.textContent;
 				notice           = notice.firstElementChild;
