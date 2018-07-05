@@ -110,7 +110,6 @@ class Cookie_Notice_Script implements Inline_Asset {
 					})
 					.then( function() {
 						noticeWrap.parentNode.removeChild( noticeWrap );
-						document.body.classList.remove( 'wp-gdpr-has-cookie-notice' );
 					})
 					.catch( function( result ) {
 						if ( ! result.data || ! result.data.message ) {
