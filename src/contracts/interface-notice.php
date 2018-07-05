@@ -13,14 +13,7 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
  *
  * @since 1.0.0
  */
-interface Notice {
-
-	/**
-	 * Renders the notice output.
-	 *
-	 * @since 1.0.0
-	 */
-	public function render();
+interface Notice extends Renderable {
 
 	/**
 	 * Checks whether the notice is active and should be rendered.

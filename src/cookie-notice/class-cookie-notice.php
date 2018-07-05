@@ -15,7 +15,9 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Parser;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Form;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Renderable;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Inline_Asset;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\Is_AMP;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
@@ -28,30 +30,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
  */
 class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 
-	/**
-	 * Identifier for the 'notice_heading' setting.
-	 */
-	const SETTING_NOTICE_HEADING = 'notice_heading';
-
-	/**
-	 * Identifier for the 'notice_content' setting.
-	 */
-	const SETTING_NOTICE_CONTENT = 'notice_content';
-
-	/**
-	 * Context for the cookie notice content.
-	 */
-	const CONTEXT = 'cookie_notice';
-
-	/**
-	 * Instance name for the <amp-consent> used with AMP.
-	 */
-	const AMP_INSTANCE = 'wp-gdpr-cookie-notice';
-
-	/**
-	 * Action for the <amp-consent> checkConsentHref request.
-	 */
-	const AMP_CHECK_CONSENT_HREF_ACTION = 'wp_gdpr_cookie_notice_check_consent_href';
+	use Is_AMP;
 
 	/**
 	 * Cookie preferences.
@@ -62,28 +41,28 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	protected $preferences;
 
 	/**
-	 * Shortcode parser.
-	 *
-	 * @since 1.0.0
-	 * @var Shortcode_Parser
-	 */
-	protected $shortcode_parser;
-
-	/**
-	 * Option reader.
-	 *
-	 * @since 1.0.0
-	 * @var Option_Reader
-	 */
-	protected $options;
-
-	/**
 	 * Cookie notice form.
 	 *
 	 * @since 1.0.0
 	 * @var Cookie_Notice_Form
 	 */
 	protected $form;
+
+	/**
+	 * Cookie notice markup.
+	 *
+	 * @since 1.0.0
+	 * @var Cookie_Notice_Markup
+	 */
+	protected $markup;
+
+	/**
+	 * Cookie notice markup in AMP.
+	 *
+	 * @since 1.0.0
+	 * @var Cookie_Notice_AMP_Markup
+	 */
+	protected $amp_markup;
 
 	/**
 	 * Cookie notice stylesheet.
@@ -121,29 +100,29 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			$options = new Plugin_Option_Reader();
 		}
 
-		$this->preferences      = $preferences;
-		$this->shortcode_parser = $shortcode_parser;
-		$this->options          = $options;
-		$this->form             = new Cookie_Notice_Form( $this, $this->shortcode_parser, $this->options );
-		$this->stylesheet       = new Cookie_Notice_Stylesheet( $this->options );
-		$this->script           = new Cookie_Notice_Script( $this->options );
+		$this->preferences = $preferences;
+		$this->form        = new Cookie_Notice_Form( $this, $shortcode_parser, $options );
+		$this->markup      = new Cookie_Notice_Markup( $this->form, $shortcode_parser, $options );
+		$this->amp_markup  = new Cookie_Notice_AMP_Markup( $this->form, $shortcode_parser, $options );
+		$this->stylesheet  = new Cookie_Notice_Stylesheet( $options );
+		$this->script      = new Cookie_Notice_Script( $options );
 	}
 
 	/**
-	 * Renders the notice output.
+	 * Renders the output.
 	 *
 	 * @since 1.0.0
 	 */
 	public function render() {
 		if ( is_customize_preview() || $this->is_amp() ) {
-			$this->render_html();
+			$this->get_markup()->render();
 			return;
 		}
 
 		// The following script ensures the notice is only inserted into the page as necessary.
 		?>
 		<script type="text/template" id="wp-gdpr-cookie-notice-template">
-			<?php $this->render_html(); ?>
+			<?php $this->get_markup()->render(); ?>
 		</script>
 		<script type="text/javascript">
 			( function() {
@@ -256,17 +235,6 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	}
 
 	/**
-	 * Gets the notice form instance.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return Form Form instance.
-	 */
-	public function get_form() : Form {
-		return $this->form;
-	}
-
-	/**
 	 * Enqueues the necessary assets.
 	 *
 	 * @since 1.0.0
@@ -287,6 +255,17 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		}
 
 		add_action( "{$prefix}_footer", array( $this->script, 'print' ), 1000 );
+	}
+
+	/**
+	 * Gets the notice form instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Form Form instance.
+	 */
+	public function get_form() : Form {
+		return $this->form;
 	}
 
 	/**
@@ -317,13 +296,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @since 1.0.0
 	 */
 	public function render_heading() {
-		$heading = $this->options->get_option( self::SETTING_NOTICE_HEADING );
-
-		if ( empty( $heading ) ) {
-			return;
-		}
-
-		echo $this->prepare_heading( $heading ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		$this->get_markup()->render_heading();
 	}
 
 	/**
@@ -332,117 +305,23 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @since 1.0.0
 	 */
 	public function render_content() {
-		$content = $this->options->get_option( self::SETTING_NOTICE_CONTENT );
-
-		if ( empty( $content ) ) {
-			return;
-		}
-
-		echo $this->prepare_content( $content ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		$this->get_markup()->render_content();
 	}
 
 	/**
-	 * Renders the notice output HTML only.
+	 * Gets the notice markup instance to use.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return Renderable Markup instance.
 	 */
-	protected function render_html() {
-		$tag        = 'div';
-		$extra_attr = '';
-		$data       = array();
+	protected function get_markup() : Renderable {
 
-		// In the Customizer, do not display as <amp-consent> tag because it will not show up when already accepted.
+		// In the Customizer, do not display notice as <amp-consent> tag because it will not show up when already accepted.
 		if ( $this->is_amp() && ! is_customize_preview() ) {
-			$tag        = 'amp-consent';
-			$extra_attr = ' layout="nodisplay"';
-			$data       = array(
-				'consents' => array(
-					self::AMP_INSTANCE => array(
-						'checkConsentHref' => add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) ),
-						'promptUI'         => 'wp-gdpr-cookie-notice',
-					),
-				),
-			);
+			return $this->amp_markup;
 		}
 
-		?>
-		<<?php echo $tag; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?> id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap"<?php echo $extra_attr; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>>
-			<?php
-			if ( ! empty( $data ) ) {
-				?>
-				<script type="application/json">
-					<?php echo wp_json_encode( $data ); ?>
-				</script>
-				<?php
-			}
-			?>
-			<div id="wp-gdpr-cookie-notice" class="wp-gdpr-cookie-notice" role="alert" aria-label="<?php esc_attr_e( 'Cookie Consent Notice', 'wp-gdpr-cookie-notice' ); ?>">
-				<div class="wp-gdpr-cookie-notice-inner">
-					<div class="wp-gdpr-cookie-notice-content-wrap">
-						<div class="wp-gdpr-cookie-notice-heading">
-							<?php $this->render_heading(); ?>
-						</div>
-						<div class="wp-gdpr-cookie-notice-content">
-							<?php $this->render_content(); ?>
-						</div>
-					</div>
-					<?php $this->form->render(); ?>
-				</div>
-			</div>
-		</<?php echo $tag; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>>
-		<?php
-	}
-
-	/**
-	 * Prepares the notice heading for output.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $heading Notice heading.
-	 * @return string Prepared notice heading.
-	 */
-	protected function prepare_heading( string $heading ) : string {
-
-		/**
-		 * Filters the heading level to use for the cookie notice heading.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $heading_level Must be one of 'h1', 'h2', 'h3', 'h4', 'h5', or 'h6'.
-		 *                              Default is 'h2'.
-		 */
-		$heading_level = strtolower( apply_filters( 'wp_gdpr_cookie_notice_heading_level', 'h2' ) );
-		if ( ! in_array( $heading_level, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], true ) ) {
-			$heading_level = 'h2';
-		}
-
-		return '<' . $heading_level . '>' . esc_html( $heading ) . '</' . $heading_level . '>';
-	}
-
-	/**
-	 * Prepares the notice content for output.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $content Notice content.
-	 * @return string Prepared notice content.
-	 */
-	protected function prepare_content( string $content ) : string {
-		$content = wp_kses( $content, self::CONTEXT );
-		$content = $this->shortcode_parser->parse_shortcodes( $content, self::CONTEXT );
-		$content = wpautop( $content );
-
-		return $content;
-	}
-
-	/**
-	 * Checks whether the current request is for an AMP endpoint.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool True if an AMP endpoint, false otherwise.
-	 */
-	protected function is_amp() {
-		return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
+		return $this->markup;
 	}
 }

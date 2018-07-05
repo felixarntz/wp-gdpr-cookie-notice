@@ -15,14 +15,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception
  *
  * @since 1.0.0
  */
-interface Form {
-
-	/**
-	 * Renders the form output.
-	 *
-	 * @since 1.0.0
-	 */
-	public function render();
+interface Form extends Renderable {
 
 	/**
 	 * Handles a form submission.

@@ -12,7 +12,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\Shortcode_Factory;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Markup;
 
 /**
  * Class for registering plugin shortcodes.
@@ -102,7 +102,7 @@ class Plugin_Shortcodes implements Integration {
 						'target'        => '',
 						'show_if_empty' => '1',
 					],
-					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice::CONTEXT ],
+					Context_Shortcode::ARG_CONTEXTS => [ Cookie_Notice_Markup::CONTEXT ],
 				]
 			);
 		}

@@ -13,8 +13,8 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Notice;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Form_Aware;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Assets_Aware;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_Markup;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_AMP_Markup;
 
 /**
  * Class for controlling the cookie notice.
@@ -57,11 +57,11 @@ class Plugin_Notice_Controller implements Integration {
 		}
 
 		add_action( 'wp_loaded', [ $this, 'handle_notice_submission_request' ], 100, 0 );
-		add_action( 'wp_ajax_' . Cookie_Notice_Form::ACTION, [ $this, 'handle_notice_submission_ajax' ], 10, 0 );
-		add_action( 'wp_ajax_nopriv_' . Cookie_Notice_Form::ACTION, [ $this, 'handle_notice_submission_ajax' ], 10, 0 );
+		add_action( 'wp_ajax_' . Cookie_Notice_Form_Markup::ACTION, [ $this, 'handle_notice_submission_ajax' ], 10, 0 );
+		add_action( 'wp_ajax_nopriv_' . Cookie_Notice_Form_Markup::ACTION, [ $this, 'handle_notice_submission_ajax' ], 10, 0 );
 
-		add_action( 'wp_ajax_' . Cookie_Notice::AMP_CHECK_CONSENT_HREF_ACTION, [ $this, 'handle_amp_check_consent_href_ajax' ], 10, 0 );
-		add_action( 'wp_ajax_nopriv_' . Cookie_Notice::AMP_CHECK_CONSENT_HREF_ACTION, [ $this, 'handle_amp_check_consent_href_ajax' ], 10, 0 );
+		add_action( 'wp_ajax_' . Cookie_Notice_AMP_Markup::AMP_CHECK_CONSENT_HREF_ACTION, [ $this, 'handle_amp_check_consent_href_ajax' ], 10, 0 );
+		add_action( 'wp_ajax_nopriv_' . Cookie_Notice_AMP_Markup::AMP_CHECK_CONSENT_HREF_ACTION, [ $this, 'handle_amp_check_consent_href_ajax' ], 10, 0 );
 	}
 
 	/**
@@ -131,11 +131,14 @@ class Plugin_Notice_Controller implements Integration {
 	 * @since 1.0.0
 	 */
 	public function handle_amp_check_consent_href_ajax() {
-		$instance_id = filter_input( INPUT_POST, 'consentInstanceId' );
-
 		$active = false;
-		if ( $instance_id === Cookie_Notice::AMP_INSTANCE ) {
-			$active = $this->notice->is_active();
+
+		$payload = file_get_contents( 'php://input' );
+		if ( ! empty( $payload ) ) {
+			$payload = json_decode( $payload, true );
+			if ( ! empty( $payload['consentInstanceId'] ) && $payload['consentInstanceId'] === Cookie_Notice_AMP_Markup::AMP_INSTANCE ) {
+				$active = $this->notice->is_active();
+			}
 		}
 
 		wp_send_json( [ 'promptIfUnknown' => $active ], 200 );
