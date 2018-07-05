@@ -79,7 +79,7 @@ abstract class Abstract_Page implements Page {
 			return '1970-01-01 00:00:00';
 		}
 
-		return $post->post_date;
+		return $post->post_date_gmt;
 	}
 
 	/**
@@ -101,6 +101,6 @@ abstract class Abstract_Page implements Page {
 			return '1970-01-01 00:00:00';
 		}
 
-		return $post->post_modified;
+		return $post->post_modified_gmt;
 	}
 }
