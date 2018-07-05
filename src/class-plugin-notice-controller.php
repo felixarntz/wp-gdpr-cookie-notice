@@ -134,9 +134,7 @@ class Plugin_Notice_Controller implements Integration {
 		$instance_id = filter_input( INPUT_POST, 'consentInstanceId' );
 
 		$active = false;
-		if ( $instance_id === Cookie_Notice::AMP_INSTANCE_CUSTOMIZE ) {
-			$active = true;
-		} else {
+		if ( $instance_id === Cookie_Notice::AMP_INSTANCE ) {
 			$active = $this->notice->is_active();
 		}
 

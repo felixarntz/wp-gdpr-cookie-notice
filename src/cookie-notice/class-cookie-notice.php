@@ -49,11 +49,6 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	const AMP_INSTANCE = 'wp-gdpr-cookie-notice';
 
 	/**
-	 * Instance name for the <amp-consent> used with AMP when the Customizer is active.
-	 */
-	const AMP_INSTANCE_CUSTOMIZE = 'wp-gdpr-cookie-notice-customize';
-
-	/**
 	 * Action for the <amp-consent> checkConsentHref request.
 	 */
 	const AMP_CHECK_CONSENT_HREF_ACTION = 'wp_gdpr_cookie_notice_check_consent_href';
@@ -356,14 +351,13 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		$extra_attr = '';
 		$data       = array();
 
-		if ( $this->is_amp() ) {
+		// In the Customizer, do not display as <amp-consent> tag because it will not show up when already accepted.
+		if ( $this->is_amp() && ! is_customize_preview() ) {
 			$tag        = 'amp-consent';
 			$extra_attr = ' layout="nodisplay"';
-
-			$instance_id = is_customize_preview() ? self::AMP_INSTANCE_CUSTOMIZE : self::AMP_INSTANCE;
-			$data        = array(
+			$data       = array(
 				'consents' => array(
-					$instance_id => array(
+					self::AMP_INSTANCE => array(
 						'checkConsentHref' => add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) ),
 						'promptUI'         => 'wp-gdpr-cookie-notice',
 					),
