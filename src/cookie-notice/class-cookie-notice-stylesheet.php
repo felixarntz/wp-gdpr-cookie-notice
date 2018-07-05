@@ -154,7 +154,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				break;
 		}
 
-		$large_font_size = $base_font_size + 10;
+		$large_font_size   = $base_font_size + 10;
 		$heading_font_size = $base_font_size + 20;
 
 		/**

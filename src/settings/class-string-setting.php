@@ -103,12 +103,12 @@ class String_Setting extends Abstract_Setting {
 				'error_code'    => 'value_no_date',
 				'error_message' => __( 'The value is not a valid date.', 'wp-gdpr-cookie-notice' ),
 			],
-			'email'    => [
+			'email'     => [
 				'callback'      => 'is_email',
 				'error_code'    => 'value_no_email',
 				'error_message' => __( 'The value is not a valid email address.', 'wp-gdpr-cookie-notice' ),
 			],
-			'ip'       => [
+			'ip'        => [
 				'callback'      => 'rest_is_ip_address',
 				'error_code'    => 'value_no_ip',
 				'error_message' => __( 'The value is not a valid IP address.', 'wp-gdpr-cookie-notice' ),

@@ -136,7 +136,7 @@ class Plugin_Notice_Controller implements Integration {
 		$payload = file_get_contents( 'php://input' );
 		if ( ! empty( $payload ) ) {
 			$payload = json_decode( $payload, true );
-			if ( ! empty( $payload['consentInstanceId'] ) && $payload['consentInstanceId'] === Cookie_Notice_AMP_Markup::AMP_INSTANCE ) {
+			if ( ! empty( $payload['consentInstanceId'] ) && Cookie_Notice_AMP_Markup::AMP_INSTANCE === $payload['consentInstanceId'] ) {
 				$active = $this->notice->is_active();
 			}
 		}
