@@ -44,6 +44,21 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	const CONTEXT = 'cookie_notice';
 
 	/**
+	 * Instance name for the <amp-consent> used with AMP.
+	 */
+	const AMP_INSTANCE = 'wp-gdpr-cookie-notice';
+
+	/**
+	 * Instance name for the <amp-consent> used with AMP when the Customizer is active.
+	 */
+	const AMP_INSTANCE_CUSTOMIZE = 'wp-gdpr-cookie-notice-customize';
+
+	/**
+	 * Action for the <amp-consent> checkConsentHref request.
+	 */
+	const AMP_CHECK_CONSENT_HREF_ACTION = 'wp_gdpr_cookie_notice_check_consent_href';
+
+	/**
 	 * Cookie preferences.
 	 *
 	 * @since 1.0.0
@@ -339,14 +354,34 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	protected function render_html() {
 		$tag        = 'div';
 		$extra_attr = '';
+		$data       = array();
 
 		if ( $this->is_amp() ) {
-			$tag        = 'amp-user-notification';
+			$tag        = 'amp-consent';
 			$extra_attr = ' layout="nodisplay"';
+
+			$instance_id = is_customize_preview() ? self::AMP_INSTANCE_CUSTOMIZE : self::AMP_INSTANCE;
+			$data        = array(
+				'consents' => array(
+					$instance_id => array(
+						'checkConsentHref' => add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) ),
+						'promptUI'         => 'wp-gdpr-cookie-notice',
+					),
+				),
+			);
 		}
 
 		?>
 		<<?php echo $tag; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?> id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap"<?php echo $extra_attr; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>>
+			<?php
+			if ( ! empty( $data ) ) {
+				?>
+				<script type="application/json">
+					<?php echo wp_json_encode( $data ); ?>
+				</script>
+				<?php
+			}
+			?>
 			<div id="wp-gdpr-cookie-notice" class="wp-gdpr-cookie-notice" role="alert" aria-label="<?php esc_attr_e( 'Cookie Consent Notice', 'wp-gdpr-cookie-notice' ); ?>">
 				<div class="wp-gdpr-cookie-notice-inner">
 					<div class="wp-gdpr-cookie-notice-content-wrap">

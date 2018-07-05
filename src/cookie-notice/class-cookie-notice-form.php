@@ -284,7 +284,7 @@ class Cookie_Notice_Form implements Form {
 		$extra_attr = '';
 
 		if ( $this->is_amp() ) {
-			$extra_attr = ' on="tap:wp-gdpr-cookie-notice-wrap.dismiss"';
+			$extra_attr = ' on="tap:wp-gdpr-cookie-notice-wrap.accept"';
 		}
 
 		?>
