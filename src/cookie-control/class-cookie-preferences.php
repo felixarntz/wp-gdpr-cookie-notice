@@ -158,6 +158,24 @@ class Cookie_Preferences implements Service {
 	}
 
 	/**
+	 * Gets the timestamp before which a cookie granting cookie consent is considered outdated.
+	 *
+	 * The timestamp is created from the last modified date of the cookie policy page in GMT.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return int UNIX timestamp.
+	 */
+	public function get_reference_timestamp() {
+		$policy_page = $this->cookie_policy_page;
+		if ( ! $policy_page->get_id() ) {
+			$policy_page = $this->privacy_policy_page;
+		}
+
+		return (int) strtotime( $policy_page->get_last_modified_date() );
+	}
+
+	/**
 	 * Gets the default preferences.
 	 *
 	 * @since 1.0.0
@@ -184,14 +202,7 @@ class Cookie_Preferences implements Service {
 			return true;
 		}
 
-		$policy_page = $this->cookie_policy_page;
-		if ( ! $policy_page->get_id() ) {
-			$policy_page = $this->privacy_policy_page;
-		}
-
-		$policy_last_modified = (int) strtotime( $policy_page->get_last_modified_date() );
-
-		return $preferences[ self::COOKIE_LAST_MODIFIED ] < $policy_last_modified;
+		return $preferences[ self::COOKIE_LAST_MODIFIED ] < $this->get_reference_timestamp();
 	}
 
 	/**

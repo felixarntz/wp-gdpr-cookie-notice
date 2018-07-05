@@ -130,19 +130,62 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			return;
 		}
 
+		// The following script ensures the notice is only inserted into the page as necessary.
 		?>
 		<script type="text/template" id="wp-gdpr-cookie-notice-template">
 			<?php $this->render_html(); ?>
 		</script>
 		<script type="text/javascript">
 			( function() {
-				var isGoogleBot = navigator.userAgent && ( -1 !== navigator.userAgent.indexOf( 'Googlebot' ) || -1 !== navigator.userAgent.indexOf( 'Speed Insights' ) );
-				var template    = document.querySelector( '#wp-gdpr-cookie-notice-template' );
-				var notice      = document.createElement( 'div' );
+				var template, notice;
 
-				if ( isGoogleBot ) {
+				function cookiesAccepted() {
+					var cookieParts = ( '; ' + document.cookie ).split( '; wp_gdpr_cookie_preferences=' );
+					var cookie      = 2 === cookieParts.length ? cookieParts.pop().split( ';' ).shift() : '';
+
+					if ( ! cookie.length ) {
+						return false;
+					}
+
+					try {
+						cookie = JSON.parse( decodeURIComponent( cookie ) );
+					} catch ( error ) {
+						return false;
+					}
+
+					if ( ! cookie.last_modified || cookie.last_modified < <?php echo (int) $this->preferences->get_reference_timestamp(); ?>) {
+						return false;
+					}
+
+					if ( ! cookie.functional ) {
+						return false;
+					}
+
+					return true;
+				}
+
+				function isGoogleBot() {
+					return navigator.userAgent && ( -1 !== navigator.userAgent.indexOf( 'Googlebot' ) || -1 !== navigator.userAgent.indexOf( 'Speed Insights' ) );
+				}
+
+				function isNoticeActive() {
+					if ( cookiesAccepted() ) {
+						return false;
+					}
+
+					if ( isGoogleBot() ) {
+						return false;
+					}
+
+					return true;
+				}
+
+				if ( ! isNoticeActive() ) {
 					return;
 				}
+
+				template = document.querySelector( '#wp-gdpr-cookie-notice-template' );
+				notice   = document.createElement( 'div' );
 
 				notice.innerHTML = template.textContent;
 				notice           = notice.firstElementChild;

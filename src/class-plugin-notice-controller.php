@@ -66,10 +66,6 @@ class Plugin_Notice_Controller implements Integration {
 	 * @since 1.0.0
 	 */
 	public function load_notice() {
-		if ( ! $this->notice->is_active() && ! is_customize_preview() ) {
-			return;
-		}
-
 		add_action( 'wp_footer', [ $this->notice, 'render' ], 100, 0 );
 		add_action( 'login_footer', [ $this->notice, 'render' ], 100, 0 );
 
