@@ -43,7 +43,8 @@ More plugins will be supported in the future. If you are a developer though, it'
 * **Customizable Content:** Adjust the notice heading, text and button label to your preferences. You can easily link to your cookie policy page or privacy policy page, and even give visitors granular control about which cookie types they allow.
 * **Cookie Policy Support:** Define an optional cookie policy page if your site has one, or alternatively provide an ID attribute to the cookie section in your privacy policy.
 * **Cookies Rules:** Supported cookies are only set once the visitor has given their consent. The cookie rules implemented also respect the more granular cookie control.
-* **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints.
+* **AMP Support:** The notice is fully AMP-compatible, integrating seamlessly with the [AMP plugin](https://wordpress.org/plugins/amp/).
+* **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints, and is fully unit-tested.
 
 == Installation ==
 
