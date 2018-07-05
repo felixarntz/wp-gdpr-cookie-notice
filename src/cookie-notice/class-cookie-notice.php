@@ -125,7 +125,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @since 1.0.0
 	 */
 	public function render() {
-		if ( is_customize_preview() ) {
+		if ( is_customize_preview() || $this->is_amp() ) {
 			$this->render_html();
 			return;
 		}
@@ -220,7 +220,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 
 		add_action( "{$prefix}_head", array( $this->stylesheet, 'print' ), 1000 );
 
-		if ( is_customize_preview() ) {
+		if ( is_customize_preview() || $this->is_amp() ) {
 			return;
 		}
 
@@ -285,8 +285,16 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @since 1.0.0
 	 */
 	protected function render_html() {
+		$tag        = 'div';
+		$extra_attr = '';
+
+		if ( $this->is_amp() ) {
+			$tag        = 'amp-user-notification';
+			$extra_attr = ' layout="nodisplay"';
+		}
+
 		?>
-		<div id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap">
+		<<?php echo $tag; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?> id="wp-gdpr-cookie-notice-wrap" class="wp-gdpr-cookie-notice-wrap"<?php echo $extra_attr; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>>
 			<div id="wp-gdpr-cookie-notice" class="wp-gdpr-cookie-notice" role="alert" aria-label="<?php esc_attr_e( 'Cookie Consent Notice', 'wp-gdpr-cookie-notice' ); ?>">
 				<div class="wp-gdpr-cookie-notice-inner">
 					<div class="wp-gdpr-cookie-notice-content-wrap">
@@ -300,7 +308,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 					<?php $this->form->render(); ?>
 				</div>
 			</div>
-		</div>
+		</<?php echo $tag; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>>
 		<?php
 	}
 
@@ -344,5 +352,16 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		$content = wpautop( $content );
 
 		return $content;
+	}
+
+	/**
+	 * Checks whether the current request is for an AMP endpoint.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool True if an AMP endpoint, false otherwise.
+	 */
+	protected function is_amp() {
+		return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
 	}
 }

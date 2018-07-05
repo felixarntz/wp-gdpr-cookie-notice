@@ -109,8 +109,14 @@ class Cookie_Notice_Form implements Form {
 	 * @since 1.0.0
 	 */
 	public function render() {
+		$extra_attr = '';
+
+		if ( $this->is_amp() ) {
+			$extra_attr = ' action-xhr="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '"';
+		}
+
 		?>
-		<form id="wp-gdpr-cookie-notice-form" class="wp-gdpr-cookie-notice-form" method="POST">
+		<form id="wp-gdpr-cookie-notice-form" class="wp-gdpr-cookie-notice-form" method="POST"<?php echo $extra_attr; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>>
 			<div class="wp-gdpr-cookie-notice-controls">
 				<?php $this->render_controls(); ?>
 			</div>
@@ -275,10 +281,27 @@ class Cookie_Notice_Form implements Form {
 	 * @param string $button_text Text to use for the button.
 	 */
 	protected function render_submit_button( string $button_text ) {
+		$extra_attr = '';
+
+		if ( $this->is_amp() ) {
+			$extra_attr = ' on="tap:wp-gdpr-cookie-notice-wrap.dismiss"';
+		}
+
 		?>
 		<div class="wp-gdpr-cookie-notice-submit">
-			<button type="submit" class="wp-gdpr-cookie-notice-button"><?php echo esc_html( $button_text ); ?></button>
+			<button type="submit" class="wp-gdpr-cookie-notice-button"<?php echo $extra_attr; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>><?php echo esc_html( $button_text ); ?></button>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Checks whether the current request is for an AMP endpoint.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool True if an AMP endpoint, false otherwise.
+	 */
+	protected function is_amp() {
+		return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
 	}
 }
