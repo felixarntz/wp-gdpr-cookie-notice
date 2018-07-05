@@ -161,7 +161,16 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @return bool True if the notice is active, false otherwise.
 	 */
 	public function is_active() : bool {
-		return ! $this->preferences->cookies_accepted();
+		if ( $this->preferences->cookies_accepted() ) {
+			return false;
+		}
+
+		$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT' );
+		if ( ! empty( $user_agent ) && ( false !== strpos( $user_agent, 'Googlebot' ) || false !== strpos( $user_agent, 'Speed Insights' ) ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
