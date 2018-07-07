@@ -87,6 +87,7 @@ class Plugin implements Integration {
 		$option_reader      = $this->container->get( 'options' );
 		$shortcode_registry = $this->container->get( 'shortcodes' );
 		$cookie_notice      = $this->container->get( 'cookie_notice' );
+		$cookie_preferences = $this->container->get( 'cookie_preferences' );
 
 		$integrations = [
 			new Plugin_Settings( $option_reader ),
@@ -96,6 +97,7 @@ class Plugin implements Integration {
 			new Plugin_Appearance_Settings( $cookie_notice ),
 			new Plugin_Shortcodes( $shortcode_registry ),
 			new Plugin_Notice_Controller( $cookie_notice ),
+			new Plugin_Cookie_Integrations( $cookie_preferences ),
 		];
 
 		array_walk( $integrations, function( Integration $integration ) {

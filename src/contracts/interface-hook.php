@@ -26,6 +26,11 @@ interface Hook {
 	const ARG_CALLBACK = 'callback';
 
 	/**
+	 * Type argument name.
+	 */
+	const ARG_TYPE = 'type';
+
+	/**
 	 * Priority argument name.
 	 */
 	const ARG_PRIORITY = 'priority';
