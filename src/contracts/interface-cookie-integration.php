@@ -13,7 +13,7 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
  *
  * @since 1.0.0
  */
-interface Cookie_Integration extends Integration {
+interface Cookie_Integration {
 
 	/**
 	 * Identifier argument name.
@@ -68,11 +68,11 @@ interface Cookie_Integration extends Integration {
 	public function is_applicable() : bool;
 
 	/**
-	 * Removes the necessary hooks to integrate.
-	 *
-	 * This is executed if the cookies managed by this integration are not allowed.
+	 * Adds the necessary hooks to integrate.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param bool $allowed Whether cookies for the cookie type are currently allowed.
 	 */
-	public function remove_hooks();
+	public function add_hooks( bool $allowed );
 }

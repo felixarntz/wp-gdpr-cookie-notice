@@ -135,23 +135,21 @@ class Base_Cookie_Integration implements Cookie_Integration {
 	 * Adds the necessary hooks to integrate.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param bool $allowed Whether cookies for the cookie type are currently allowed.
 	 */
-	public function add_hooks() {
+	public function add_hooks( bool $allowed ) {
+		if ( ! $allowed ) {
+			add_action( 'wp_loaded', function() {
+				array_walk( $this->hooks_to_remove, function( Hook $hook ) {
+					$hook->remove();
+				} );
+			}, PHP_INT_MAX, 0 );
+			return;
+		}
+
 		array_walk( $this->hooks_to_add, function( Hook $hook ) {
 			$hook->add();
-		} );
-	}
-
-	/**
-	 * Removes the necessary hooks to integrate.
-	 *
-	 * This is executed if the cookies managed by this integration are not allowed.
-	 *
-	 * @since 1.0.0
-	 */
-	public function remove_hooks() {
-		array_walk( $this->hooks_to_remove, function( Hook $hook ) {
-			$hook->remove();
 		} );
 	}
 }

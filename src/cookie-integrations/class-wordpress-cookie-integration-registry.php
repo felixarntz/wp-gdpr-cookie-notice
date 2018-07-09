@@ -130,15 +130,12 @@ class WordPress_Cookie_Integration_Registry implements Cookie_Integration_Regist
 	 * @param Cookie_Integration $cookie_integration Cookie integration to add hooks for.
 	 */
 	protected function add_integration_hooks( Cookie_Integration $cookie_integration ) {
-		if ( ! $cookie_integration->is_active() ) {
+		if ( ! $cookie_integration->is_applicable() ) {
 			return;
 		}
 
-		if ( ! $this->preferences->cookies_accepted( $cookie_integration->get_type() ) ) {
-			add_action( 'wp_loaded', array( $cookie_integration, 'remove_hooks' ), PHP_INT_MAX, 0 );
-			return;
-		}
+		$allowed = $this->preferences->cookies_accepted( $cookie_integration->get_type() );
 
-		$cookie_integration->add_hooks();
+		$cookie_integration->add_hooks( $allowed );
 	}
 }
