@@ -9,10 +9,15 @@
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Hook;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Hooks\Hook_Factory;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Cookie_Integration_Factory;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Cookie_Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Simple_Analytics_Cookie_Integration;
 
 /**
  * Class for registering plugin cookie integrations.
@@ -82,10 +87,10 @@ class Plugin_Cookie_Integrations implements Integration {
 	 * @return array Array of Cookie_Integration instances.
 	 */
 	protected function get_cookie_integrations() : array {
-		$factory = new Cookie_Integration_Factory();
-
-		// TODO: Add integrations.
-		$integrations = [];
+		$integrations = [
+			new AMP_Block_On_Consent_Cookie_Integration(),
+			new Simple_Analytics_Cookie_Integration(),
+		];
 
 		return $integrations;
 	}
