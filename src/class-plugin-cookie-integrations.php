@@ -15,6 +15,8 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Conse
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Simple_Analytics_Cookie_Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Auth_Cookie_Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Comments_Cookie_Integration;
 
 /**
  * Class for registering plugin cookie integrations.
@@ -89,6 +91,8 @@ class Plugin_Cookie_Integrations implements Integration {
 			new Jetpack_Stats_Cookie_Integration(),
 			new Monster_Insights_Cookie_Integration(),
 			new Simple_Analytics_Cookie_Integration(),
+			new WordPress_Auth_Cookie_Integration(),
+			new WordPress_Comments_Cookie_Integration(),
 		];
 
 		return $integrations;
