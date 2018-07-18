@@ -1,6 +1,6 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration class
+ * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
@@ -12,11 +12,11 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 
 /**
- * Class representing a cookie integration for the "Google Analytics by MonsterInsights" plugin.
+ * Class representing a cookie integration for the stats module of the "Jetpack" plugin.
  *
  * @since 1.0.0
  */
-class Monster_Insights_Cookie_Integration implements Cookie_Integration {
+class Jetpack_Stats_Cookie_Integration implements Cookie_Integration {
 
 	/**
 	 * Gets the cookie integration identifier.
@@ -26,7 +26,7 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 * @return string Cookie integration identifier.
 	 */
 	final public function get_id() : string {
-		return 'monster_insights';
+		return 'jetpack_stats';
 	}
 
 	/**
@@ -48,7 +48,7 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 * @return bool True if applicable, false otherwise.
 	 */
 	public function is_applicable() : bool {
-		return function_exists( 'MonsterInsights' );
+		return defined( 'JETPACK__VERSION' );
 	}
 
 	/**
@@ -61,19 +61,10 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 *                      that leverage page caching. It is recommended to use a JS-only solution.
 	 */
 	public function add_hooks( bool $allowed ) {
-		add_action( 'monsterinsights_tracking_before_analytics', function() {
-			$ua = monsterinsights_get_ua();
-			if ( empty( $ua ) ) {
-				return;
-			}
-
-			?>
-			<script type="text/javascript">
-				if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
-					window['ga-disable-<?php echo esc_attr( $ua ); ?>'] = true;
-				}
-			</script>
-			<?php
-		}, 1, 0 );
+		if ( ! $allowed ) {
+			remove_action( 'template_redirect', 'stats_template_redirect', 1 );
+			remove_action( 'wp_footer', 'stats_footer', 101 );
+			remove_action( 'wp_head', 'stats_add_shutdown_action' );
+		}
 	}
 }

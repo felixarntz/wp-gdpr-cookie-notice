@@ -9,14 +9,11 @@
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Hook;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Hooks\Hook_Factory;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Cookie_Integration_Factory;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Cookie_Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Simple_Analytics_Cookie_Integration;
 
 /**
@@ -89,6 +86,7 @@ class Plugin_Cookie_Integrations implements Integration {
 	protected function get_cookie_integrations() : array {
 		$integrations = [
 			new AMP_Block_On_Consent_Cookie_Integration(),
+			new Jetpack_Stats_Cookie_Integration(),
 			new Monster_Insights_Cookie_Integration(),
 			new Simple_Analytics_Cookie_Integration(),
 		];

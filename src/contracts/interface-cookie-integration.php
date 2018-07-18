@@ -16,31 +16,6 @@ namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
 interface Cookie_Integration {
 
 	/**
-	 * Identifier argument name.
-	 */
-	const ARG_ID = 'id';
-
-	/**
-	 * Type argument name.
-	 */
-	const ARG_TYPE = 'type';
-
-	/**
-	 * Applicable callback argument name.
-	 */
-	const ARG_APPLICABLE_CALLBACK = 'applicable_callback';
-
-	/**
-	 * Hooks to add argument name.
-	 */
-	const ARG_HOOKS_TO_ADD = 'hooks_to_add';
-
-	/**
-	 * Hooks to remove argument name.
-	 */
-	const ARG_HOOKS_TO_REMOVE = 'hooks_to_remove';
-
-	/**
 	 * Gets the cookie integration identifier.
 	 *
 	 * @since 1.0.0
