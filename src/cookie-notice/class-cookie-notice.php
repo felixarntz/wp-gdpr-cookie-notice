@@ -218,11 +218,17 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 
 		add_action( "{$prefix}_head", array( $this->stylesheet, 'print' ), 1000 );
 
-		if ( is_customize_preview() || $this->is_amp() ) {
+		if ( $this->is_amp() ) {
 			return;
 		}
 
-		add_action( "{$prefix}_head", array( $this->script_utils, 'print' ), 0 );
+		// Print the utilities script immediately so that it is available early.
+		$this->script_utils->print();
+
+		if ( is_customize_preview() ) {
+			return;
+		}
+
 		add_action( "{$prefix}_footer", array( $this->script, 'print' ), 1000 );
 	}
 
