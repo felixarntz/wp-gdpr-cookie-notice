@@ -81,6 +81,14 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	protected $script;
 
 	/**
+	 * Cookie notice script utilities.
+	 *
+	 * @since 1.0.0
+	 * @var Cookie_Notice_Script_Utils
+	 */
+	protected $script_utils;
+
+	/**
 	 * Constructor.
 	 *
 	 * Sets the preferences, shortcode parser and option reader to use.
@@ -100,12 +108,13 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			$options = new Plugin_Option_Reader();
 		}
 
-		$this->preferences = $preferences;
-		$this->form        = new Cookie_Notice_Form( $this, $shortcode_parser, $options );
-		$this->markup      = new Cookie_Notice_Markup( $this->form, $shortcode_parser, $options );
-		$this->amp_markup  = new Cookie_Notice_AMP_Markup( $this->form, $shortcode_parser, $options );
-		$this->stylesheet  = new Cookie_Notice_Stylesheet( $options );
-		$this->script      = new Cookie_Notice_Script( $options );
+		$this->preferences  = $preferences;
+		$this->form         = new Cookie_Notice_Form( $this, $shortcode_parser, $options );
+		$this->markup       = new Cookie_Notice_Markup( $this->form, $shortcode_parser, $options );
+		$this->amp_markup   = new Cookie_Notice_AMP_Markup( $this->form, $shortcode_parser, $options );
+		$this->stylesheet   = new Cookie_Notice_Stylesheet( $options );
+		$this->script       = new Cookie_Notice_Script( $options );
+		$this->script_utils = new Cookie_Notice_Script_Utils( $this->preferences );
 	}
 
 	/**
@@ -128,48 +137,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			( function() {
 				var template, notice;
 
-				function cookiesAccepted() {
-					var cookieParts = ( '; ' + document.cookie ).split( '; wp_gdpr_cookie_preferences=' );
-					var cookie      = 2 === cookieParts.length ? cookieParts.pop().split( ';' ).shift() : '';
-
-					if ( ! cookie.length ) {
-						return false;
-					}
-
-					try {
-						cookie = JSON.parse( decodeURIComponent( cookie ) );
-					} catch ( error ) {
-						return false;
-					}
-
-					if ( ! cookie.last_modified || cookie.last_modified < <?php echo (int) $this->preferences->get_reference_timestamp(); ?>) {
-						return false;
-					}
-
-					if ( ! cookie.functional ) {
-						return false;
-					}
-
-					return true;
-				}
-
-				function isGoogleBot() {
-					return navigator.userAgent && ( -1 !== navigator.userAgent.indexOf( 'Googlebot' ) || -1 !== navigator.userAgent.indexOf( 'Speed Insights' ) );
-				}
-
-				function isNoticeActive() {
-					if ( cookiesAccepted() ) {
-						return false;
-					}
-
-					if ( isGoogleBot() ) {
-						return false;
-					}
-
-					return true;
-				}
-
-				if ( ! isNoticeActive() ) {
+				if ( ! wpGdprCookieNoticeUtils.isNoticeActive() ) {
 					return;
 				}
 
@@ -254,6 +222,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			return;
 		}
 
+		add_action( "{$prefix}_head", array( $this->script_utils, 'print' ), 0 );
 		add_action( "{$prefix}_footer", array( $this->script, 'print' ), 1000 );
 	}
 
