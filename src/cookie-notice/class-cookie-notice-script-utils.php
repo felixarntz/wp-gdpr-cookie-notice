@@ -107,6 +107,12 @@ class Cookie_Notice_Script_Utils implements Inline_Asset {
 				return true;
 			}
 
+			function onAcceptCookies( callback ) {
+				document.addEventListener( 'wpGdprCookieNotice.acceptCookies', function() {
+					callback( exports.wpGdprCookieNoticeUtils );
+				});
+			}
+
 			function isNoticeActive() {
 				if ( cookiesAccepted() ) {
 					return false;
@@ -121,6 +127,7 @@ class Cookie_Notice_Script_Utils implements Inline_Asset {
 
 			exports.wpGdprCookieNoticeUtils = {
 				cookiesAccepted: cookiesAccepted,
+				onAcceptCookies: onAcceptCookies,
 				isNoticeActive: isNoticeActive
 			};
 		})( window );

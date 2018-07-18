@@ -88,6 +88,13 @@ class Cookie_Notice_Script implements Inline_Asset {
 				return;
 			}
 
+			function acceptCookies() {
+				var event = document.createEvent( 'HTMLEvents' );
+
+				event.initEvent( 'wpGdprCookieNotice.acceptCookies', true, true );
+				document.dispatchEvent( event );
+			}
+
 			form.addEventListener( 'submit', function( event ) {
 				event.preventDefault();
 
@@ -110,6 +117,8 @@ class Cookie_Notice_Script implements Inline_Asset {
 					})
 					.then( function() {
 						noticeWrap.parentNode.removeChild( noticeWrap );
+
+						acceptCookies();
 					})
 					.catch( function( result ) {
 						if ( ! result.data || ! result.data.message ) {
