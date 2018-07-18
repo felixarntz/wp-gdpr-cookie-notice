@@ -89,6 +89,7 @@ class Plugin_Cookie_Integrations implements Integration {
 	protected function get_cookie_integrations() : array {
 		$integrations = [
 			new AMP_Block_On_Consent_Cookie_Integration(),
+			new Monster_Insights_Cookie_Integration(),
 			new Simple_Analytics_Cookie_Integration(),
 		];
 
