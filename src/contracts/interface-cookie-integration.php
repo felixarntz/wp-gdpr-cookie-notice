@@ -72,7 +72,9 @@ interface Cookie_Integration {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool $allowed Whether cookies for the cookie type are currently allowed.
+	 * @param bool $allowed Whether cookies for the cookie type are currently allowed. Note that this value
+	 *                      is not necessarily reliable since it is cookie-based and thus may be off in setups
+	 *                      that leverage page caching. It is recommended to use a JS-only solution.
 	 */
 	public function add_hooks( bool $allowed );
 }

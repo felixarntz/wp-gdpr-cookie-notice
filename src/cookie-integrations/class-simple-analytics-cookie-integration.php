@@ -56,22 +56,22 @@ class Simple_Analytics_Cookie_Integration implements Cookie_Integration {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool $allowed Whether cookies for the cookie type are currently allowed.
+	 * @param bool $allowed Whether cookies for the cookie type are currently allowed. Note that this value
+	 *                      is not necessarily reliable since it is cookie-based and thus may be off in setups
+	 *                      that leverage page caching. It is recommended to use a JS-only solution.
 	 */
 	public function add_hooks( bool $allowed ) {
-		if ( $allowed ) {
-			return;
-		}
-
 		add_action( 'wp_head', function() {
-			$options  = get_option( 'themeblvd_analytics', [] );
+			$options = get_option( 'themeblvd_analytics', [] );
 			if ( empty( $options['google_id'] ) ) {
 				return;
 			}
 
 			?>
 			<script type="text/javascript">
-				window['ga-disable-<?php echo esc_attr( $options['google_id'] ); ?>'] = true;
+				if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
+					window['ga-disable-<?php echo esc_attr( $options['google_id'] ); ?>'] = true;
+				}
 			</script>
 			<?php
 		}, 1, 0 );
