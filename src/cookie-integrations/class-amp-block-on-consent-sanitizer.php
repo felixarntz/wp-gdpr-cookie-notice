@@ -26,15 +26,41 @@ class AMP_Block_On_Consent_Sanitizer extends AMP_Base_Sanitizer {
 	 * @var array
 	 */
 	protected $tags = [
-		'amp-ad-exit'       => Cookie_Type_Enum::TYPE_MARKETING,
-		'amp-ad'            => Cookie_Type_Enum::TYPE_MARKETING,
-		'amp-analytics'     => Cookie_Type_Enum::TYPE_ANALYTICS,
-		'amp-auto-ads'      => Cookie_Type_Enum::TYPE_MARKETING,
-		'amp-call-tracking' => Cookie_Type_Enum::TYPE_ANALYTICS,
-		'amp-enum'          => Cookie_Type_Enum::TYPE_FUNCTIONAL,
-		'amp-experiment'    => Cookie_Type_Enum::TYPE_ANALYTICS,
-		'amp-pixel'         => Cookie_Type_Enum::TYPE_ANALYTICS,
-		'amp-sticky-ad'     => Cookie_Type_Enum::TYPE_MARKETING,
+		// Ads & analytics.
+		'amp-ad-exit'               => Cookie_Type_Enum::TYPE_MARKETING,
+		'amp-ad'                    => Cookie_Type_Enum::TYPE_MARKETING,
+		'amp-analytics'             => Cookie_Type_Enum::TYPE_ANALYTICS,
+		'amp-auto-ads'              => Cookie_Type_Enum::TYPE_MARKETING,
+		'amp-call-tracking'         => Cookie_Type_Enum::TYPE_ANALYTICS,
+		'amp-experiment'            => Cookie_Type_Enum::TYPE_ANALYTICS,
+		'amp-pixel'                 => Cookie_Type_Enum::TYPE_ANALYTICS,
+		'amp-sticky-ad'             => Cookie_Type_Enum::TYPE_MARKETING,
+		// Dynamic content.
+		'amp-google-document-embed' => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-gist'                  => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		// Media.
+		'amp-brightcove'            => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-dailymotion'           => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-hulu'                  => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-soundcloud'            => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-vimeo'                 => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-youtube'               => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		// Social.
+		'amp-addthis'               => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-beopinion'             => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-facebook-comments'     => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-facebook-like'         => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-facebook-page'         => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-facebook'              => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-gfycat'                => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-instagram'             => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-pinterest'             => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-reddit'                => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-riddle-quiz'           => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-social-share'          => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-twitter'               => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-vine'                  => Cookie_Type_Enum::TYPE_FUNCTIONAL,
+		'amp-vk'                    => Cookie_Type_Enum::TYPE_FUNCTIONAL,
 	];
 
 	/**
