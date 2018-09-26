@@ -9,7 +9,7 @@
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
 
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Cookie_Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration;
@@ -26,12 +26,12 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Comments
 class Plugin_Cookie_Integrations implements Integration {
 
 	/**
-	 * Cookie preferences instance to use.
+	 * Cookie integration registry to use.
 	 *
 	 * @since 1.0.0
-	 * @var Cookie_Preferences
+	 * @var Cookie_Integration_Registry
 	 */
-	protected $preferences;
+	protected $cookie_integrations;
 
 	/**
 	 * Constructor.
@@ -40,10 +40,10 @@ class Plugin_Cookie_Integrations implements Integration {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param Cookie_Preferences $preferences Cookie preferences instance to use.
+	 * @param Cookie_Integration_Registry $cookie_integrations Cookie integration registry to use.
 	 */
-	public function __construct( Cookie_Preferences $preferences ) {
-		$this->preferences = $preferences;
+	public function __construct( Cookie_Integration_Registry $cookie_integrations ) {
+		$this->cookie_integrations = $cookie_integrations;
 	}
 
 	/**
@@ -61,9 +61,9 @@ class Plugin_Cookie_Integrations implements Integration {
 	 * @since 1.0.0
 	 */
 	public function register_cookie_integrations() {
-		$integration_registry = new WordPress_Cookie_Integration_Registry( $this->preferences );
+		$integration_registry = $this->cookie_integrations;
 
-		$integrations = $this->get_cookie_integrations();
+		$integrations = $this->get_default_cookie_integrations();
 		foreach ( $integrations as $integration ) {
 			$integration_registry->register( $integration->get_id(), $integration );
 		}
@@ -85,7 +85,7 @@ class Plugin_Cookie_Integrations implements Integration {
 	 *
 	 * @return array Array of Cookie_Integration instances.
 	 */
-	protected function get_cookie_integrations() : array {
+	protected function get_default_cookie_integrations() : array {
 		$integrations = [
 			new AMP_Block_On_Consent_Cookie_Integration(),
 			new Jetpack_Stats_Cookie_Integration(),

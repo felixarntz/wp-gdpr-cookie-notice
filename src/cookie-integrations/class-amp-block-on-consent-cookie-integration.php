@@ -41,6 +41,17 @@ class AMP_Block_On_Consent_Cookie_Integration implements Cookie_Integration {
 	}
 
 	/**
+	 * Gets the label to display alongside the checkbox for enabling this integration.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Enable checkbox label.
+	 */
+	public function get_enable_label() : string {
+		return __( 'Block AMP third-party integrations such as analytics, ads and embedded content?', 'wp-gdpr-cookie-notice' );
+	}
+
+	/**
 	 * Checks whether the cookie integration is applicable to the current setup.
 	 *
 	 * @since 1.0.0

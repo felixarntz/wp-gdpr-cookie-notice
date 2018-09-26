@@ -8,8 +8,10 @@
 
 namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations;
 
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
@@ -21,9 +23,16 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator;
  *
  * @since 1.0.0
  */
-class WordPress_Cookie_Integration_Registry implements Cookie_Integration_Registry {
+class WordPress_Cookie_Integration_Registry implements Service, Cookie_Integration_Registry {
 
 	use ID_Validator;
+
+	/**
+	 * Generator string for the enabled setting of a cookie integration.
+	 *
+	 * The included placeholder must be replaced with the ingration's identifier.
+	 */
+	const ENABLED_SETTING_GENERATOR = 'integration_%s_enabled';
 
 	/**
 	 * Cookie preferences.
@@ -32,6 +41,14 @@ class WordPress_Cookie_Integration_Registry implements Cookie_Integration_Regist
 	 * @var Cookie_Preferences
 	 */
 	protected $preferences;
+
+	/**
+	 * Option reader to manage for the plugin's settings.
+	 *
+	 * @since 1.0.0
+	 * @var Option_Reader
+	 */
+	protected $option_reader;
 
 	/**
 	 * Registered cookie integrations.
@@ -48,10 +65,12 @@ class WordPress_Cookie_Integration_Registry implements Cookie_Integration_Regist
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param Cookie_Preferences $preferences Cookie preferences instance.
+	 * @param Cookie_Preferences $preferences   Cookie preferences instance.
+	 * @param Option_Reader      $option_reader Option reader to use.
 	 */
-	public function __construct( Cookie_Preferences $preferences ) {
-		$this->preferences = $preferences;
+	public function __construct( Cookie_Preferences $preferences, Option_Reader $option_reader ) {
+		$this->preferences   = $preferences;
+		$this->option_reader = $option_reader;
 	}
 
 	/**
@@ -134,8 +153,26 @@ class WordPress_Cookie_Integration_Registry implements Cookie_Integration_Regist
 			return;
 		}
 
+		if ( ! $this->is_integration_enabled( $cookie_integration ) ) {
+			return;
+		}
+
 		$allowed = $this->preferences->cookies_accepted( $cookie_integration->get_type() );
 
 		$cookie_integration->add_hooks( $allowed );
+	}
+
+	/**
+	 * Checks whether the cookie integration is enabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Cookie_Integration $cookie_integration Cookie integration to check.
+	 * @return bool True if enabled, false otherwise.
+	 */
+	protected function is_integration_enabled( Cookie_Integration $cookie_integration ) : bool {
+		$setting_slug = sprintf( self::ENABLED_SETTING_GENERATOR, $cookie_integration->get_id() );
+
+		return (bool) $this->option_reader->get_option( $setting_slug );
 	}
 }

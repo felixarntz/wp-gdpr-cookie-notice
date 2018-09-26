@@ -41,6 +41,17 @@ class Jetpack_Stats_Cookie_Integration implements Cookie_Integration {
 	}
 
 	/**
+	 * Gets the label to display alongside the checkbox for enabling this integration.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Enable checkbox label.
+	 */
+	public function get_enable_label() : string {
+		return __( 'Block the Jetpack Stats module from tracking visitors?', 'wp-gdpr-cookie-notice' );
+	}
+
+	/**
 	 * Checks whether the cookie integration is applicable to the current setup.
 	 *
 	 * @since 1.0.0

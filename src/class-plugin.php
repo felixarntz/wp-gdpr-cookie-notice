@@ -20,6 +20,7 @@ use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
 use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
+use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
 
 /**
  * Class controlling the plugin functionality.
@@ -63,12 +64,13 @@ class Plugin implements Integration {
 		$this->main_file = $main_file;
 		$this->container = $container;
 
-		$option_reader       = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
-		$shortcode_registry  = new WordPress_Shortcode_Parser_Registry( new WordPress_Shortcode_Registry() );
-		$cookie_policy_page  = new Cookie_Policy_Page( $option_reader );
-		$privacy_policy_page = new Privacy_Policy_Page();
-		$cookie_preferences  = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page, $privacy_policy_page );
-		$cookie_notice       = new Cookie_Notice( $cookie_preferences, $shortcode_registry, $option_reader );
+		$option_reader        = new Plugin_Option_Reader( new WordPress_Option_Data_Repository() );
+		$shortcode_registry   = new WordPress_Shortcode_Parser_Registry( new WordPress_Shortcode_Registry() );
+		$cookie_policy_page   = new Cookie_Policy_Page( $option_reader );
+		$privacy_policy_page  = new Privacy_Policy_Page();
+		$cookie_preferences   = new Cookie_Preferences( new Cookie_Data_Repository(), $cookie_policy_page, $privacy_policy_page );
+		$cookie_notice        = new Cookie_Notice( $cookie_preferences, $shortcode_registry, $option_reader );
+		$integration_registry = new WordPress_Cookie_Integration_Registry( $cookie_preferences, $option_reader );
 
 		$this->container->add( 'options', $option_reader );
 		$this->container->add( 'shortcodes', $shortcode_registry );
@@ -76,6 +78,7 @@ class Plugin implements Integration {
 		$this->container->add( 'cookie_policy_page', $cookie_policy_page );
 		$this->container->add( 'cookie_preferences', $cookie_preferences );
 		$this->container->add( 'cookie_notice', $cookie_notice );
+		$this->container->add( 'cookie_integrations', $integration_registry );
 	}
 
 	/**
@@ -84,10 +87,10 @@ class Plugin implements Integration {
 	 * @since 1.0.0
 	 */
 	public function add_hooks() {
-		$option_reader      = $this->container->get( 'options' );
-		$shortcode_registry = $this->container->get( 'shortcodes' );
-		$cookie_notice      = $this->container->get( 'cookie_notice' );
-		$cookie_preferences = $this->container->get( 'cookie_preferences' );
+		$option_reader        = $this->container->get( 'options' );
+		$shortcode_registry   = $this->container->get( 'shortcodes' );
+		$cookie_notice        = $this->container->get( 'cookie_notice' );
+		$integration_registry = $this->container->get( 'cookie_integrations' );
 
 		$integrations = [
 			new Plugin_Settings( $option_reader ),
@@ -95,9 +98,10 @@ class Plugin implements Integration {
 			new Plugin_Policies_Settings( $option_reader ),
 			new Plugin_Content_Settings( $cookie_notice ),
 			new Plugin_Appearance_Settings( $cookie_notice ),
+			new Plugin_Integrations_Settings( $integration_registry ),
 			new Plugin_Shortcodes( $shortcode_registry ),
 			new Plugin_Notice_Controller( $cookie_notice ),
-			new Plugin_Cookie_Integrations( $cookie_preferences ),
+			new Plugin_Cookie_Integrations( $integration_registry ),
 		];
 
 		array_walk( $integrations, function( Integration $integration ) {

@@ -42,6 +42,11 @@ class Plugin_Customizer implements Integration {
 	const SECTION_APPEARANCE = 'appearance';
 
 	/**
+	 * Identifier for the integrations Customizer section.
+	 */
+	const SECTION_INTEGRATIONS = 'integrations';
+
+	/**
 	 * Option reader to manage for the plugin's settings.
 	 *
 	 * @since 1.0.0
@@ -95,6 +100,11 @@ class Plugin_Customizer implements Integration {
 
 		$this->register_customizer_section( $wp_customize, self::SECTION_APPEARANCE, [
 			'title' => _x( 'Appearance', 'Customizer section', 'wp-gdpr-cookie-notice' ),
+		] );
+
+		$this->register_customizer_section( $wp_customize, self::SECTION_INTEGRATIONS, [
+			'title'       => _x( 'Integrations', 'Customizer section', 'wp-gdpr-cookie-notice' ),
+			'description' => __( 'The following checkboxes allow you to block certain cookie-based features until the visitor has given their consent to the cookie notice.', 'wp-gdpr-cookie-notice' ),
 		] );
 	}
 

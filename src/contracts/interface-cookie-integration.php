@@ -34,6 +34,15 @@ interface Cookie_Integration {
 	public function get_type() : string;
 
 	/**
+	 * Gets the label to display alongside the checkbox for enabling this integration.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Enable checkbox label.
+	 */
+	public function get_enable_label() : string;
+
+	/**
 	 * Checks whether the cookie integration is applicable to the current setup.
 	 *
 	 * @since 1.0.0
