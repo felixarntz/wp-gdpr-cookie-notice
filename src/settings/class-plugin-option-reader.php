@@ -92,7 +92,7 @@ class Plugin_Option_Reader implements Service, Option_Reader {
 	 * @return array Options as $option => $value pairs.
 	 */
 	public function get_options() : array {
-		if ( $this->options_dirty ) {
+		if ( $this->options_dirty || is_customize_preview() ) {
 			$this->options       = $this->data_repository->get( self::SETTING_ID );
 			$this->options_dirty = false;
 		}
