@@ -198,8 +198,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			<?php
 		} else {
 			?>
-			.wp-gdpr-cookie-notice-wrap,
-			.wp-gdpr-cookie-notice {
+			.wp-gdpr-cookie-notice-wrap {
 				position: fixed;
 				right: 0;
 				left: 0;
@@ -208,6 +207,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			}
 
 			.wp-gdpr-cookie-notice {
+				position: relative;
 				border-width: <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '0 0 ' . esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px' : esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px 0 0'; ?>;
 				<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] ) : ?>
 					box-shadow: 0 <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '3px' : '-3px'; ?> 5px 0 rgba(0, 0, 0, 0.1);
