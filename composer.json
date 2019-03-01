@@ -1,6 +1,6 @@
 {
   "name": "felixarntz/wp-gdpr-cookie-notice",
-  "description": "Simple performant GDPR-compliant cookie consent notice that supports granular cookie control and live preview customization.",
+  "description": "Simple performant GDPR-compliant cookie consent notice that supports AMP, granular cookie control and live preview customization.",
   "version": "1.0.0",
   "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",

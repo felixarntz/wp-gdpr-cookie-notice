@@ -21,9 +21,9 @@ const config = {
 	licenseURI: 'http://www.gnu.org/licenses/gpl-2.0.html',
 	tags: parseKeywords( pkg.keywords ).join( ', ' ),
 	contributors: [ 'flixos90' ].join( ', ' ),
-	donateLink: 'https://felix-arntz.me/wordpress-plugins/',
+	donateLink: false,
 	minRequired: '4.9.6',
-	testedUpTo: '4.9',
+	testedUpTo: '5.1',
 	requiresPHP: '7.0',
 	translateURI: 'https://translate.wordpress.org/projects/wp-plugins/wp-gdpr-cookie-notice',
 	network: false
@@ -41,21 +41,15 @@ const pluginheader =' * Plugin Name: ' + config.pluginName + '\n' +
 					' * License:     ' + config.license + '\n' +
 					' * License URI: ' + config.licenseURI + '\n' +
 					' * Text Domain: ' + config.pluginSlug + '\n' +
-					( config.network ? ' * Network:     true' + '\n' : '' ) +
-					' * Tags:        ' + config.tags;
+					( config.network ? ' * Network:     true' + '\n' : '' );
 
 // WP plugin header for readme.txt
-const readmeheader ='Plugin Name:       ' + config.pluginName + '\n' +
-					'Plugin URI:        ' + config.pluginURI + '\n' +
-					'Author:            ' + config.author + '\n' +
-					'Author URI:        ' + config.authorURI + '\n' +
-					'Contributors:      ' + config.contributors + '\n' +
+const readmeheader ='Contributors:      ' + config.contributors + '\n' +
 					( config.donateLink ? 'Donate link:       ' + config.donateLink + '\n' : '' ) +
 					'Requires at least: ' + config.minRequired + '\n' +
 					'Tested up to:      ' + config.testedUpTo + '\n' +
 					( config.requiresPHP ? 'Requires PHP:      ' + config.requiresPHP + '\n' : '' ) +
 					'Stable tag:        ' + config.version + '\n' +
-					'Version:           ' + config.version + '\n' +
 					'License:           ' + config.license + '\n' +
 					'License URI:       ' + config.licenseURI + '\n' +
 					'Tags:              ' + config.tags;

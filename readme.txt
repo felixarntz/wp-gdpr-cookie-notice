@@ -1,25 +1,19 @@
 === WP GDPR Cookie Notice ===
 
-Plugin Name:       WP GDPR Cookie Notice
-Plugin URI:        https://wordpress.org/plugins/wp-gdpr-cookie-notice/
-Author:            Felix Arntz
-Author URI:        https://felix-arntz.me
 Contributors:      flixos90
-Donate link:       https://felix-arntz.me/wordpress-plugins/
 Requires at least: 4.9.6
-Tested up to:      4.9
+Tested up to:      5.1
 Requires PHP:      7.0
 Stable tag:        1.0.0
-Version:           1.0.0
 License:           GNU General Public License v2 (or later)
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              gdpr, cookie notice, cookie consent, granular cookie control, customizer
 
-Simple performant GDPR-compliant cookie consent notice that supports granular cookie control and live preview customization.
+Simple performant GDPR-compliant cookie consent notice that supports AMP, granular cookie control and live preview customization.
 
 == Description ==
 
-With the cookie notice this plugin adds to your WordPress site, you can make sure you stay on the legal side of things.
+This plugin adds a cookie notice to your WordPress site.
 
 Not only does the notice allow you to have the regular pointer that your site uses cookies, you can also optionally grant your site visitors permission to granularly allow which cookie types are allowed, supporting groups of functional (always required), preferences, analytics and marketing cookies. This is compliant with how the new GDPR regulations recommend implementing cookie control for your site.
 
@@ -45,7 +39,7 @@ More plugins will be supported in the future. If you are a developer though, it'
 * **Cookie Integrations:** Supported cookies are only set once the visitor has given their consent. The cookie rules implemented also respect the more granular cookie control.
 * **JavaScript-driven:** The cookie notice is inserted into the page as necessary via JavaScript, but at the same time provides easy access to whether it should be displayed via its PHP API.
 * **AMP Support:** The notice is fully AMP-compatible using `<amp-consent>`, integrating seamlessly with the [AMP plugin](https://wordpress.org/plugins/amp/).
-* **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints, and is fully unit-tested.
+* **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints.
 
 == Installation ==
 

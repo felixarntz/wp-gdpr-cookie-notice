@@ -7,7 +7,7 @@
 
 # WP GDPR Cookie Notice
 
-Simple performant GDPR-compliant cookie consent notice that supports granular cookie control and live preview customization.
+Simple performant GDPR-compliant cookie consent notice that supports AMP, granular cookie control and live preview customization.
 
 ## Requirements
 
