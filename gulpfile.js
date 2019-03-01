@@ -21,7 +21,7 @@ const config = {
 	licenseURI: 'http://www.gnu.org/licenses/gpl-2.0.html',
 	tags: parseKeywords( pkg.keywords ).join( ', ' ),
 	contributors: [ 'flixos90' ].join( ', ' ),
-	donateLink: 'https://leaves-and-love.net/wordpress-plugins/',
+	donateLink: 'https://felix-arntz.me/wordpress-plugins/',
 	minRequired: '4.9.6',
 	testedUpTo: '4.9',
 	requiresPHP: '7.0',

@@ -3,9 +3,9 @@
 Plugin Name:       WP GDPR Cookie Notice
 Plugin URI:        https://wordpress.org/plugins/wp-gdpr-cookie-notice/
 Author:            Felix Arntz
-Author URI:        https://leaves-and-love.net
+Author URI:        https://felix-arntz.me
 Contributors:      flixos90
-Donate link:       https://leaves-and-love.net/wordpress-plugins/
+Donate link:       https://felix-arntz.me/wordpress-plugins/
 Requires at least: 4.9.6
 Tested up to:      4.9
 Requires PHP:      7.0

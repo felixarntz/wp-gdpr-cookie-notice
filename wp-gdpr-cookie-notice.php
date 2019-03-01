@@ -11,7 +11,7 @@
  * Description: Simple performant GDPR-compliant cookie consent notice that supports granular cookie control and live preview customization.
  * Version:     1.0.0
  * Author:      Felix Arntz
- * Author URI:  https://leaves-and-love.net
+ * Author URI:  https://felix-arntz.me
  * License:     GNU General Public License v2 (or later)
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-gdpr-cookie-notice
