@@ -9,11 +9,11 @@ License:           GNU General Public License v2 (or later)
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              gdpr, cookie notice, cookie consent, granular cookie control, customizer
 
-Simple performant GDPR-compliant cookie consent notice that supports AMP, granular cookie control and live preview customization.
+Simple performant cookie consent notice that supports AMP, granular cookie control and live preview customization.
 
 == Description ==
 
-This plugin adds a cookie notice to your WordPress site.
+This plugin adds a simple performant cookie consent notice to your WordPress site that supports AMP, granular cookie control and live preview customization.
 
 Not only does the notice allow you to provide the regular message that your site uses cookies, you can also optionally grant your site visitors permission to granularly allow which cookie types are allowed, supporting groups of functional (always required), preferences, analytics and marketing cookies. This aims towards compliance with how the new GDPR regulations recommend implementing cookie control for your site.
 
