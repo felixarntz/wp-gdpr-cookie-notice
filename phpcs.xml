@@ -7,6 +7,9 @@
 
 	<exclude-pattern>*/tests/*</exclude-pattern>
 
+	<arg name="colors"/>
+    <arg value="vs"/>
+
 	<rule ref="WordPress"/>
 
 	<rule ref="WordPress.WP.I18n">

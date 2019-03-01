@@ -109,75 +109,111 @@ class Plugin_Appearance_Settings implements Integration {
 		$factory = new Setting_Factory();
 
 		$settings = [
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_POSITION, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'Where the notice should appear.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => Cookie_Position_Enum::POSITION_BOTTOM,
-				Setting::ARG_ENUM        => ( new Cookie_Position_Enum() )->get_values(),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_FONT_SIZE, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'The notice font size.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => Cookie_Font_Size_Enum::SIZE_MEDIUM,
-				Setting::ARG_ENUM        => ( new Cookie_Font_Size_Enum() )->get_values(),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The notice text color.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT           => '#404040',
-				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_LINK_COLOR, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The notice link color.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT           => '#21759b',
-				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BACKGROUND_COLOR, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The notice background color.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT           => '#ffffff',
-				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BORDER_WIDTH, [
-				Setting::ARG_TYPE        => 'integer',
-				Setting::ARG_DESCRIPTION => __( 'The notice border width.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_MINIMUM     => 0,
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BORDER_COLOR, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The notice border color.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT           => '#cccccc',
-				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_SHOW_DROP_SHADOW, [
-				Setting::ARG_TYPE        => 'boolean',
-				Setting::ARG_DESCRIPTION => __( 'Whether to show a drop shadow on the notice.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => true,
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BUTTON_SIZE, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'The notice button size.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => Cookie_Button_Size_Enum::SIZE_MEDIUM,
-				Setting::ARG_ENUM        => ( new Cookie_Button_Size_Enum() )->get_values(),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BUTTON_TEXT_COLOR, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The notice button text color.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT           => '#ffffff',
-				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BUTTON_BACKGROUND_COLOR, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The notice button background color.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT           => '#21759b',
-				Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT, [
-				Setting::ARG_TYPE        => 'boolean',
-				Setting::ARG_DESCRIPTION => __( 'Whether to show the notice controls beside the notice content.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => false,
-			] ),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_POSITION,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'Where the notice should appear.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => Cookie_Position_Enum::POSITION_BOTTOM,
+					Setting::ARG_ENUM        => ( new Cookie_Position_Enum() )->get_values(),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_FONT_SIZE,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'The notice font size.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => Cookie_Font_Size_Enum::SIZE_MEDIUM,
+					Setting::ARG_ENUM        => ( new Cookie_Font_Size_Enum() )->get_values(),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The notice text color.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT           => '#404040',
+					Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_LINK_COLOR,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The notice link color.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT           => '#21759b',
+					Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BACKGROUND_COLOR,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The notice background color.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT           => '#ffffff',
+					Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BORDER_WIDTH,
+				[
+					Setting::ARG_TYPE        => 'integer',
+					Setting::ARG_DESCRIPTION => __( 'The notice border width.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_MINIMUM     => 0,
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BORDER_COLOR,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The notice border color.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT           => '#cccccc',
+					Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_SHOW_DROP_SHADOW,
+				[
+					Setting::ARG_TYPE        => 'boolean',
+					Setting::ARG_DESCRIPTION => __( 'Whether to show a drop shadow on the notice.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => true,
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BUTTON_SIZE,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'The notice button size.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => Cookie_Button_Size_Enum::SIZE_MEDIUM,
+					Setting::ARG_ENUM        => ( new Cookie_Button_Size_Enum() )->get_values(),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BUTTON_TEXT_COLOR,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The notice button text color.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT           => '#ffffff',
+					Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BUTTON_BACKGROUND_COLOR,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The notice button background color.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT           => '#21759b',
+					Setting::ARG_SANITIZE_CALLBACK => 'maybe_hash_hex_color',
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT,
+				[
+					Setting::ARG_TYPE        => 'boolean',
+					Setting::ARG_DESCRIPTION => __( 'Whether to show the notice controls beside the notice content.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => false,
+				]
+			),
 		];
 
 		return $settings;
@@ -194,64 +230,100 @@ class Plugin_Appearance_Settings implements Integration {
 		$factory = new Customizer_Control_Factory();
 
 		$controls = [
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_POSITION, [
-				Customizer_Control::ARG_TYPE    => 'select',
-				Customizer_Control::ARG_LABEL   => __( 'Position', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_CHOICES => ( new Cookie_Position_Enum() )->get_labels(),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_FONT_SIZE, [
-				Customizer_Control::ARG_TYPE    => 'radio',
-				Customizer_Control::ARG_LABEL   => __( 'Font Size', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_CHOICES => ( new Cookie_Font_Size_Enum() )->get_labels(),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR, [
-				Customizer_Control::ARG_TYPE  => 'color',
-				Customizer_Control::ARG_LABEL => __( 'Text Color', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_LINK_COLOR, [
-				Customizer_Control::ARG_TYPE  => 'color',
-				Customizer_Control::ARG_LABEL => __( 'Link Color', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BACKGROUND_COLOR, [
-				Customizer_Control::ARG_TYPE  => 'color',
-				Customizer_Control::ARG_LABEL => __( 'Background Color', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BORDER_WIDTH, [
-				Customizer_Control::ARG_TYPE        => 'number',
-				Customizer_Control::ARG_LABEL       => __( 'Border Width', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_INPUT_ATTRS => [
-					'min'  => '0',
-					'step' => '1',
-				],
-			] ),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_POSITION,
+				[
+					Customizer_Control::ARG_TYPE    => 'select',
+					Customizer_Control::ARG_LABEL   => __( 'Position', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_CHOICES => ( new Cookie_Position_Enum() )->get_labels(),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_FONT_SIZE,
+				[
+					Customizer_Control::ARG_TYPE    => 'radio',
+					Customizer_Control::ARG_LABEL   => __( 'Font Size', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_CHOICES => ( new Cookie_Font_Size_Enum() )->get_labels(),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_TEXT_COLOR,
+				[
+					Customizer_Control::ARG_TYPE  => 'color',
+					Customizer_Control::ARG_LABEL => __( 'Text Color', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_LINK_COLOR,
+				[
+					Customizer_Control::ARG_TYPE  => 'color',
+					Customizer_Control::ARG_LABEL => __( 'Link Color', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BACKGROUND_COLOR,
+				[
+					Customizer_Control::ARG_TYPE  => 'color',
+					Customizer_Control::ARG_LABEL => __( 'Background Color', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BORDER_WIDTH,
+				[
+					Customizer_Control::ARG_TYPE        => 'number',
+					Customizer_Control::ARG_LABEL       => __( 'Border Width', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_INPUT_ATTRS => [
+						'min'  => '0',
+						'step' => '1',
+					],
+				]
+			),
 
 			// TODO: Only show this control if the border width is greater than 0.
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BORDER_COLOR, [
-				Customizer_Control::ARG_TYPE  => 'color',
-				Customizer_Control::ARG_LABEL => __( 'Border Color', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_SHOW_DROP_SHADOW, [
-				Customizer_Control::ARG_TYPE  => 'checkbox',
-				Customizer_Control::ARG_LABEL => __( 'Show drop shadow?', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BUTTON_SIZE, [
-				Customizer_Control::ARG_TYPE    => 'radio',
-				Customizer_Control::ARG_LABEL   => __( 'Button Size', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_CHOICES => ( new Cookie_Button_Size_Enum() )->get_labels(),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BUTTON_TEXT_COLOR, [
-				Customizer_Control::ARG_TYPE  => 'color',
-				Customizer_Control::ARG_LABEL => __( 'Button Text Color', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_BUTTON_BACKGROUND_COLOR, [
-				Customizer_Control::ARG_TYPE  => 'color',
-				Customizer_Control::ARG_LABEL => __( 'Button Background Color', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT, [
-				Customizer_Control::ARG_TYPE        => 'checkbox',
-				Customizer_Control::ARG_LABEL       => __( 'Show controls beside content?', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_DESCRIPTION => __( 'This will make the button and the cookie control toggles appear beside the text.', 'wp-gdpr-cookie-notice' ),
-			] ),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BORDER_COLOR,
+				[
+					Customizer_Control::ARG_TYPE  => 'color',
+					Customizer_Control::ARG_LABEL => __( 'Border Color', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_SHOW_DROP_SHADOW,
+				[
+					Customizer_Control::ARG_TYPE  => 'checkbox',
+					Customizer_Control::ARG_LABEL => __( 'Show drop shadow?', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BUTTON_SIZE,
+				[
+					Customizer_Control::ARG_TYPE    => 'radio',
+					Customizer_Control::ARG_LABEL   => __( 'Button Size', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_CHOICES => ( new Cookie_Button_Size_Enum() )->get_labels(),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BUTTON_TEXT_COLOR,
+				[
+					Customizer_Control::ARG_TYPE  => 'color',
+					Customizer_Control::ARG_LABEL => __( 'Button Text Color', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_BUTTON_BACKGROUND_COLOR,
+				[
+					Customizer_Control::ARG_TYPE  => 'color',
+					Customizer_Control::ARG_LABEL => __( 'Button Background Color', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Stylesheet::SETTING_SHOW_CONTROLS_BESIDE_CONTENT,
+				[
+					Customizer_Control::ARG_TYPE        => 'checkbox',
+					Customizer_Control::ARG_LABEL       => __( 'Show controls beside content?', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_DESCRIPTION => __( 'This will make the button and the cookie control toggles appear beside the text.', 'wp-gdpr-cookie-notice' ),
+				]
+			),
 		];
 
 		return $controls;

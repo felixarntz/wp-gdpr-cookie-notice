@@ -95,9 +95,14 @@ class WordPress_Cookie_Integration_Registry implements Service, Cookie_Integrati
 
 		$this->cookie_integrations[ $id ] = $cookie_integration;
 
-		add_action( 'init', function() use ( $cookie_integration ) {
-			$this->add_integration_hooks( $cookie_integration );
-		}, PHP_INT_MAX, 0 );
+		add_action(
+			'init',
+			function() use ( $cookie_integration ) {
+				$this->add_integration_hooks( $cookie_integration );
+			},
+			PHP_INT_MAX,
+			0
+		);
 	}
 
 	/**

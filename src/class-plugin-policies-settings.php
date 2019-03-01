@@ -100,31 +100,37 @@ class Plugin_Policies_Settings implements Integration {
 	 */
 	public function register_privacy_policy_page_control( WP_Customize_Manager $wp_customize ) {
 		if ( ! $wp_customize->get_setting( 'wp_page_for_privacy_policy' ) ) {
-			$wp_customize->add_setting( 'wp_page_for_privacy_policy', [
-				'type'              => 'option',
-				'capability'        => 'manage_privacy_options',
-				'transport'         => 'postMessage',
-				'validate_callback' => function( $validity, $value ) {
-					if ( ! empty( $value ) && 'page' !== get_post_type( (int) $value ) ) {
-						$validity->add( 'value_no_page', __( 'The value is not an existing page.', 'wp-gdpr-cookie-notice' ) );
-					}
+			$wp_customize->add_setting(
+				'wp_page_for_privacy_policy',
+				[
+					'type'              => 'option',
+					'capability'        => 'manage_privacy_options',
+					'transport'         => 'postMessage',
+					'validate_callback' => function( $validity, $value ) {
+						if ( ! empty( $value ) && 'page' !== get_post_type( (int) $value ) ) {
+							$validity->add( 'value_no_page', __( 'The value is not an existing page.', 'wp-gdpr-cookie-notice' ) );
+						}
 
-					return $validity;
-				},
-				'sanitize_callback' => 'absint',
-				'parse_callback'    => 'absint',
-				'default'           => 0,
-			] );
+						return $validity;
+					},
+					'sanitize_callback' => 'absint',
+					'parse_callback'    => 'absint',
+					'default'           => 0,
+				]
+			);
 		}
 
-		$wp_customize->add_control( 'wp_page_for_privacy_policy', [
-			'section'        => $this->option_reader->get_setting_id() . '_' . Plugin_Customizer::SECTION_POLICIES,
-			'type'           => 'dropdown-pages',
-			'label'          => __( 'Privacy Policy Page', 'wp-gdpr-cookie-notice' ),
-			'description'    => __( 'Select the page that contains your privacy policy.', 'wp-gdpr-cookie-notice' ),
-			'priority'       => 5,
-			'allow_addition' => true,
-		] );
+		$wp_customize->add_control(
+			'wp_page_for_privacy_policy',
+			[
+				'section'        => $this->option_reader->get_setting_id() . '_' . Plugin_Customizer::SECTION_POLICIES,
+				'type'           => 'dropdown-pages',
+				'label'          => __( 'Privacy Policy Page', 'wp-gdpr-cookie-notice' ),
+				'description'    => __( 'Select the page that contains your privacy policy.', 'wp-gdpr-cookie-notice' ),
+				'priority'       => 5,
+				'allow_addition' => true,
+			]
+		);
 	}
 
 	/**
@@ -138,23 +144,29 @@ class Plugin_Policies_Settings implements Integration {
 		$factory = new Setting_Factory();
 
 		$settings = [
-			$factory->create( Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE, [
-				Setting::ARG_TYPE              => 'integer',
-				Setting::ARG_DESCRIPTION       => __( 'The cookie policy page ID.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_MINIMUM           => 0,
-				Setting::ARG_VALIDATE_CALLBACK => function( $validity, $value ) {
-					if ( ! empty( $value ) && 'page' !== get_post_type( (int) $value ) ) {
-						$validity->add( 'value_no_page', __( 'The value is not an existing page.', 'wp-gdpr-cookie-notice' ) );
-					}
+			$factory->create(
+				Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE,
+				[
+					Setting::ARG_TYPE              => 'integer',
+					Setting::ARG_DESCRIPTION       => __( 'The cookie policy page ID.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_MINIMUM           => 0,
+					Setting::ARG_VALIDATE_CALLBACK => function( $validity, $value ) {
+						if ( ! empty( $value ) && 'page' !== get_post_type( (int) $value ) ) {
+							$validity->add( 'value_no_page', __( 'The value is not an existing page.', 'wp-gdpr-cookie-notice' ) );
+						}
 
-					return $validity;
-				},
-			] ),
-			$factory->create( Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID, [
-				Setting::ARG_TYPE              => 'string',
-				Setting::ARG_DESCRIPTION       => __( 'The ID attribute for the cookie information section in the privacy policy.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_SANITIZE_CALLBACK => 'sanitize_title',
-			] ),
+						return $validity;
+					},
+				]
+			),
+			$factory->create(
+				Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID,
+				[
+					Setting::ARG_TYPE              => 'string',
+					Setting::ARG_DESCRIPTION       => __( 'The ID attribute for the cookie information section in the privacy policy.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_SANITIZE_CALLBACK => 'sanitize_title',
+				]
+			),
 		];
 
 		return $settings;
@@ -171,19 +183,25 @@ class Plugin_Policies_Settings implements Integration {
 		$factory = new Customizer_Control_Factory();
 
 		$controls = [
-			$factory->create( Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE, [
-				Customizer_Control::ARG_TYPE        => 'dropdown-pages',
-				Customizer_Control::ARG_LABEL       => __( 'Cookie Policy Page', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_DESCRIPTION => __( 'Select the page that contains your cookie policy, if available.', 'wp-gdpr-cookie-notice' ),
-				'allow_addition'                    => true,
-			] ),
+			$factory->create(
+				Cookie_Policy_Page::SETTING_COOKIE_POLICY_PAGE,
+				[
+					Customizer_Control::ARG_TYPE        => 'dropdown-pages',
+					Customizer_Control::ARG_LABEL       => __( 'Cookie Policy Page', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_DESCRIPTION => __( 'Select the page that contains your cookie policy, if available.', 'wp-gdpr-cookie-notice' ),
+					'allow_addition'                    => true,
+				]
+			),
 
 			// TODO: Only show this control if privacy policy page is set.
-			$factory->create( Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID, [
-				Customizer_Control::ARG_TYPE        => 'text',
-				Customizer_Control::ARG_LABEL       => __( 'Cookie Section ID', 'wp-gdpr-cookie-notice' ),
-				Customizer_Control::ARG_DESCRIPTION => __( 'If your privacy policy page contains a cookie policy section, enter the ID attribute of that section.', 'wp-gdpr-cookie-notice' ),
-			] ),
+			$factory->create(
+				Cookie_Policy_Page::SETTING_PRIVACY_POLICY_PAGE_COOKIE_SECTION_ID,
+				[
+					Customizer_Control::ARG_TYPE        => 'text',
+					Customizer_Control::ARG_LABEL       => __( 'Cookie Section ID', 'wp-gdpr-cookie-notice' ),
+					Customizer_Control::ARG_DESCRIPTION => __( 'If your privacy policy page contains a cookie policy section, enter the ID attribute of that section.', 'wp-gdpr-cookie-notice' ),
+				]
+			),
 		];
 
 		return $controls;

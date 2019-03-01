@@ -89,21 +89,24 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 
 		$this->context_stack[] = $shortcode_tags;
 
-		$shortcodes = array_filter( $this->shortcode_registry->get_all_registered(), function( Shortcode $shortcode ) use ( $context ) {
-			if ( $shortcode instanceof Context_Shortcode && $shortcode->supports_context( $context ) ) {
-				return true;
+		$shortcodes = array_filter(
+			$this->shortcode_registry->get_all_registered(),
+			function( Shortcode $shortcode ) use ( $context ) {
+				if ( $shortcode instanceof Context_Shortcode && $shortcode->supports_context( $context ) ) {
+					return true;
+				}
+
+				if ( Context_Shortcode::DEFAULT_CONTEXT === $context && ! $shortcode instanceof Context_Shortcode ) {
+					return true;
+				}
+
+				return false;
 			}
+		);
 
-			if ( Context_Shortcode::DEFAULT_CONTEXT === $context && ! $shortcode instanceof Context_Shortcode ) {
-				return true;
-			}
-
-			return false;
-		} );
-
-		$shortcode_tags = []; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+		$shortcode_tags = []; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		foreach ( $shortcodes as $shortcode ) {
-			$shortcode_tags[ $shortcode->get_id() ] = [ $shortcode, 'get_output' ]; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+			$shortcode_tags[ $shortcode->get_id() ] = [ $shortcode, 'get_output' ]; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 	}
 
@@ -121,6 +124,6 @@ class WordPress_Shortcode_Parser implements Shortcode_Parser {
 			return;
 		}
 
-		$shortcode_tags = array_pop( $this->context_stack ); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+		$shortcode_tags = array_pop( $this->context_stack ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 }

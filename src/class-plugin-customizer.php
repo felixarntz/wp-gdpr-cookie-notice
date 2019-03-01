@@ -84,28 +84,47 @@ class Plugin_Customizer implements Integration {
 	 * @param WP_Customize_Manager $wp_customize Customizer instance.
 	 */
 	public function register_customizer_ui( WP_Customize_Manager $wp_customize ) {
-		$wp_customize->add_panel( $this->prefix_id( self::PANEL ), [
-			'title'       => __( 'Cookie Notice', 'wp-gdpr-cookie-notice' ),
-			'description' => __( 'The cookie notice is displayed for visitors who have not specified their cookie preferences yet.', 'wp-gdpr-cookie-notice' ),
-			'capability'  => 'manage_options',
-		] );
+		$wp_customize->add_panel(
+			$this->prefix_id( self::PANEL ),
+			[
+				'title'       => __( 'Cookie Notice', 'wp-gdpr-cookie-notice' ),
+				'description' => __( 'The cookie notice is displayed for visitors who have not specified their cookie preferences yet.', 'wp-gdpr-cookie-notice' ),
+				'capability'  => 'manage_options',
+			]
+		);
 
-		$this->register_customizer_section( $wp_customize, self::SECTION_POLICIES, [
-			'title' => _x( 'Policies', 'Customizer section', 'wp-gdpr-cookie-notice' ),
-		] );
+		$this->register_customizer_section(
+			$wp_customize,
+			self::SECTION_POLICIES,
+			[
+				'title' => _x( 'Policies', 'Customizer section', 'wp-gdpr-cookie-notice' ),
+			]
+		);
 
-		$this->register_customizer_section( $wp_customize, self::SECTION_CONTENT, [
-			'title' => _x( 'Content', 'Customizer section', 'wp-gdpr-cookie-notice' ),
-		] );
+		$this->register_customizer_section(
+			$wp_customize,
+			self::SECTION_CONTENT,
+			[
+				'title' => _x( 'Content', 'Customizer section', 'wp-gdpr-cookie-notice' ),
+			]
+		);
 
-		$this->register_customizer_section( $wp_customize, self::SECTION_APPEARANCE, [
-			'title' => _x( 'Appearance', 'Customizer section', 'wp-gdpr-cookie-notice' ),
-		] );
+		$this->register_customizer_section(
+			$wp_customize,
+			self::SECTION_APPEARANCE,
+			[
+				'title' => _x( 'Appearance', 'Customizer section', 'wp-gdpr-cookie-notice' ),
+			]
+		);
 
-		$this->register_customizer_section( $wp_customize, self::SECTION_INTEGRATIONS, [
-			'title'       => _x( 'Integrations', 'Customizer section', 'wp-gdpr-cookie-notice' ),
-			'description' => __( 'The following checkboxes allow you to block certain cookie-based features until the visitor has given their consent to the cookie notice.', 'wp-gdpr-cookie-notice' ),
-		] );
+		$this->register_customizer_section(
+			$wp_customize,
+			self::SECTION_INTEGRATIONS,
+			[
+				'title'       => _x( 'Integrations', 'Customizer section', 'wp-gdpr-cookie-notice' ),
+				'description' => __( 'The following checkboxes allow you to block certain cookie-based features until the visitor has given their consent to the cookie notice.', 'wp-gdpr-cookie-notice' ),
+			]
+		);
 	}
 
 	/**
@@ -120,10 +139,13 @@ class Plugin_Customizer implements Integration {
 	 * @param array                $section_args Optional. Section arguments. Default empty array.
 	 */
 	public function register_customizer_section( WP_Customize_Manager $wp_customize, string $section_id, array $section_args = [] ) {
-		$section_args = wp_parse_args( $section_args, [
-			'panel'      => $this->prefix_id( self::PANEL ),
-			'capability' => 'manage_options',
-		] );
+		$section_args = wp_parse_args(
+			$section_args,
+			[
+				'panel'      => $this->prefix_id( self::PANEL ),
+				'capability' => 'manage_options',
+			]
+		);
 
 		$wp_customize->add_section( $this->prefix_id( $section_id ), $section_args );
 

@@ -107,34 +107,52 @@ class Plugin_Content_Settings implements Integration {
 		$factory = new Setting_Factory();
 
 		$settings = [
-			$factory->create( Cookie_Notice_Markup::SETTING_NOTICE_HEADING, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'The cookie notice heading.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => __( 'This Site Uses Cookies', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Markup::SETTING_NOTICE_CONTENT, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'The cookie notice content.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => _x( 'This site, like many others, uses small files called cookies to help us improve and customize your experience. Learn more about how we use cookies in [cookie_policy_link text="our cookie policy"].', 'content containing shortcode', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_SUBMIT_TEXT, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'The submit button text.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => _x( 'OK', 'submit button text', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_SHOW_TOGGLES, [
-				Setting::ARG_TYPE        => 'boolean',
-				Setting::ARG_DESCRIPTION => __( 'Whether to show toggles for granular cookie control.', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_SHOW_LEARN_MORE, [
-				Setting::ARG_TYPE        => 'boolean',
-				Setting::ARG_DESCRIPTION => __( 'Whether to show a Learn More link.', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_LEARN_MORE_TEXT, [
-				Setting::ARG_TYPE        => 'string',
-				Setting::ARG_DESCRIPTION => __( 'The text to use for the Learn More link.', 'wp-gdpr-cookie-notice' ),
-				Setting::ARG_DEFAULT     => _x( 'Learn more about cookies', 'link text', 'wp-gdpr-cookie-notice' ),
-			] ),
+			$factory->create(
+				Cookie_Notice_Markup::SETTING_NOTICE_HEADING,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'The cookie notice heading.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => __( 'This Site Uses Cookies', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Markup::SETTING_NOTICE_CONTENT,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'The cookie notice content.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => _x( 'This site, like many others, uses small files called cookies to help us improve and customize your experience. Learn more about how we use cookies in [cookie_policy_link text="our cookie policy"].', 'content containing shortcode', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_SUBMIT_TEXT,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'The submit button text.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => _x( 'OK', 'submit button text', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_SHOW_TOGGLES,
+				[
+					Setting::ARG_TYPE        => 'boolean',
+					Setting::ARG_DESCRIPTION => __( 'Whether to show toggles for granular cookie control.', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_SHOW_LEARN_MORE,
+				[
+					Setting::ARG_TYPE        => 'boolean',
+					Setting::ARG_DESCRIPTION => __( 'Whether to show a Learn More link.', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_LEARN_MORE_TEXT,
+				[
+					Setting::ARG_TYPE        => 'string',
+					Setting::ARG_DESCRIPTION => __( 'The text to use for the Learn More link.', 'wp-gdpr-cookie-notice' ),
+					Setting::ARG_DEFAULT     => _x( 'Learn more about cookies', 'link text', 'wp-gdpr-cookie-notice' ),
+				]
+			),
 		];
 
 		return $settings;
@@ -154,37 +172,55 @@ class Plugin_Content_Settings implements Integration {
 		$privacy_policy_link = '<code>[privacy_policy_link text="' . __( 'Privacy Policy', 'wp-gdpr-cookie-notice' ) . '"]</code>';
 
 		$controls = [
-			$factory->create( Cookie_Notice_Markup::SETTING_NOTICE_HEADING, [
-				Customizer_Control::ARG_TYPE  => 'text',
-				Customizer_Control::ARG_LABEL => __( 'Notice Heading', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Markup::SETTING_NOTICE_CONTENT, [
-				Customizer_Control::ARG_TYPE        => 'textarea',
-				Customizer_Control::ARG_LABEL       => __( 'Notice Content', 'wp-gdpr-cookie-notice' ),
+			$factory->create(
+				Cookie_Notice_Markup::SETTING_NOTICE_HEADING,
+				[
+					Customizer_Control::ARG_TYPE  => 'text',
+					Customizer_Control::ARG_LABEL => __( 'Notice Heading', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Markup::SETTING_NOTICE_CONTENT,
+				[
+					Customizer_Control::ARG_TYPE        => 'textarea',
+					Customizer_Control::ARG_LABEL       => __( 'Notice Content', 'wp-gdpr-cookie-notice' ),
 
-				/* translators: 1: shortcode tag, 2: other shortcode tag */
-				Customizer_Control::ARG_DESCRIPTION => sprintf( __( 'You may use the shortcodes %1$s and %2$s.', 'wp-gdpr-cookie-notice' ), $cookie_policy_link, $privacy_policy_link ),
-			] ),
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_SUBMIT_TEXT, [
-				Customizer_Control::ARG_TYPE  => 'text',
-				Customizer_Control::ARG_LABEL => __( 'Submit Button Text', 'wp-gdpr-cookie-notice' ),
-			] ),
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_SHOW_TOGGLES, [
-				Customizer_Control::ARG_TYPE  => 'checkbox',
-				Customizer_Control::ARG_LABEL => __( 'Show toggles for granular cookie control?', 'wp-gdpr-cookie-notice' ),
-			] ),
+					/* translators: 1: shortcode tag, 2: other shortcode tag */
+					Customizer_Control::ARG_DESCRIPTION => sprintf( __( 'You may use the shortcodes %1$s and %2$s.', 'wp-gdpr-cookie-notice' ), $cookie_policy_link, $privacy_policy_link ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_SUBMIT_TEXT,
+				[
+					Customizer_Control::ARG_TYPE  => 'text',
+					Customizer_Control::ARG_LABEL => __( 'Submit Button Text', 'wp-gdpr-cookie-notice' ),
+				]
+			),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_SHOW_TOGGLES,
+				[
+					Customizer_Control::ARG_TYPE  => 'checkbox',
+					Customizer_Control::ARG_LABEL => __( 'Show toggles for granular cookie control?', 'wp-gdpr-cookie-notice' ),
+				]
+			),
 
 			// TODO: Only show this control if either a Privacy Policy or Cookie Policy page are set.
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_SHOW_LEARN_MORE, [
-				Customizer_Control::ARG_TYPE  => 'checkbox',
-				Customizer_Control::ARG_LABEL => __( 'Show a Learn More link?', 'wp-gdpr-cookie-notice' ),
-			] ),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_SHOW_LEARN_MORE,
+				[
+					Customizer_Control::ARG_TYPE  => 'checkbox',
+					Customizer_Control::ARG_LABEL => __( 'Show a Learn More link?', 'wp-gdpr-cookie-notice' ),
+				]
+			),
 
 			// TODO: Only show this control if the learn more link is enabled.
-			$factory->create( Cookie_Notice_Form_Markup::SETTING_LEARN_MORE_TEXT, [
-				Customizer_Control::ARG_TYPE  => 'text',
-				Customizer_Control::ARG_LABEL => __( 'Learn More Text', 'wp-gdpr-cookie-notice' ),
-			] ),
+			$factory->create(
+				Cookie_Notice_Form_Markup::SETTING_LEARN_MORE_TEXT,
+				[
+					Customizer_Control::ARG_TYPE  => 'text',
+					Customizer_Control::ARG_LABEL => __( 'Learn More Text', 'wp-gdpr-cookie-notice' ),
+				]
+			),
 		];
 
 		return $controls;

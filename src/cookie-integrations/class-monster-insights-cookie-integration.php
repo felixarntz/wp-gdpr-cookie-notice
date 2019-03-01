@@ -72,19 +72,24 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 *                      that leverage page caching. It is recommended to use a JS-only solution.
 	 */
 	public function add_hooks( bool $allowed ) {
-		add_action( 'monsterinsights_tracking_before_analytics', function() {
-			$ua = monsterinsights_get_ua();
-			if ( empty( $ua ) ) {
-				return;
-			}
-
-			?>
-			<script type="text/javascript">
-				if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
-					window['ga-disable-<?php echo esc_attr( $ua ); ?>'] = true;
+		add_action(
+			'monsterinsights_tracking_before_analytics',
+			function() {
+				$ua = monsterinsights_get_ua();
+				if ( empty( $ua ) ) {
+					return;
 				}
-			</script>
-			<?php
-		}, 1, 0 );
+
+				?>
+				<script type="text/javascript">
+					if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
+						window['ga-disable-<?php echo esc_attr( $ua ); ?>'] = true;
+					}
+				</script>
+				<?php
+			},
+			1,
+			0
+		);
 	}
 }

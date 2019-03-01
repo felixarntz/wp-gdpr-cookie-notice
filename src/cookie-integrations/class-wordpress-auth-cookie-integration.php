@@ -74,12 +74,17 @@ class WordPress_Auth_Cookie_Integration implements Cookie_Integration {
 	public function add_hooks( bool $allowed ) {
 		if ( ! $allowed ) {
 			add_filter( 'send_auth_cookies', '__return_false' );
-			add_filter( 'wp_login_errors', function( $errors ) {
-				$errors->add( 'cookies_not_allowed', __( 'You have to accept the cookie notice in order to be able to log in.', 'wp-gdpr-cookie-notice' ) );
-				return $errors;
-			} );
-			add_action( 'login_footer', function() {
-				?>
+			add_filter(
+				'wp_login_errors',
+				function( $errors ) {
+					$errors->add( 'cookies_not_allowed', __( 'You have to accept the cookie notice in order to be able to log in.', 'wp-gdpr-cookie-notice' ) );
+					return $errors;
+				}
+			);
+			add_action(
+				'login_footer',
+				function() {
+					?>
 				<script type="text/javascript">
 					if ( window.wpGdprCookieNoticeUtils ) {
 						window.wpGdprCookieNoticeUtils.onAcceptCookies( function( utils ) {
@@ -90,8 +95,9 @@ class WordPress_Auth_Cookie_Integration implements Cookie_Integration {
 						});
 					}
 				</script>
-				<?php
-			});
+					<?php
+				}
+			);
 		}
 	}
 }

@@ -59,9 +59,12 @@ class Base_Shortcode implements Shortcode {
 	public function __construct( string $id, callable $callback, array $args = [] ) {
 		$this->id       = $id;
 		$this->callback = $callback;
-		$this->args     = wp_parse_args( $args, [
-			Shortcode::ARG_DEFAULTS => [],
-		] );
+		$this->args     = wp_parse_args(
+			$args,
+			[
+				Shortcode::ARG_DEFAULTS => [],
+			]
+		);
 	}
 
 	/**

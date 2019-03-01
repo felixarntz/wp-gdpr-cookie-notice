@@ -111,12 +111,15 @@ class Plugin_Integrations_Settings implements Integration {
 		foreach ( $cookie_integrations as $cookie_integration ) {
 			$setting_slug = sprintf( WordPress_Cookie_Integration_Registry::ENABLED_SETTING_GENERATOR, $cookie_integration->get_id() );
 
-			$settings[] = $factory->create( $setting_slug, [
-				Setting::ARG_TYPE        => 'boolean',
-				/* translators: %s: cookie integration identifier */
-				Setting::ARG_DESCRIPTION => sprintf( __( 'Whether to enable the %s cookie integration.', 'wp-gdpr-cookie-notice' ), $cookie_integration->get_id() ),
-				Setting::ARG_DEFAULT     => true,
-			] );
+			$settings[] = $factory->create(
+				$setting_slug,
+				[
+					Setting::ARG_TYPE        => 'boolean',
+					/* translators: %s: cookie integration identifier */
+					Setting::ARG_DESCRIPTION => sprintf( __( 'Whether to enable the %s cookie integration.', 'wp-gdpr-cookie-notice' ), $cookie_integration->get_id() ),
+					Setting::ARG_DEFAULT     => true,
+				]
+			);
 		}
 
 		return $settings;
@@ -141,10 +144,13 @@ class Plugin_Integrations_Settings implements Integration {
 
 			$setting_slug = sprintf( WordPress_Cookie_Integration_Registry::ENABLED_SETTING_GENERATOR, $cookie_integration->get_id() );
 
-			$controls[] = $factory->create( $setting_slug, [
-				Customizer_Control::ARG_TYPE  => 'checkbox',
-				Customizer_Control::ARG_LABEL => $cookie_integration->get_enable_label(),
-			] );
+			$controls[] = $factory->create(
+				$setting_slug,
+				[
+					Customizer_Control::ARG_TYPE  => 'checkbox',
+					Customizer_Control::ARG_LABEL => $cookie_integration->get_enable_label(),
+				]
+			);
 		}
 
 		return $controls;

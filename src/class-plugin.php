@@ -104,9 +104,12 @@ class Plugin implements Integration {
 			new Plugin_Cookie_Integrations( $integration_registry ),
 		];
 
-		array_walk( $integrations, function( Integration $integration ) {
-			$integration->add_hooks();
-		} );
+		array_walk(
+			$integrations,
+			function( Integration $integration ) {
+				$integration->add_hooks();
+			}
+		);
 
 		$this->add_settings_menu_customize_link();
 		$this->add_plugin_row_customize_link();
@@ -130,15 +133,20 @@ class Plugin implements Integration {
 	 * @since 1.0.0
 	 */
 	protected function add_settings_menu_customize_link() {
-		add_action( 'admin_menu', function() {
-			if ( ! current_user_can( 'manage_options' ) ) {
-				return;
-			}
+		add_action(
+			'admin_menu',
+			function() {
+				if ( ! current_user_can( 'manage_options' ) ) {
+					return;
+				}
 
-			$title = __( 'Cookie Notice', 'wp-gdpr-cookie-notice' );
+				$title = __( 'Cookie Notice', 'wp-gdpr-cookie-notice' );
 
-			add_options_page( $title, $title, 'customize', 'customize.php?autofocus[panel]=' . $this->container->get( 'options' )->get_setting_id() . '_' . Plugin_Customizer::PANEL );
-		}, 5, 0 );
+				add_options_page( $title, $title, 'customize', 'customize.php?autofocus[panel]=' . $this->container->get( 'options' )->get_setting_id() . '_' . Plugin_Customizer::PANEL );
+			},
+			5,
+			0
+		);
 	}
 
 	/**
@@ -149,18 +157,23 @@ class Plugin implements Integration {
 	protected function add_plugin_row_customize_link() {
 		$plugin_file = plugin_basename( $this->main_file );
 
-		add_filter( "plugin_action_links_{$plugin_file}", function( $actions ) {
-			if ( current_user_can( 'customize' ) && current_user_can( 'manage_options' ) ) {
-				$url = add_query_arg(
-					'autofocus[panel]',
-					$this->container->get( 'options' )->get_setting_id() . '_' . Plugin_Customizer::PANEL,
-					admin_url( 'customize.php' )
-				);
+		add_filter(
+			"plugin_action_links_{$plugin_file}",
+			function( $actions ) {
+				if ( current_user_can( 'customize' ) && current_user_can( 'manage_options' ) ) {
+					$url = add_query_arg(
+						'autofocus[panel]',
+						$this->container->get( 'options' )->get_setting_id() . '_' . Plugin_Customizer::PANEL,
+						admin_url( 'customize.php' )
+					);
 
-				array_unshift( $actions, '<a href="' . esc_url( $url ) . '">' . esc_html_x( 'Customize', 'plugin action link', 'wp-gdpr-cookie-notice' ) . '</a>' );
-			}
+					array_unshift( $actions, '<a href="' . esc_url( $url ) . '">' . esc_html_x( 'Customize', 'plugin action link', 'wp-gdpr-cookie-notice' ) . '</a>' );
+				}
 
-			return $actions;
-		}, 10, 1 );
+				return $actions;
+			},
+			10,
+			1
+		);
 	}
 }

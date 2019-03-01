@@ -133,7 +133,7 @@ class Plugin_Notice_Controller implements Integration {
 	public function handle_amp_check_consent_href_ajax() {
 		$active = false;
 
-		$payload = file_get_contents( 'php://input' );
+		$payload = file_get_contents( 'php://input' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( ! empty( $payload ) ) {
 			$payload = json_decode( $payload, true );
 			if ( ! empty( $payload['consentInstanceId'] ) && Cookie_Notice_AMP_Markup::AMP_INSTANCE === $payload['consentInstanceId'] ) {

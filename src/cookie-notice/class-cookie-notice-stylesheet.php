@@ -419,9 +419,12 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 	 */
 	protected function hex_to_rgb( string $color ) : array {
 		if ( strlen( $color ) === 4 ) {
-			$rgb = array_map( function( $color_part ) {
-				return $color_part . $color_part;
-			}, str_split( substr( $color, 1 ), 1 ) );
+			$rgb = array_map(
+				function( $color_part ) {
+						return $color_part . $color_part;
+				},
+				str_split( substr( $color, 1 ), 1 )
+			);
 		} else {
 			$rgb = str_split( substr( $color, 1 ), 2 );
 		}
@@ -438,9 +441,12 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 	 * @return string Hex color string.
 	 */
 	protected function rgb_to_hex( array $color ) : string {
-		$hex = array_map( function( $color_part ) {
-			return zeroise( dechex( $color_part ), 2 );
-		}, $color );
+		$hex = array_map(
+			function( $color_part ) {
+					return zeroise( dechex( $color_part ), 2 );
+			},
+			$color
+		);
 
 		return '#' . $hex[0] . $hex[1] . $hex[2];
 	}

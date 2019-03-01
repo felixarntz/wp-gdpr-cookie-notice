@@ -72,19 +72,24 @@ class Simple_Analytics_Cookie_Integration implements Cookie_Integration {
 	 *                      that leverage page caching. It is recommended to use a JS-only solution.
 	 */
 	public function add_hooks( bool $allowed ) {
-		add_action( 'wp_head', function() {
-			$options = get_option( 'themeblvd_analytics', [] );
-			if ( empty( $options['google_id'] ) ) {
-				return;
-			}
-
-			?>
-			<script type="text/javascript">
-				if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
-					window['ga-disable-<?php echo esc_attr( $options['google_id'] ); ?>'] = true;
+		add_action(
+			'wp_head',
+			function() {
+				$options = get_option( 'themeblvd_analytics', [] );
+				if ( empty( $options['google_id'] ) ) {
+					return;
 				}
-			</script>
-			<?php
-		}, 1, 0 );
+
+				?>
+				<script type="text/javascript">
+					if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
+						window['ga-disable-<?php echo esc_attr( $options['google_id'] ); ?>'] = true;
+					}
+				</script>
+				<?php
+			},
+			1,
+			0
+		);
 	}
 }

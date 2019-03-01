@@ -69,13 +69,15 @@ class Plugin_Customizer_Proxy implements Customizer {
 	 * @param Customizer_Control $control Control instance.
 	 */
 	public function add_control( Customizer_Control $control ) {
-		$control->parse_args( function( $args ) {
-			$args['id']                                 = $this->prefix_setting_name( $args['id'] );
-			$args[ Customizer_Control::ARG_SECTION ]    = $this->section;
-			$args[ Customizer_Control::ARG_CAPABILITY ] = 'manage_options';
+		$control->parse_args(
+			function( $args ) {
+					$args['id']                                 = $this->prefix_setting_name( $args['id'] );
+					$args[ Customizer_Control::ARG_SECTION ]    = $this->section;
+					$args[ Customizer_Control::ARG_CAPABILITY ] = 'manage_options';
 
-			return $args;
-		} );
+					return $args;
+			}
+		);
 
 		$this->wp_customize->add_control( $control->map( $this->wp_customize ) );
 	}
@@ -88,16 +90,18 @@ class Plugin_Customizer_Proxy implements Customizer {
 	 * @param Customizer_Partial $partial Control instance.
 	 */
 	public function add_partial( Customizer_Partial $partial ) {
-		$partial->parse_args( function( $args ) {
-			$args['id']                                 = $this->prefix_setting_name( $args['id'] );
-			$args[ Customizer_Partial::ARG_CAPABILITY ] = 'manage_options';
+		$partial->parse_args(
+			function( $args ) {
+				$args['id']                                 = $this->prefix_setting_name( $args['id'] );
+				$args[ Customizer_Partial::ARG_CAPABILITY ] = 'manage_options';
 
-			if ( ! empty( $args[ Customizer_Partial::ARG_SETTINGS ] ) ) {
-				$args[ Customizer_Partial::ARG_SETTINGS ] = array_map( [ $this, 'prefix_setting_name' ], $args[ Customizer_Partial::ARG_SETTINGS ] );
+				if ( ! empty( $args[ Customizer_Partial::ARG_SETTINGS ] ) ) {
+					$args[ Customizer_Partial::ARG_SETTINGS ] = array_map( [ $this, 'prefix_setting_name' ], $args[ Customizer_Partial::ARG_SETTINGS ] );
+				}
+
+				return $args;
 			}
-
-			return $args;
-		} );
+		);
 
 		$this->wp_customize->selective_refresh->add_partial( $partial->map( $this->wp_customize ) );
 	}

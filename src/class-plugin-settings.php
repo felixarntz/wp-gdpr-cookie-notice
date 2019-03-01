@@ -65,9 +65,12 @@ class Plugin_Settings implements Integration {
 	public function register_settings() {
 		$setting_id       = $this->option_reader->get_setting_id();
 		$setting_group    = $setting_id;
-		$setting_registry = new Aggregate_Setting( $setting_id, [
-			Aggregate_Setting::ARG_DESCRIPTION => __( 'Settings for the WP GDPR Cookie Notice plugin.', 'wp-gdpr-cookie-notice' ),
-		] );
+		$setting_registry = new Aggregate_Setting(
+			$setting_id,
+			[
+				Aggregate_Setting::ARG_DESCRIPTION => __( 'Settings for the WP GDPR Cookie Notice plugin.', 'wp-gdpr-cookie-notice' ),
+			]
+		);
 
 		/**
 		 * Fires when the plugin's settings are registered.

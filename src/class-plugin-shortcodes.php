@@ -139,10 +139,14 @@ class Plugin_Shortcodes implements Integration {
 			return esc_html( $text );
 		}
 
-		return $this->get_link( $url, $text, [
-			'class'  => str_replace( '_', '-', $policy_service_id ),
-			'target' => $atts['target'],
-		] );
+		return $this->get_link(
+			$url,
+			$text,
+			[
+				'class'  => str_replace( '_', '-', $policy_service_id ),
+				'target' => $atts['target'],
+			]
+		);
 	}
 
 	/**

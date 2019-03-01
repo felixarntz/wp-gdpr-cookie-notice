@@ -37,9 +37,12 @@ class Base_Context_Shortcode extends Base_Shortcode implements Context_Shortcode
 	public function __construct( string $id, callable $callback, array $args = [] ) {
 		parent::__construct( $id, $callback, $args );
 
-		$this->args = wp_parse_args( $args, [
-			Context_Shortcode::ARG_CONTEXTS => [ Context_Shortcode::DEFAULT_CONTEXT ],
-		] );
+		$this->args = wp_parse_args(
+			$args,
+			[
+				Context_Shortcode::ARG_CONTEXTS => [ Context_Shortcode::DEFAULT_CONTEXT ],
+			]
+		);
 	}
 
 	/**

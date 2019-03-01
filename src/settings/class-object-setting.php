@@ -52,9 +52,12 @@ class Object_Setting extends Abstract_Setting {
 	 * @param array  $properties_settings Optional. Settings to use for each individual object property.
 	 */
 	public function __construct( string $id, array $args = [], array $properties_settings = [] ) {
-		$this->properties_settings = array_filter( $properties_settings, function( $setting ) {
-			return $setting instanceof Setting;
-		} );
+		$this->properties_settings = array_filter(
+			$properties_settings,
+			function( $setting ) {
+				return $setting instanceof Setting;
+			}
+		);
 
 		parent::__construct( $id, $args );
 	}

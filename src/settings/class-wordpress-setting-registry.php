@@ -76,13 +76,23 @@ class WordPress_Setting_Registry implements Setting_Registry {
 
 		$this->settings[ $id ] = $setting;
 
-		add_action( 'init', function() use ( $setting ) {
-			$this->register_with_api( $setting );
-		}, PHP_INT_MAX, 0 );
+		add_action(
+			'init',
+			function() use ( $setting ) {
+				$this->register_with_api( $setting );
+			},
+			PHP_INT_MAX,
+			0
+		);
 
-		add_action( 'customize_register', function( $wp_customize ) use ( $setting ) {
-			$this->register_with_customizer( $wp_customize, $setting );
-		}, 1, 1 );
+		add_action(
+			'customize_register',
+			function( $wp_customize ) use ( $setting ) {
+				$this->register_with_customizer( $wp_customize, $setting );
+			},
+			1,
+			1
+		);
 	}
 
 	/**
