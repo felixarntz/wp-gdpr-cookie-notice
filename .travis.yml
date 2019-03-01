@@ -13,7 +13,7 @@ matrix:
       env: WP_VERSION=latest WP_MULTISITE=1
     - php: 7.0
       env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 7.2
+    - php: 7.3
       env: WP_VERSION=4.9.6
     - php: 7.0
       env: WP_VERSION=4.9.6
@@ -34,9 +34,7 @@ before_script:
     chmod +x ./cc-test-reporter
     ./cc-test-reporter before-build
   fi
-- composer selfupdate 1.0.0 --no-interaction
-- composer install --no-interaction
-- composer config-phpcs
+- composer install
 - |
   if [[ "$UNIT" != "1" ]]; then
     if [[ "$WP_VERSION" == "latest" ]]; then
