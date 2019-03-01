@@ -1,15 +1,15 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Setting_Factory class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Setting_Factory class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Settings;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Type_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Type_Exception;
 
 /**
  * Class for instantiating settings.

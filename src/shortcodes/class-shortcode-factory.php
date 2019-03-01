@@ -1,15 +1,15 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\Shortcode_Factory class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes\Shortcode_Factory class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Shortcode;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
 
 /**
  * Class for instantiating shortcodes.

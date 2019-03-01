@@ -1,26 +1,26 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service_Container;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Service_Container;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Service;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Policy_Page;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
 
 /**
  * Class controlling the plugin functionality.

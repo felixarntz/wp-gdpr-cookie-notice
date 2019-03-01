@@ -1,16 +1,16 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Script class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Script class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Inline_Asset;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Inline_Asset;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 
 /**
  * Class representing a cookie notice script.

@@ -1,11 +1,11 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Tests\Framework\Integration_Test_Case class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Tests\Framework\Integration_Test_Case class
  *
  * @package WP_GDPR_Cookie_Notice
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Tests\Framework;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Tests\Framework;
 
 use WP_UnitTestCase;
 

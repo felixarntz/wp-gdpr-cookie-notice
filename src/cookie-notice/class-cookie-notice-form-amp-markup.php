@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_AMP_Markup class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_AMP_Markup class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
 /**
  * Class responsible for rendering cookie notice form markup in AMP.

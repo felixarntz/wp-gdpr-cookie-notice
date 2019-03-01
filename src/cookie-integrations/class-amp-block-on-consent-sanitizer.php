@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Sanitizer class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Sanitizer class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 use AMP_Base_Sanitizer;
 use DOMElement;
 

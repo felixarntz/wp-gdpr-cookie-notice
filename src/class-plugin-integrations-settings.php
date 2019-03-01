@@ -1,22 +1,22 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin_Integrations_Settings class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin_Integrations_Settings class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Setting_Factory;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Setting_Factory;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory;
 
 /**
  * Class for registering the plugin's cookie integrations settings and Customizer controls.

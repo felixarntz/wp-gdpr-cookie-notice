@@ -1,16 +1,16 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Plugin_Customizer_Proxy class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Customizer\Plugin_Customizer_Proxy class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Customizer;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Customizer_Partial;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer_Partial;
 use WP_Customize_Manager;
 
 /**

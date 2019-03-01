@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Privacy_Policy_Page class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Service;
 
 /**
  * Class representing the privacy policy page.

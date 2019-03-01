@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Font_Size_Enum class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Font_Size_Enum class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Labelled_Enum;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Labelled_Enum;
 
 /**
  * Cookie font size enum class.

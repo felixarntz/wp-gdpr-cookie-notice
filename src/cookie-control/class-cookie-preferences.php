@@ -1,19 +1,19 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Page;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Labelled_Enum;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Cookie_Type_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Service;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Page;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Labelled_Enum;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Cookie_Type_Exception;
 
 /**
  * Class for managing cookie preferences.

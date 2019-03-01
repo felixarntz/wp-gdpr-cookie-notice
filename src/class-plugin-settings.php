@@ -1,18 +1,18 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin_Settings class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin_Settings class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Aggregate_Setting;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\WordPress_Setting_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Aggregate_Setting;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\WordPress_Setting_Registry;
 
 /**
  * Class for registering plugin settings.

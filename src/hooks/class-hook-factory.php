@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Hooks\Hook_Factory class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Hooks\Hook_Factory class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Hooks;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Hooks;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Hook;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Hook;
 
 /**
  * Class for instantiating hooks.

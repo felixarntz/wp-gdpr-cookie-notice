@@ -1,20 +1,20 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin_Notice_Controller class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin_Notice_Controller class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Notice;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Form_Aware;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Assets_Aware;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_Markup;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_AMP_Markup;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Notice;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Form_Aware;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Assets_Aware;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_Markup;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_AMP_Markup;
 
 /**
  * Class for controlling the cookie notice.

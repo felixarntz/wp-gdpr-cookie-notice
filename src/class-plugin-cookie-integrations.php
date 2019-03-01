@@ -1,22 +1,22 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin_Cookie_Integrations class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin_Cookie_Integrations class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Simple_Analytics_Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Auth_Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Comments_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Simple_Analytics_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Auth_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Comments_Cookie_Integration;
 
 /**
  * Class for registering plugin cookie integrations.

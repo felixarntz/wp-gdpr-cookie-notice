@@ -1,15 +1,15 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 
 /**
  * Class representing a cookie integration for the stats module of the "Jetpack" plugin.

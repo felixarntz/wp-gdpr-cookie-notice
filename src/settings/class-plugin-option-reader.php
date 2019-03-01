@@ -1,17 +1,17 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Settings;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Service;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Data\WordPress_Option_Data_Repository;
 
 /**
  * Class for accessing plugin option values.

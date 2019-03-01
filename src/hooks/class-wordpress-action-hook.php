@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Hooks\WordPress_Action_Hook class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Hooks\WordPress_Action_Hook class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Hooks;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Hooks;
 
 /**
  * Class representing a WordPress action hook.

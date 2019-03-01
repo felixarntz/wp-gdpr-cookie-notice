@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Form interface
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Form interface
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Notice_Submission_Exception;
 
 /**
  * Interface for a form class.

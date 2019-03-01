@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Object_Setting class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Object_Setting class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Settings;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting;
 use WP_Error;
 
 /**

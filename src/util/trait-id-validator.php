@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator trait
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Util\ID_Validator trait
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Util;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Util;
 
 /**
  * Trait for validating identifiers.

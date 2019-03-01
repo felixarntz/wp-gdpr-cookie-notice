@@ -1,22 +1,22 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Integrations;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Service;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Service;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Preferences;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\ID_Validator;
 
 /**
  * Class for registering cookie integrations in WordPress.

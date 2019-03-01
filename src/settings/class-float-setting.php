@@ -1,15 +1,15 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Float_Setting class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Float_Setting class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Settings;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\Minmax_Validatable;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\Enum_Validatable;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\Minmax_Validatable;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\Enum_Validatable;
 use WP_Error;
 
 /**

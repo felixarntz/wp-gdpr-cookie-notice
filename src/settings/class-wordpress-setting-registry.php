@@ -1,19 +1,19 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\WordPress_Setting_Registry class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\WordPress_Setting_Registry class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Settings;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Setting_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Duplicate_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\ID_Validator;
 use WP_Customize_Manager;
 
 /**

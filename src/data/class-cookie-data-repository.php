@@ -1,17 +1,17 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Data\Cookie_Data_Repository class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Data;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Data;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Util\ID_Validator;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Data_Repository;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Unregistered_Identifier_Exception;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\ID_Validator;
 
 /**
  * Class for a data repository using cookies.

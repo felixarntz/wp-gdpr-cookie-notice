@@ -55,7 +55,7 @@ function wp_gdpr_cookie_notice_check_requirements() {
  *
  * @since 1.0.0
  *
- * @return Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin Plugin controller instance.
+ * @return Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin Plugin controller instance.
  */
 function wp_gdpr_cookie_notice() {
 	static $plugin = null;
@@ -66,7 +66,7 @@ function wp_gdpr_cookie_notice() {
 
 	wp_gdpr_cookie_notice_check_requirements();
 
-	$namespace = 'Leaves_And_Love\\WP_GDPR_Cookie_Notice';
+	$namespace = 'Felix_Arntz\\WP_GDPR_Cookie_Notice';
 	$basedir   = plugin_dir_path( __FILE__ ) . 'src';
 
 	require_once $basedir . '/class-autoloader.php';

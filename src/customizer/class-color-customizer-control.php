@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer\Color_Customizer_Control class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Customizer\Color_Customizer_Control class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Customizer;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Customizer;
 
 use WP_Customize_Manager;
 use WP_Customize_Control;

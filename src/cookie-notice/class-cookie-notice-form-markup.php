@@ -1,19 +1,19 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_Markup class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Form_Markup class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Renderable;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Parser;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Renderable;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Parser;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes\WordPress_Shortcode_Parser;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 
 /**
  * Class responsible for rendering cookie notice form markup.

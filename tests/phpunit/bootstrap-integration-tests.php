@@ -43,6 +43,6 @@ if ( $_manual_load ) {
 // Load the WordPress tests environment.
 require $test_root . '/includes/bootstrap.php';
 
-$autoloader = new Leaves_And_Love\WP_GDPR_Cookie_Notice\Autoloader();
-$autoloader->register_rule( 'Leaves_And_Love\\WP_GDPR_Cookie_Notice\\Tests', __DIR__ );
+$autoloader = new Felix_Arntz\WP_GDPR_Cookie_Notice\Autoloader();
+$autoloader->register_rule( 'Felix_Arntz\\WP_GDPR_Cookie_Notice\\Tests', __DIR__ );
 spl_autoload_register( array( $autoloader, 'load' ) );

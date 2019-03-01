@@ -1,14 +1,14 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\Base_Context_Shortcode class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes\Base_Context_Shortcode class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
 
 /**
  * Base class representing a shortcode that supports specific contexts.

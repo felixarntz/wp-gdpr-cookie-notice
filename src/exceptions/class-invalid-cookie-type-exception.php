@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Cookie_Type_Exception class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions\Invalid_Cookie_Type_Exception class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Exceptions;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Exceptions;
 
 /**
  * Thrown when a cookie type is invalid.

@@ -1,18 +1,18 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Plugin_Shortcodes class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin_Shortcodes class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice;
 
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Integration;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Registry;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Shortcodes\Shortcode_Factory;
-use Leaves_And_Love\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Markup;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Shortcode_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Context_Shortcode;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Shortcodes\Shortcode_Factory;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice\Cookie_Notice_Markup;
 
 /**
  * Class for registering plugin shortcodes.

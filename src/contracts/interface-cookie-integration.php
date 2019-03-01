@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration interface
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration interface
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts;
 
 /**
  * Interface for a class that controls a cookie or set of cookies.

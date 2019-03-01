@@ -1,12 +1,12 @@
 <?php
 /**
- * Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts\Enum interface
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Enum interface
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
  */
 
-namespace Leaves_And_Love\WP_GDPR_Cookie_Notice\Contracts;
+namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts;
 
 /**
  * Interface for an enum class.
