@@ -28,7 +28,7 @@ Last but not least, another important thing that this plugin takes care of, othe
 
 More plugins will be supported in the future. If you are a developer though, it's also very easy to add cookie rules for other code, by using the flexible cookie rule component the plugin provides as an extension point.
 
-![The cookie notice with its default content and appearance](assets-wp-repo/screenshot-1.png)
+![The cookie notice with its default content and appearance](assets-wp-repo/screenshot-1.jpg)
 
 ### Feature Summary
 
