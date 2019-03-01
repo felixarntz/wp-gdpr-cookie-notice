@@ -173,6 +173,8 @@ class Plugin_Content_Settings implements Integration {
 				Customizer_Control::ARG_TYPE  => 'checkbox',
 				Customizer_Control::ARG_LABEL => __( 'Show toggles for granular cookie control?', 'wp-gdpr-cookie-notice' ),
 			] ),
+
+			// TODO: Only show this control if either a Privacy Policy or Cookie Policy page are set.
 			$factory->create( Cookie_Notice_Form_Markup::SETTING_SHOW_LEARN_MORE, [
 				Customizer_Control::ARG_TYPE  => 'checkbox',
 				Customizer_Control::ARG_LABEL => __( 'Show a Learn More link?', 'wp-gdpr-cookie-notice' ),

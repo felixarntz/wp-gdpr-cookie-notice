@@ -10,6 +10,7 @@ namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Notice;
 
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Inline_Asset;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Option_Reader;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\Is_AMP;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 
 /**
@@ -18,6 +19,8 @@ use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
  * @since 1.0.0
  */
 class Cookie_Notice_Stylesheet implements Inline_Asset {
+
+	use Is_AMP;
 
 	/**
 	 * Identifier for the 'position' setting.
@@ -182,6 +185,12 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			}
 
 			@media (min-width: 640px) {
+				<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] && $this->is_amp() ) : ?>
+					.wp-gdpr-cookie-notice-wrap {
+						box-shadow: 0 <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '3px' : '-3px'; ?> 5px 0 rgba(0, 0, 0, 0.1);
+					}
+				<?php endif; ?>
+
 				.wp-gdpr-cookie-notice {
 					top: 50%;
 					right: auto;
@@ -190,7 +199,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 					max-width: <?php echo esc_attr( $max_content_width ); ?>;
 					transform: translate(-50%, -50%);
 					border-width: <?php echo esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px'; ?>;
-					<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] ) : ?>
+					<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] && ! $this->is_amp() ) : ?>
 						box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.1);
 					<?php endif; ?>
 				}
@@ -204,12 +213,15 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 				left: 0;
 				<?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? 'top' : 'bottom'; ?>: 0;
 				z-index: 9999999999;
+				<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] && $this->is_amp() ) : ?>
+					box-shadow: 0 <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '3px' : '-3px'; ?> 5px 0 rgba(0, 0, 0, 0.1);
+				<?php endif; ?>
 			}
 
 			.wp-gdpr-cookie-notice {
 				position: relative;
 				border-width: <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '0 0 ' . esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px' : esc_attr( $options[ self::SETTING_BORDER_WIDTH ] ) . 'px 0 0'; ?>;
-				<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] ) : ?>
+				<?php if ( $options[ self::SETTING_SHOW_DROP_SHADOW ] && ! $this->is_amp() ) : ?>
 					box-shadow: 0 <?php echo Cookie_Position_Enum::POSITION_TOP === $options[ self::SETTING_POSITION ] ? '3px' : '-3px'; ?> 5px 0 rgba(0, 0, 0, 0.1);
 				<?php endif; ?>
 			}
