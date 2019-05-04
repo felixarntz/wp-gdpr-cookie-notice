@@ -1,6 +1,6 @@
 {
   "name": "wp-gdpr-cookie-notice",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Simple performant cookie consent notice that supports AMP, granular cookie control and live preview customization.",
   "keywords": [
     "wordpress",
@@ -13,13 +13,13 @@
   ],
   "author": {
     "name": "Felix Arntz",
-    "email": "hello@felix-arntz.me",
+    "email": "flixos90@gmail.com",
     "url": "https://felix-arntz.me"
   },
   "contributors": [
     {
       "name": "Felix Arntz",
-      "email": "hello@felix-arntz.me",
+      "email": "flixos90@gmail.com",
       "url": "https://felix-arntz.me"
     }
   ],
