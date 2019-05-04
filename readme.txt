@@ -82,6 +82,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.0-beta.2 =
 
-* Initial release
+* Fix incompatibility with [PWA plugin](https://wordpress.org/plugins/pwa/), previously causing the service worker to be broken.
+
+= 1.0.0-beta.1 =
+
+* Initial beta release.

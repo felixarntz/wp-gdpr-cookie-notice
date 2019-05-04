@@ -206,8 +206,17 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * Enqueues the necessary assets.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @global \WP_Query $wp_query WordPress post query object.
 	 */
 	public function enqueue_assets() {
+		global $wp_query;
+
+		// Skip assets when printing the service worker since they aren't enqueued but printed inline.
+		if ( class_exists( 'WP_Service_Workers' ) && isset( $wp_query ) && $wp_query->is_main_query() && $wp_query->get( \WP_Service_Workers::QUERY_VAR ) ) {
+			return;
+		}
+
 		$action          = current_action();
 		$enqueue_scripts = '_enqueue_scripts';
 
