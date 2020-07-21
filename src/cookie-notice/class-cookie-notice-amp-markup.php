@@ -58,10 +58,11 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 	 * @return array Data to pass to the `<amp-consent>` element.
 	 */
 	protected function get_consent_data() {
+		$url = add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, rest_url( 'wp-gdpr-cookie-notice/v1/check-consent' ) );
 		return array(
 			'consents' => array(
 				self::AMP_INSTANCE => array(
-					'checkConsentHref' => add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) ),
+					'checkConsentHref' => $url,
 					'promptUI'         => 'wp-gdpr-cookie-notice',
 				),
 			),

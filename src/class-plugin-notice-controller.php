@@ -59,9 +59,21 @@ class Plugin_Notice_Controller implements Integration {
 		add_action( 'wp_loaded', [ $this, 'handle_notice_submission_request' ], 100, 0 );
 		add_action( 'wp_ajax_' . Cookie_Notice_Form_Markup::ACTION, [ $this, 'handle_notice_submission_ajax' ], 10, 0 );
 		add_action( 'wp_ajax_nopriv_' . Cookie_Notice_Form_Markup::ACTION, [ $this, 'handle_notice_submission_ajax' ], 10, 0 );
+		add_action( 'rest_api_init', [ $this, 'register_api_endpoints' ] );
+	}
 
-		add_action( 'wp_ajax_' . Cookie_Notice_AMP_Markup::AMP_CHECK_CONSENT_HREF_ACTION, [ $this, 'handle_amp_check_consent_href_ajax' ], 10, 0 );
-		add_action( 'wp_ajax_nopriv_' . Cookie_Notice_AMP_Markup::AMP_CHECK_CONSENT_HREF_ACTION, [ $this, 'handle_amp_check_consent_href_ajax' ], 10, 0 );
+	/**
+	 * Register REST API endpoints.
+	 */
+	public function register_api_endpoints() {
+		register_rest_route(
+			'wp-gdpr-cookie-notice/v1',
+			'/check-consent',
+			[
+				'methods'             => \WP_REST_Server::EDITABLE,
+				'callback'            => [ $this, 'api_check_consent' ],
+			]
+		);
 	}
 
 	/**
@@ -126,13 +138,12 @@ class Plugin_Notice_Controller implements Integration {
 	}
 
 	/**
-	 * Handles the checkConsentHref request made by an <amp-consent> via AJAX.
+	 * Consent Check endpoint.
 	 *
-	 * @since 1.0.0
+	 * @param WP_REST_Request $request API request object.
+	 * @return WP_REST_Response|mixed API response or error.
 	 */
-	public function handle_amp_check_consent_href_ajax() {
-		$active = false;
-
+	public function api_check_consent( $request ) {
 		$payload = file_get_contents( 'php://input' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( ! empty( $payload ) ) {
 			$payload = json_decode( $payload, true );
@@ -140,7 +151,6 @@ class Plugin_Notice_Controller implements Integration {
 				$active = $this->notice->is_active();
 			}
 		}
-
-		wp_send_json( [ 'promptIfUnknown' => $active ], 200 );
+		return \rest_ensure_response( [ 'promptIfUnknown' => $active ] );
 	}
 }
