@@ -41,7 +41,6 @@ vendor/
 ## Misc
 ############
 
-bin/
 tmp/
 *.tmp
 *.bak
