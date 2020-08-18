@@ -22,9 +22,10 @@ The cookie notice content and appearance can easily be tweaked using the Customi
 Last but not least, another important thing that this plugin takes care of, other than most other cookie consent plugins, is that it actually ensures cookies are only placed if the respective cookie type has been allowed by the visitor. The plugin does this by implementing cookie rules for WordPress itself, and also for the following plugins:
 
 * [AMP](https://wordpress.org/plugins/amp/)
-* [Jetpack](https://wordpress.org/plugins/jetpack/)
 * [Google Analytics for WordPress by MonsterInsights](https://wordpress.org/plugins/google-analytics-for-wordpress/)
+* [Jetpack](https://wordpress.org/plugins/jetpack/)
 * [Simple Analytics](https://wordpress.org/plugins/simple-analytics/)
+* [Site Kit by Google](https://wordpress.org/plugins/google-site-kit/)
 
 More plugins will be supported in the future. If you are a developer though, it's also very easy to add cookie rules for other code, by using the flexible cookie rule component the plugin provides as an extension point.
 

@@ -4,7 +4,7 @@ Contributors:      flixos90
 Requires at least: 4.9.6
 Tested up to:      5.5
 Requires PHP:      7.0
-Stable tag:        1.0.0-beta.2
+Stable tag:        1.0.0-beta.3
 License:           GNU General Public License v2 (or later)
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              gdpr, cookie notice, cookie consent, granular cookie control, customizer
@@ -24,9 +24,10 @@ The cookie notice content and appearance can easily be tweaked using the Customi
 Last but not least, another important thing that this plugin takes care of, other than most other cookie consent plugins, is that it actually ensures cookies are only placed if the respective cookie type has been allowed by the visitor. The plugin does this by implementing cookie rules for WordPress itself, and also for the following plugins:
 
 * [AMP](https://wordpress.org/plugins/amp/)
-* [Jetpack](https://wordpress.org/plugins/jetpack/)
 * [Google Analytics for WordPress by MonsterInsights](https://wordpress.org/plugins/google-analytics-for-wordpress/)
+* [Jetpack](https://wordpress.org/plugins/jetpack/)
 * [Simple Analytics](https://wordpress.org/plugins/simple-analytics/)
+* [Site Kit by Google](https://wordpress.org/plugins/google-site-kit/)
 
 More plugins will be supported in the future. If you are a developer though, it's also very easy to add cookie rules for other code, by using the flexible cookie rule component the plugin provides as an extension point.
 
@@ -81,6 +82,13 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 3. Customizing the cookie notice appearance
 
 == Changelog ==
+
+= 1.0.0-beta.3 =
+
+* Add cookie integration support for the [Site Kit by Google plugin](https://wordpress.org/plugins/google-site-kit/).
+* Introduce filter `wp_gdpr_cookie_notice_amp_use_endpoint` to allow disabling usage of the `checkConsentHref` endpoint relevant for `amp-consent`. Props claudiulodro.
+* Fix bug with deprecated `amp-consent` attribute. Props claudiulodro.
+* Support current Lighthouse user agent so that the consent is skipped for it.
 
 = 1.0.0-beta.2 =
 

@@ -9,7 +9,7 @@
  * Plugin Name: WP GDPR Cookie Notice
  * Plugin URI:  https://wordpress.org/plugins/wp-gdpr-cookie-notice/
  * Description: Simple performant cookie consent notice that supports AMP, granular cookie control and live preview customization.
- * Version:     1.0.0-beta.2
+ * Version:     1.0.0-beta.3
  * Author:      Felix Arntz
  * Author URI:  https://felix-arntz.me
  * License:     GNU General Public License v2 (or later)
