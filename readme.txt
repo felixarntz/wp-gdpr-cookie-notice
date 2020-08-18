@@ -2,7 +2,7 @@
 
 Contributors:      flixos90
 Requires at least: 4.9.6
-Tested up to:      5.2
+Tested up to:      5.5
 Requires PHP:      7.0
 Stable tag:        1.0.0-beta.2
 License:           GNU General Public License v2 (or later)
