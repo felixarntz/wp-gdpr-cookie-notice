@@ -60,6 +60,7 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 	protected function get_consent_data() {
 		$consent_data = array(
 			'consentInstanceId' => self::AMP_INSTANCE,
+			'consentRequired'   => true,
 			'promptUI'          => 'wp-gdpr-cookie-notice',
 		);
 
@@ -72,9 +73,8 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 		 * @param bool True if the endpoint should be used. False if local storage should be used.
 		 */
 		if ( apply_filters( 'wp_gdpr_cookie_notice_amp_use_endpoint', true ) ) {
+			$consent_data['consentRequired']  = 'remote';
 			$consent_data['checkConsentHref'] = add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) );
-		} else {
-			$consent_data['consentRequired'] = true;
 		}
 
 		return $consent_data;
