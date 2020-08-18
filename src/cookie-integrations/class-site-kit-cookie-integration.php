@@ -1,6 +1,6 @@
 <?php
 /**
- * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Site_Kit_Cookie_Integration class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
@@ -13,11 +13,11 @@ use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\Is_AMP;
 
 /**
- * Class representing a cookie integration for the "Google Analytics by MonsterInsights" plugin.
+ * Class representing a cookie integration for the "Site Kit by Google" plugin.
  *
  * @since 1.0.0
  */
-class Monster_Insights_Cookie_Integration implements Cookie_Integration {
+class Site_Kit_Cookie_Integration implements Cookie_Integration {
 	use Is_AMP;
 
 	/**
@@ -28,7 +28,7 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 * @return string Cookie integration identifier.
 	 */
 	final public function get_id() : string {
-		return 'monster_insights';
+		return 'google_site_kit';
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 * @return string Enable checkbox label.
 	 */
 	public function get_enable_label() : string {
-		return __( 'Block Google Analytics (MonsterInsights plugin) from tracking visitors?', 'wp-gdpr-cookie-notice' );
+		return __( 'Block Google Analytics (Site Kit by Google plugin) from tracking visitors?', 'wp-gdpr-cookie-notice' );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 * @return bool True if applicable, false otherwise.
 	 */
 	public function is_applicable() : bool {
-		return function_exists( 'MonsterInsights' );
+		return defined( 'GOOGLESITEKIT_VERSION' );
 	}
 
 	/**
@@ -75,22 +75,22 @@ class Monster_Insights_Cookie_Integration implements Cookie_Integration {
 	 */
 	public function add_hooks( bool $allowed ) {
 		add_action(
-			'monsterinsights_tracking_before_analytics',
+			'wp_head',
 			function() {
 				// For AMP, this is handled by the AMP_Block_On_Consent_Cookie_Integration class.
 				if ( $this->is_amp() ) {
 					return;
 				}
 
-				$ua = monsterinsights_get_ua();
-				if ( empty( $ua ) ) {
+				$options = get_option( 'googlesitekit_analytics_settings', [] );
+				if ( empty( $options['propertyID'] ) ) {
 					return;
 				}
 
 				?>
 				<script type="text/javascript">
 					if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
-						window['ga-disable-<?php echo esc_attr( $ua ); ?>'] = true;
+						window['ga-disable-<?php echo esc_attr( $options['propertyID'] ); ?>'] = true;
 					}
 				</script>
 				<?php

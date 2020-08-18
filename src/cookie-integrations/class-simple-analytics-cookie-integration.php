@@ -10,6 +10,7 @@ namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations;
 
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\Is_AMP;
 
 /**
  * Class representing a cookie integration for the "Simple Analytics" plugin.
@@ -17,6 +18,7 @@ use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
  * @since 1.0.0
  */
 class Simple_Analytics_Cookie_Integration implements Cookie_Integration {
+	use Is_AMP;
 
 	/**
 	 * Gets the cookie integration identifier.
@@ -75,6 +77,11 @@ class Simple_Analytics_Cookie_Integration implements Cookie_Integration {
 		add_action(
 			'wp_head',
 			function() {
+				// For AMP, this is handled by the AMP_Block_On_Consent_Cookie_Integration class.
+				if ( $this->is_amp() ) {
+					return;
+				}
+
 				$options = get_option( 'themeblvd_analytics', [] );
 				if ( empty( $options['google_id'] ) ) {
 					return;

@@ -15,6 +15,7 @@ use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\AMP_Block_On_Consent_C
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Jetpack_Stats_Cookie_Integration;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Monster_Insights_Cookie_Integration;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Simple_Analytics_Cookie_Integration;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Site_Kit_Cookie_Integration;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Auth_Cookie_Integration;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Comments_Cookie_Integration;
 
@@ -91,6 +92,7 @@ class Plugin_Cookie_Integrations implements Integration {
 			new Jetpack_Stats_Cookie_Integration(),
 			new Monster_Insights_Cookie_Integration(),
 			new Simple_Analytics_Cookie_Integration(),
+			new Site_Kit_Cookie_Integration(),
 			new WordPress_Auth_Cookie_Integration(),
 			new WordPress_Comments_Cookie_Integration(),
 		];
