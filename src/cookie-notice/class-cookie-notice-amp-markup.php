@@ -58,13 +58,25 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 	 * @return array Data to pass to the `<amp-consent>` element.
 	 */
 	protected function get_consent_data() {
-		return array(
-			'consents' => array(
-				self::AMP_INSTANCE => array(
-					'checkConsentHref' => add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) ),
-					'promptUI'         => 'wp-gdpr-cookie-notice',
-				),
-			),
+		$consent_data = array(
+			'consentInstanceId' => self::AMP_INSTANCE,
+			'promptUI'          => 'wp-gdpr-cookie-notice',
 		);
+
+		/**
+		 * Filters whether to use an ajax endpoint for determining if the notice should be shown
+		 * or whether to use local storage to determine that.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool True if the endpoint should be used. False if local storage should be used.
+		 */
+		if ( apply_filters( 'wp_gdpr_cookie_notice_amp_use_endpoint', true ) ) {
+			$consent_data['checkConsentHref'] = add_query_arg( 'action', self::AMP_CHECK_CONSENT_HREF_ACTION, admin_url( 'admin-ajax.php' ) );
+		} else {
+			$consent_data['consentRequired'] = true;
+		}
+
+		return $consent_data;
 	}
 }

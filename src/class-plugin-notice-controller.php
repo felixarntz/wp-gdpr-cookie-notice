@@ -141,6 +141,6 @@ class Plugin_Notice_Controller implements Integration {
 			}
 		}
 
-		wp_send_json( [ 'promptIfUnknown' => $active ], 200 );
+		wp_send_json( [ 'consentRequired' => $active ], 200 );
 	}
 }
