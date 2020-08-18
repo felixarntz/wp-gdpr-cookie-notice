@@ -23,7 +23,7 @@ const config = {
 	contributors: [ 'flixos90' ].join( ', ' ),
 	donateLink: false,
 	minRequired: '4.9.6',
-	testedUpTo: '5.1',
+	testedUpTo: '5.5',
 	requiresPHP: '7.0',
 	translateURI: 'https://translate.wordpress.org/projects/wp-plugins/wp-gdpr-cookie-notice',
 	network: false
