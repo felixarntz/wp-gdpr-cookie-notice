@@ -142,10 +142,10 @@ class Object_Setting extends Abstract_Setting {
 		}
 
 		if ( ! isset( $schema[ self::ARG_DEFAULT ] ) ) {
-			$schema[ self::ARG_DEFAULT ] = array();
+			$schema[ self::ARG_DEFAULT ] = [];
 		}
 
-		$schema[ self::ARG_PROPERTIES ] = array();
+		$schema[ self::ARG_PROPERTIES ] = [];
 
 		foreach ( $this->properties_settings as $setting ) {
 			$setting_id     = $setting->get_id();

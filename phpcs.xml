@@ -10,7 +10,11 @@
 	<arg name="colors"/>
     <arg value="vs"/>
 
-	<rule ref="WordPress"/>
+	<rule ref="WordPress">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
@@ -18,6 +22,9 @@
 		</properties>
 	</rule>
 
-	<config name="testVersion" value="7.0-99.0"/>
-	<rule ref="PHPCompatibility"/>
+	<rule ref="WordPress-VIP-Go"/>
+
+	<config name="testVersion" value="7.0-"/>
+	<config name="minimum_supported_wp_version" value="4.9.6"/>
+	<rule ref="PHPCompatibilityWP"/>
 </ruleset>

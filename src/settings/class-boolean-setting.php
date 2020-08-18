@@ -51,7 +51,7 @@ class Boolean_Setting extends Abstract_Setting {
 	 * @return mixed Parsed value.
 	 */
 	protected function default_parsing_callback( $value ) {
-		if ( in_array( $value, array( 'false', 'FALSE', 'no', 'NO', '0' ), true ) ) {
+		if ( in_array( $value, [ 'false', 'FALSE', 'no', 'NO', '0' ], true ) ) {
 			return false;
 		}
 

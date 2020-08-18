@@ -214,7 +214,7 @@ class Cookie_Preferences implements Service {
 	 * @return array Modified cookie preferences array including 'last_modified' information.
 	 */
 	protected function set_last_modified( array $preferences ) : array {
-		$preferences[ self::COOKIE_LAST_MODIFIED ] = (int) current_time( 'timestamp', true );
+		$preferences[ self::COOKIE_LAST_MODIFIED ] = (int) time();
 
 		return $preferences;
 	}

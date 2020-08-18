@@ -165,7 +165,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			return false;
 		}
 
-		$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT' );
+		$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING );
 		if ( ! empty( $user_agent ) && ( false !== strpos( $user_agent, 'Googlebot' ) || false !== strpos( $user_agent, 'Speed Insights' ) ) ) {
 			return false;
 		}
@@ -225,7 +225,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			$prefix = substr( $action, 0, strlen( $action ) - strlen( $enqueue_scripts ) );
 		}
 
-		add_action( "{$prefix}_head", array( $this->stylesheet, 'print' ), 1000 );
+		add_action( "{$prefix}_head", [ $this->stylesheet, 'print' ], 1000 );
 
 		if ( $this->is_amp() ) {
 			return;
@@ -238,7 +238,7 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			return;
 		}
 
-		add_action( "{$prefix}_footer", array( $this->script, 'print' ), 1000 );
+		add_action( "{$prefix}_footer", [ $this->script, 'print' ], 1000 );
 	}
 
 	/**

@@ -147,10 +147,10 @@ class WordPress_Setting_Registry implements Setting_Registry {
 		$id     = $setting->get_id();
 		$schema = $setting->get_schema();
 
-		$args = array(
-			'sanitize_callback' => array( $setting, 'sanitize_value' ),
-			'show_in_rest'      => array( 'schema' => $schema ),
-		);
+		$args = [
+			'sanitize_callback' => [ $setting, 'sanitize_value' ],
+			'show_in_rest'      => [ 'schema' => $schema ],
+		];
 
 		if ( isset( $schema[ Setting::ARG_TYPE ] ) ) {
 			$args['type'] = $schema[ Setting::ARG_TYPE ];
@@ -166,7 +166,7 @@ class WordPress_Setting_Registry implements Setting_Registry {
 
 		register_setting( $this->option_group, $id, $args );
 
-		add_filter( "option_$id", array( $setting, 'parse_value' ) );
+		add_filter( "option_$id", [ $setting, 'parse_value' ] );
 	}
 
 	/**
@@ -197,14 +197,14 @@ class WordPress_Setting_Registry implements Setting_Registry {
 
 		$schema = $setting->get_schema();
 
-		$args = array(
+		$args = [
 			'type'                 => 'option',
 			'capability'           => 'manage_options',
 			'transport'            => 'postMessage',
-			'validate_callback'    => array( $setting, 'validate_value' ),
-			'sanitize_callback'    => array( $setting, 'sanitize_value' ),
-			'sanitize_js_callback' => array( $setting, 'parse_value' ),
-		);
+			'validate_callback'    => [ $setting, 'validate_value' ],
+			'sanitize_callback'    => [ $setting, 'sanitize_value' ],
+			'sanitize_js_callback' => [ $setting, 'parse_value' ],
+		];
 
 		if ( isset( $schema[ Setting::ARG_DEFAULT ] ) ) {
 			$args['default'] = $schema[ Setting::ARG_DEFAULT ];

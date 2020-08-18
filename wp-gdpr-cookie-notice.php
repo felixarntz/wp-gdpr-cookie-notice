@@ -74,7 +74,7 @@ function wp_gdpr_cookie_notice() {
 	$autoloader       = new $autoloader_class();
 	$autoloader->register_rule( $namespace, $basedir );
 	$autoloader->register_rule( $namespace . '\\Contracts', $basedir . '/contracts', constant( $namespace . '\\Autoloader::TYPE_INTERFACE' ) );
-	spl_autoload_register( array( $autoloader, 'load' ) );
+	spl_autoload_register( [ $autoloader, 'load' ] );
 
 	$plugin_class = $namespace . '\\Plugin';
 	$plugin       = new $plugin_class( __FILE__ );

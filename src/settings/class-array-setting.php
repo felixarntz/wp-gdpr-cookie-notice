@@ -132,7 +132,7 @@ class Array_Setting extends Abstract_Setting {
 		}
 
 		if ( ! isset( $schema[ self::ARG_DEFAULT ] ) ) {
-			$schema[ self::ARG_DEFAULT ] = array();
+			$schema[ self::ARG_DEFAULT ] = [];
 		}
 
 		if ( null !== $this->items_setting ) {

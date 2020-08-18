@@ -127,7 +127,7 @@ class Cookie_Data_Repository implements Data_Repository {
 	 * @return array|null Data array on success, or null on failure.
 	 */
 	protected function read_cookie( string $id ) {
-		$cookie = filter_input( INPUT_COOKIE, $id );
+		$cookie = filter_input( INPUT_COOKIE, $id, FILTER_SANITIZE_STRING );
 		if ( ! $cookie ) {
 			return null;
 		}
@@ -165,6 +165,7 @@ class Cookie_Data_Repository implements Data_Repository {
 	 *                        end of the current session. Default 0.
 	 */
 	protected function set_wp_cookie( string $id, string $content, int $expire = 0 ) {
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.cookies_setcookie
 		setcookie( $id, $content, $expire, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 	}
 }

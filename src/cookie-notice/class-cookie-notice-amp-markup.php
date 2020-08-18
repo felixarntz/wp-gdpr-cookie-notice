@@ -58,11 +58,11 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 	 * @return array Data to pass to the `<amp-consent>` element.
 	 */
 	protected function get_consent_data() {
-		$consent_data = array(
+		$consent_data = [
 			'consentInstanceId' => self::AMP_INSTANCE,
 			'consentRequired'   => true,
 			'promptUI'          => 'wp-gdpr-cookie-notice',
-		);
+		];
 
 		/**
 		 * Filters whether to use an ajax endpoint for determining if the notice should be shown
