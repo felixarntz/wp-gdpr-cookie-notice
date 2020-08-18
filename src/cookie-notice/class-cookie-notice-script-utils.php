@@ -77,7 +77,11 @@ class Cookie_Notice_Script_Utils implements Inline_Asset {
 		?>
 		( function( exports ) {
 			function isGoogleBot() {
-				return navigator.userAgent && ( -1 !== navigator.userAgent.indexOf( 'Googlebot' ) || -1 !== navigator.userAgent.indexOf( 'Speed Insights' ) );
+				return navigator.userAgent && (
+					-1 !== navigator.userAgent.indexOf( 'Googlebot' ) ||
+					-1 !== navigator.userAgent.indexOf( 'Speed Insights' ) ||
+					-1 !== navigator.userAgent.indexOf( 'Chrome-Lighthouse' )
+				);
 			}
 
 			function cookiesAccepted( cookieType ) {

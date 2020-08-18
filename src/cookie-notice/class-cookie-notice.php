@@ -166,7 +166,13 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 		}
 
 		$user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING );
-		if ( ! empty( $user_agent ) && ( false !== strpos( $user_agent, 'Googlebot' ) || false !== strpos( $user_agent, 'Speed Insights' ) ) ) {
+		if ( ! empty( $user_agent ) &&
+			(
+				false !== strpos( $user_agent, 'Googlebot' ) ||
+				false !== strpos( $user_agent, 'Speed Insights' ) ||
+				false !== strpos( $user_agent, 'Chrome-Lighthouse' )
+			)
+		) {
 			return false;
 		}
 
