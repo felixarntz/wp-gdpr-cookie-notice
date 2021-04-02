@@ -117,7 +117,7 @@ class Plugin_Integrations_Settings implements Integration {
 					Setting::ARG_TYPE        => 'boolean',
 					/* translators: %s: cookie integration identifier */
 					Setting::ARG_DESCRIPTION => sprintf( __( 'Whether to enable the %s cookie integration.', 'wp-gdpr-cookie-notice' ), $cookie_integration->get_id() ),
-					Setting::ARG_DEFAULT     => true,
+					Setting::ARG_DEFAULT     => false,
 				]
 			);
 		}
