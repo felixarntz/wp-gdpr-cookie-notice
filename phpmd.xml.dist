@@ -33,6 +33,4 @@
 			<property name="exceptions" value="id,db" />
 		</properties>
 	</rule>
-
-	<rule ref="rulesets/unusedcode.xml" />
 </ruleset>
