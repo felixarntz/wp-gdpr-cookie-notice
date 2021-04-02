@@ -7,12 +7,12 @@
 
 namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Tests\Integration;
 
-use Felix_Arntz\WP_GDPR_Cookie_Notice\Tests\Framework\Integration_Test_Case;
+use WP_UnitTestCase;
 
 /**
  * Integration tests for the Felix_Arntz\WP_GDPR_Cookie_Notice\Plugin class.
  */
-class Tests_Plugin extends Integration_Test_Case {
+class Tests_Plugin extends WP_UnitTestCase {
 
 	/**
 	 * Temporary test that does nothing useful.
