@@ -100,10 +100,10 @@ svn propset --quiet svn:ignore ".codeclimate.yml
 composer.json
 composer.lock
 deploy.sh
-phpcs.xml
-phpmd.xml
-phpunit.integration.xml
-phpunit.unit.xml" .
+phpcs.xml.dist
+phpmd.xml.dist
+phpunit.integration.xml.dist
+phpunit.unit.xml.dist" .
 echo "Done."
 
 printf "Adding new files..."

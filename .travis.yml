@@ -57,9 +57,9 @@ script:
   fi
 - |
   if [[ "$UNIT" == "1" ]]; then
-    PHPUNIT_CONFIG="phpunit.unit.xml"
+    PHPUNIT_CONFIG="phpunit.unit.xml.dist"
   else
-    PHPUNIT_CONFIG="phpunit.integration.xml"
+    PHPUNIT_CONFIG="phpunit.integration.xml.dist"
   fi
 - |
   if [[ "$COVERAGE" == "1" ]]; then
