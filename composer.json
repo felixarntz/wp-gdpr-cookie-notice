@@ -26,7 +26,10 @@
     "issues": "https://github.com/felixarntz/wp-gdpr-cookie-notice/issues"
   },
   "config": {
-    "preferred-install": "dist"
+    "platform": {
+      "php": "7.0"
+    },
+    "sort-packages": true
   },
   "require": {
     "php": ">=7.0",
