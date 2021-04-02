@@ -245,7 +245,7 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 
 		.wp-gdpr-cookie-notice-inner {
 			display: block;
-			margin: 0 auto !important;
+			margin: 0 auto;
 			max-width: <?php echo esc_attr( $max_content_width ); ?>;
 		}
 
@@ -281,28 +281,28 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 
 		.wp-gdpr-cookie-notice-heading,
 		.wp-gdpr-cookie-notice-content {
-			margin-bottom: 0.2rem !important;
+			margin-bottom: 0.2rem;
 		}
 
 		.wp-gdpr-cookie-notice-heading > * {
-			margin: 0 !important;
-			padding: 0 !important;
+			margin: 0;
+			padding: 0;
 			font-size: <?php echo $heading_font_size; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>%;
 		}
 
 		.wp-gdpr-cookie-notice-content > * {
-			margin: 0 0 0.5rem !important;
-			padding: 0 !important;
+			margin: 0 0 0.5rem;
+			padding: 0;
 		}
 
 		.wp-gdpr-cookie-notice-content > *:last-child {
-			margin: 0 !important;
+			margin: 0;
 		}
 
 		.wp-gdpr-cookie-notice-form {
-			padding: 0 !important;
-			background: transparent !important;
-			box-shadow: none !important;
+			padding: 0;
+			background: transparent;
+			box-shadow: none;
 		}
 
 		.wp-gdpr-cookie-notice-controls {
