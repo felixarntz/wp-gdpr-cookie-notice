@@ -100,9 +100,6 @@ svn propset --quiet svn:ignore ".codeclimate.yml
 composer.json
 composer.lock
 deploy.sh
-gulpfile.js
-package.json
-package-lock.json
 phpcs.xml
 phpmd.xml
 phpunit.integration.xml
