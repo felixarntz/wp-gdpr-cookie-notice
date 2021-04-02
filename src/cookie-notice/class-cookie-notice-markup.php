@@ -119,7 +119,7 @@ class Cookie_Notice_Markup implements Renderable {
 	 * @since 1.0.0
 	 */
 	public function render_heading() {
-		$heading = $this->options->get_option( self::SETTING_NOTICE_HEADING );
+		$heading = $this->get_heading();
 
 		if ( empty( $heading ) ) {
 			return;
@@ -134,7 +134,7 @@ class Cookie_Notice_Markup implements Renderable {
 	 * @since 1.0.0
 	 */
 	public function render_content() {
-		$content = $this->options->get_option( self::SETTING_NOTICE_CONTENT );
+		$content = $this->get_content();
 
 		if ( empty( $content ) ) {
 			return;
@@ -163,6 +163,28 @@ class Cookie_Notice_Markup implements Renderable {
 		?>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Gets the notice heading text.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Notice heading.
+	 */
+	protected function get_heading() {
+		return $this->options->get_option( self::SETTING_NOTICE_HEADING );
+	}
+
+	/**
+	 * Gets the notice content text.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Notice content.
+	 */
+	protected function get_content() {
+		return $this->options->get_option( self::SETTING_NOTICE_CONTENT );
 	}
 
 	/**

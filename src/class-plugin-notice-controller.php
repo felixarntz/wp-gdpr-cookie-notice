@@ -72,6 +72,8 @@ class Plugin_Notice_Controller implements Integration {
 	public function load_notice() {
 		add_action( 'wp_footer', [ $this->notice, 'render' ], 100, 0 );
 		add_action( 'login_footer', [ $this->notice, 'render' ], 100, 0 );
+		// For Web Stories plugin.
+		add_action( 'web_stories_print_analytics', [ $this->notice, 'render' ], 100, 0 );
 
 		if ( ! $this->notice instanceof Assets_Aware ) {
 			return;

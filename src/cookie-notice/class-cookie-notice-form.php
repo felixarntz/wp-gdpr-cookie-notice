@@ -83,6 +83,11 @@ class Cookie_Notice_Form implements Form {
 	 * @since 1.0.0
 	 */
 	public function render() {
+		// For AMP stories, there is no form to render since the output is controlled at a higher level.
+		if ( $this->is_amp_story() && ! is_customize_preview() ) {
+			return;
+		}
+
 		$this->get_markup()->render();
 	}
 
@@ -140,6 +145,11 @@ class Cookie_Notice_Form implements Form {
 	 * @since 1.0.0
 	 */
 	public function render_controls() {
+		// For AMP stories, there is no form to render since the output is controlled at a higher level.
+		if ( $this->is_amp_story() && ! is_customize_preview() ) {
+			return;
+		}
+
 		$this->get_markup()->render_controls();
 	}
 

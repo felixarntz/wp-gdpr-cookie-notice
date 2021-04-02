@@ -108,13 +108,14 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			$options = new Plugin_Option_Reader();
 		}
 
-		$this->preferences  = $preferences;
-		$this->form         = new Cookie_Notice_Form( $this, $shortcode_parser, $options );
-		$this->markup       = new Cookie_Notice_Markup( $this->form, $shortcode_parser, $options );
-		$this->amp_markup   = new Cookie_Notice_AMP_Markup( $this->form, $shortcode_parser, $options );
-		$this->stylesheet   = new Cookie_Notice_Stylesheet( $options );
-		$this->script       = new Cookie_Notice_Script( $options );
-		$this->script_utils = new Cookie_Notice_Script_Utils( $this->preferences );
+		$this->preferences      = $preferences;
+		$this->form             = new Cookie_Notice_Form( $this, $shortcode_parser, $options );
+		$this->markup           = new Cookie_Notice_Markup( $this->form, $shortcode_parser, $options );
+		$this->amp_markup       = new Cookie_Notice_AMP_Markup( $this->form, $shortcode_parser, $options );
+		$this->amp_story_markup = new Cookie_Notice_AMP_Story_Markup( $this->form, $shortcode_parser, $options );
+		$this->stylesheet       = new Cookie_Notice_Stylesheet( $options );
+		$this->script           = new Cookie_Notice_Script( $options );
+		$this->script_utils     = new Cookie_Notice_Script_Utils( $this->preferences );
 	}
 
 	/**
@@ -306,9 +307,11 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 	 * @return Renderable Markup instance.
 	 */
 	protected function get_markup() : Renderable {
-
 		// In the Customizer, do not display notice as <amp-consent> tag because it will not show up when already accepted.
 		if ( $this->is_amp() && ! is_customize_preview() ) {
+			if ( $this->is_amp_story() ) {
+				return $this->amp_story_markup;
+			}
 			return $this->amp_markup;
 		}
 
