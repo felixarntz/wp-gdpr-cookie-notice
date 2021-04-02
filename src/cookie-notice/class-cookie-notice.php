@@ -224,12 +224,16 @@ class Cookie_Notice implements Notice, Form_Aware, Assets_Aware, Service {
 			return;
 		}
 
-		$action          = current_action();
-		$enqueue_scripts = '_enqueue_scripts';
+		$action = current_action();
 
-		$prefix = 'wp';
+		$enqueue_scripts = '_enqueue_scripts';
+		$prefix          = 'wp';
 		if ( strpos( $action, $enqueue_scripts ) === strlen( $action ) - strlen( $enqueue_scripts ) ) {
 			$prefix = substr( $action, 0, strlen( $action ) - strlen( $enqueue_scripts ) );
+		}
+		// Special case for AMP legacy theme.
+		if ( 'amp_post_template_head' === $action ) {
+			$prefix = 'amp_post_template';
 		}
 
 		add_action( "{$prefix}_head", [ $this->stylesheet, 'print' ], 1000 );

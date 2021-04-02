@@ -72,7 +72,9 @@ class Plugin_Notice_Controller implements Integration {
 	public function load_notice() {
 		add_action( 'wp_footer', [ $this->notice, 'render' ], 100, 0 );
 		add_action( 'login_footer', [ $this->notice, 'render' ], 100, 0 );
-		// For Web Stories plugin.
+		// For AMP legacy theme.
+		add_action( 'amp_post_template_footer', [ $this->notice, 'render' ], 100, 0 );
+		// For Web Stories plugin. This version has its built-in styles, so no assets are loaded below.
 		add_action( 'web_stories_print_analytics', [ $this->notice, 'render' ], 100, 0 );
 
 		if ( ! $this->notice instanceof Assets_Aware ) {
@@ -81,6 +83,8 @@ class Plugin_Notice_Controller implements Integration {
 
 		add_action( 'wp_enqueue_scripts', [ $this->notice, 'enqueue_assets' ], 100, 0 );
 		add_action( 'login_enqueue_scripts', [ $this->notice, 'enqueue_assets' ], 100, 0 );
+		// For AMP legacy theme.
+		add_action( 'amp_post_template_head', [ $this->notice, 'enqueue_assets' ], 100, 0 );
 	}
 
 	/**
