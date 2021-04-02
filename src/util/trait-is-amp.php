@@ -23,6 +23,11 @@ trait Is_AMP {
 	 * @return bool True if an AMP endpoint, false otherwise.
 	 */
 	protected function is_amp() {
+		// `wp-login.php` is never AMP.
+		if ( did_action( 'login_init' ) ) {
+			return false;
+		}
+
 		if ( $this->is_amp_story() ) {
 			return true;
 		}
