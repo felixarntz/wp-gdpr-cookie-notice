@@ -48,7 +48,7 @@ class Jetpack_Stats_Cookie_Integration implements Cookie_Integration {
 	 * @return string Enable checkbox label.
 	 */
 	public function get_enable_label() : string {
-		return __( 'Block the Jetpack Stats module from tracking visitors?', 'wp-gdpr-cookie-notice' );
+		return __( 'Block the Jetpack Stats module?', 'wp-gdpr-cookie-notice' );
 	}
 
 	/**
