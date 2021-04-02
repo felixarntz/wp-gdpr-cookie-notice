@@ -5,11 +5,11 @@
 
 # WP GDPR Cookie Notice
 
-Simple performant cookie consent notice that supports AMP, granular cookie control and live preview customization.
+Simple performant cookie consent notice that supports AMP, Web Stories, granular cookie control and live preview customization.
 
 ## Details
 
-This plugin adds a simple performant cookie consent notice to your WordPress site that supports AMP, granular cookie control and live preview customization.
+This plugin adds a simple performant cookie consent notice to your WordPress site that supports [AMP](https://wordpress.org/plugins/amp/), [Web Stories](https://wordpress.org/plugins/web-stories/), granular cookie control and live preview customization.
 
 Not only does the notice allow you to provide the regular message that your site uses cookies, you can also optionally grant your site visitors permission to granularly allow which cookie types are allowed, supporting groups of functional (always required), preferences, analytics and marketing cookies. This aims towards compliance with how the new GDPR regulations recommend implementing cookie control for your site.
 
@@ -38,7 +38,7 @@ More plugins will be supported in the future. If you are a developer though, it'
 * **Cookie Policy Support:** Define an optional cookie policy page if your site has one, or alternatively provide an ID attribute to the cookie section in your privacy policy.
 * **Cookie Integrations:** Supported cookies are only set once the visitor has given their consent. The cookie rules implemented also respect the more granular cookie control.
 * **JavaScript-driven:** The cookie notice is inserted into the page as necessary via JavaScript, but at the same time provides easy access to whether it should be displayed via its PHP API.
-* **AMP Support:** The notice is fully AMP-compatible using `<amp-consent>`, integrating seamlessly with the [AMP plugin](https://wordpress.org/plugins/amp/).
+* **AMP Support:** The notice is fully AMP-compatible using `<amp-consent>`, integrating seamlessly with the [AMP plugin](https://wordpress.org/plugins/amp/). It integrates with [Web Stories](https://wordpress.org/plugins/web-stories/) as well.
 * **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints.
 
 ### Disclaimer

@@ -2,18 +2,18 @@
 
 Contributors:      flixos90
 Requires at least: 4.9.6
-Tested up to:      5.5
+Tested up to:      5.7
 Requires PHP:      7.0
-Stable tag:        1.0.0-beta.3
+Stable tag:        1.0.0-rc.1
 License:           GNU General Public License v2 (or later)
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
-Tags:              gdpr, cookie notice, cookie consent, granular cookie control, customizer
+Tags:              gdpr, cookie notice, cookie consent, amp, web stories, granular cookie control, customizer
 
-Simple performant cookie consent notice that supports AMP, granular cookie control and live preview customization.
+Simple performant cookie consent notice that supports AMP, Web Stories, granular cookie control and live preview customization.
 
 == Description ==
 
-This plugin adds a simple performant cookie consent notice to your WordPress site that supports AMP, granular cookie control and live preview customization.
+This plugin adds a simple performant cookie consent notice to your WordPress site that supports [AMP](https://wordpress.org/plugins/amp/), [Web Stories](https://wordpress.org/plugins/web-stories/), granular cookie control and live preview customization.
 
 Not only does the notice allow you to provide the regular message that your site uses cookies, you can also optionally grant your site visitors permission to granularly allow which cookie types are allowed, supporting groups of functional (always required), preferences, analytics and marketing cookies. This aims towards compliance with how the new GDPR regulations recommend implementing cookie control for your site.
 
@@ -40,7 +40,7 @@ More plugins will be supported in the future. If you are a developer though, it'
 * **Cookie Policy Support:** Define an optional cookie policy page if your site has one, or alternatively provide an ID attribute to the cookie section in your privacy policy.
 * **Cookie Integrations:** Supported cookies are only set once the visitor has given their consent. The cookie rules implemented also respect the more granular cookie control.
 * **JavaScript-driven:** The cookie notice is inserted into the page as necessary via JavaScript, but at the same time provides easy access to whether it should be displayed via its PHP API.
-* **AMP Support:** The notice is fully AMP-compatible using `<amp-consent>`, integrating seamlessly with the [AMP plugin](https://wordpress.org/plugins/amp/).
+* **AMP Support:** The notice is fully AMP-compatible using `<amp-consent>`, integrating seamlessly with the [AMP plugin](https://wordpress.org/plugins/amp/). It integrates with [Web Stories](https://wordpress.org/plugins/web-stories/) as well.
 * **Coding Best Practices:** The plugin is fully object-oriented and is coded after best practices, such as using interfaces, traits, dependency injection or the single responsibility principle. It also implements modern coding features requiring PHP 7, such as scalar type hints or return type hints.
 
 = Disclaimer =
@@ -82,6 +82,16 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 3. Customizing the cookie notice appearance
 
 == Changelog ==
+
+= 1.0.0-rc.1 =
+
+* Add support for cookie notice to show up in [Web Stories](https://wordpress.org/plugins/web-stories/).
+* Add integration for blocking AdSense tags via [Site Kit by Google](https://wordpress.org/plugins/google-site-kit/) and improve the existing Analytics integration as well, relying on [Site Kit's tag blocking API](https://github.com/google/site-kit-wp/issues/2087).
+* Add support for cookie notice to show up in AMP legacy theme / reader mode.
+* Fix bug where accepting the cookie notice on the WordPress login screen was not working when the AMP plugin is active.
+* Remove usage of `!important` in cookie notice CSS since it is bad practice and can get flagged by AMP.
+* Update default settings so that the integrations are opt-in, i.e. disabled by default.
+* Fix bug where the AMP version of the cookie notice form was unexpectedly used in Customizer previews.
 
 = 1.0.0-beta.3 =
 
