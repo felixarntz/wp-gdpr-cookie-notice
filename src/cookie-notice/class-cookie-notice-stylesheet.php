@@ -172,6 +172,13 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 		 */
 		$max_content_width = apply_filters( 'wp_gdpr_cookie_notice_max_content_width', ! empty( $GLOBALS['content_width'] ) ? (string) $GLOBALS['content_width'] . 'px' : '640px' );
 
+		// `wp-login.php` has overly specific styles on generic selectors, hence prefix some rules
+		// with the same `.login` selector.
+		$login_prefix = '';
+		if ( doing_action( 'login_head' ) ) {
+			$login_prefix = '.login ';
+		}
+
 		if ( Cookie_Position_Enum::POSITION_OVERLAY === $options[ self::SETTING_POSITION ] ) {
 			?>
 			.wp-gdpr-cookie-notice-wrap,
@@ -299,10 +306,13 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			margin: 0;
 		}
 
-		.wp-gdpr-cookie-notice-form {
+		<?php echo esc_attr( $login_prefix ); ?>.wp-gdpr-cookie-notice-form {
+			margin: 0;
 			padding: 0;
 			background: transparent;
+			border: 0;
 			box-shadow: none;
+			overflow: visible;
 		}
 
 		.wp-gdpr-cookie-notice-controls {
