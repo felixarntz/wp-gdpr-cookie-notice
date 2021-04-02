@@ -151,7 +151,8 @@ class Cookie_Notice_Form implements Form {
 	 * @return Renderable Markup instance.
 	 */
 	protected function get_markup() : Renderable {
-		if ( $this->is_amp() ) {
+		// In the Customizer, do not use the AMP version (also see `Cookie_Notice` class).
+		if ( $this->is_amp() && ! is_customize_preview() ) {
 			return $this->amp_markup;
 		}
 
