@@ -16,20 +16,28 @@ function _manually_load_plugin() {
 
 // Detect where to load the WordPress tests environment from.
 if ( false !== getenv( 'WP_TESTS_DIR' ) ) {
-	$test_root    = rtrim( getenv( 'WP_TESTS_DIR' ), '/' );
+	$_test_root    = rtrim( getenv( 'WP_TESTS_DIR' ), '/' );
 	$_manual_load = true;
 } elseif ( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
-	$test_root    = getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit';
+	$_test_root    = getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit';
 	$_manual_load = true;
 } elseif ( file_exists( '/tmp/wordpress-tests-lib/includes/bootstrap.php' ) ) {
-	$test_root    = '/tmp/wordpress-tests-lib';
+	$_test_root    = '/tmp/wordpress-tests-lib';
 	$_manual_load = true;
 } else {
-	$test_root    = dirname( dirname( dirname( TESTS_PLUGIN_DIR ) ) ) . '/tests/phpunit';
+	if ( ! getenv( 'WP_PHPUNIT__DIR' ) ) {
+		printf( '%s is not defined. Run `composer install` to install the WordPress tests library.' . "\n", 'WP_PHPUNIT__DIR' );
+		exit;
+	}
+
+	$_test_root = getenv( 'WP_PHPUNIT__DIR' );
 	$_manual_load = false;
+
+	// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv
+	putenv( sprintf( 'WP_PHPUNIT__TESTS_CONFIG=%s', __DIR__ . '/wp-tests-config.php' ) );
 }
 
-require_once $test_root . '/includes/functions.php';
+require_once $_test_root . '/includes/functions.php';
 
 // Ensure the plugin is loaded.
 if ( $_manual_load ) {
@@ -41,7 +49,7 @@ if ( $_manual_load ) {
 }
 
 // Load the WordPress tests environment.
-require $test_root . '/includes/bootstrap.php';
+require $_test_root . '/includes/bootstrap.php';
 
 $autoloader = new Felix_Arntz\WP_GDPR_Cookie_Notice\Autoloader();
 $autoloader->register_rule( 'Felix_Arntz\\WP_GDPR_Cookie_Notice\\Tests', __DIR__ );

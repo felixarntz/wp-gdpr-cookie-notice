@@ -7,14 +7,14 @@
 
 namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Tests\Framework;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Brain\Monkey;
 
 /**
  * Unit test case base class.
  */
-class Unit_Test_Case extends PHPUnit_Framework_TestCase {
+class Unit_Test_Case extends TestCase {
 
 	use MockeryPHPUnitIntegration;
 
