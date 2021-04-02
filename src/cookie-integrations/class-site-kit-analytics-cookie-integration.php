@@ -1,6 +1,6 @@
 <?php
 /**
- * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Site_Kit_Cookie_Integration class
+ * Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\Site_Kit_Analytics_Cookie_Integration class
  *
  * @package WP_GDPR_Cookie_Notice
  * @since 1.0.0
@@ -13,11 +13,11 @@ use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Control\Cookie_Type_Enum;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Util\Is_AMP;
 
 /**
- * Class representing a cookie integration for the "Site Kit by Google" plugin.
+ * Class representing a cookie integration for Analytics in the "Site Kit by Google" plugin.
  *
  * @since 1.0.0
  */
-class Site_Kit_Cookie_Integration implements Cookie_Integration {
+class Site_Kit_Analytics_Cookie_Integration implements Cookie_Integration {
 	use Is_AMP;
 
 	/**
@@ -28,7 +28,7 @@ class Site_Kit_Cookie_Integration implements Cookie_Integration {
 	 * @return string Cookie integration identifier.
 	 */
 	final public function get_id() : string {
-		return 'google_site_kit';
+		return 'google_site_kit_analytics';
 	}
 
 	/**
@@ -61,7 +61,8 @@ class Site_Kit_Cookie_Integration implements Cookie_Integration {
 	 * @return bool True if applicable, false otherwise.
 	 */
 	public function is_applicable() : bool {
-		return defined( 'GOOGLESITEKIT_VERSION' );
+		// Cookie integration API was added to Site Kit in version 1.18.0.
+		return defined( 'GOOGLESITEKIT_VERSION' ) && version_compare( GOOGLESITEKIT_VERSION, '1.18.0', '>=' );
 	}
 
 	/**
@@ -74,29 +75,12 @@ class Site_Kit_Cookie_Integration implements Cookie_Integration {
 	 *                      that leverage page caching. It is recommended to use a JS-only solution.
 	 */
 	public function add_hooks( bool $allowed ) {
-		add_action(
-			'wp_head',
-			function() {
-				// For AMP, this is handled by the AMP_Block_On_Consent_Cookie_Integration class.
-				if ( $this->is_amp() ) {
-					return;
-				}
+		// For AMP: Adds the `data-block-on-consent` attribute so that the tag is loaded immediately once opted in.
+		add_filter( 'googlesitekit_analytics_tag_amp_block_on_consent', '__return_true' );
 
-				$options = get_option( 'googlesitekit_analytics_settings', [] );
-				if ( empty( $options['propertyID'] ) ) {
-					return;
-				}
-
-				?>
-				<script type="text/javascript">
-					if ( window.wpGdprCookieNoticeUtils && ! window.wpGdprCookieNoticeUtils.cookiesAccepted( '<?php echo esc_attr( $this->get_type() ); ?>' ) ) {
-						window['ga-disable-<?php echo esc_attr( $options['propertyID'] ); ?>'] = true;
-					}
-				</script>
-				<?php
-			},
-			1,
-			0
-		);
+		// For non-AMP: Blocks the tag completely on the server-side until opted in on next page load.
+		if ( ! $allowed ) {
+			add_filter( 'googlesitekit_analytics_tag_blocked', '__return_true' );
+		}
 	}
 }

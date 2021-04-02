@@ -15,6 +15,7 @@ use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Customizer_Control;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Contracts\Cookie_Integration_Registry;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Cookie_Integrations\WordPress_Cookie_Integration_Registry;
+use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Plugin_Option_Reader;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Settings\Setting_Factory;
 use Felix_Arntz\WP_GDPR_Cookie_Notice\Customizer\Customizer_Control_Factory;
 
@@ -54,6 +55,25 @@ class Plugin_Integrations_Settings implements Integration {
 	public function add_hooks() {
 		add_action( 'wp_gdpr_cookie_notice_register_settings', [ $this, 'register_settings' ], 10, 1 );
 		add_action( 'wp_gdpr_cookie_notice_add_customizer_integrations_controls', [ $this, 'register_customizer_controls' ], 10, 1 );
+
+		// Temporarily migrate the setting value for the Site Kit integration, which was renamed.
+		// TODO: Remove in the future.
+		add_filter(
+			'option_' . Plugin_Option_Reader::SETTING_ID,
+			function( $option ) {
+				if ( ! is_array( $option ) ) {
+					return $option;
+				}
+				$legacy_slug  = sprintf( WordPress_Cookie_Integration_Registry::ENABLED_SETTING_GENERATOR, 'google_site_kit' );
+				$current_slug = sprintf( WordPress_Cookie_Integration_Registry::ENABLED_SETTING_GENERATOR, 'google_site_kit_analytics' );
+				if ( isset( $option[ $legacy_slug ] ) ) {
+					$option[ $current_slug ] = $option[ $legacy_slug ];
+					unset( $option[ $legacy_slug ] );
+				}
+				return $option;
+			},
+			1
+		);
 	}
 
 	/**
