@@ -1,0 +1,62 @@
+name: Unit Test PHP
+
+on:
+  push:
+    # Only run if PHP-related files changed.
+    paths:
+      - '**.php'
+      - 'phpunit.unit.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'tests/phpunit/**'
+      - '.github/workflows/unit-test-php.yml'
+    branches:
+      - main
+  pull_request:
+    # Only run if PHP-related files changed.
+    paths:
+      - '**.php'
+      - 'phpunit.unit.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'tests/phpunit/**'
+      - '.github/workflows/unit-test-php.yml'
+
+jobs:
+  test:
+    name: Unit Test PHP
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Cancel previous
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Setup Composer cache
+        uses: pat-s/always-upload-cache@v2.1.3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-suggest --no-progress --no-interaction --no-scripts
+
+      - name: Run tests
+        run: composer test-unit
