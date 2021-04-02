@@ -14,7 +14,7 @@ use Brain\Monkey;
 /**
  * Unit test case base class.
  */
-class Unit_Test_Case extends TestCase {
+abstract class Unit_Test_Case extends TestCase {
 
 	use MockeryPHPUnitIntegration;
 

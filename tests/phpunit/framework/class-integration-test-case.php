@@ -7,11 +7,11 @@
 
 namespace Felix_Arntz\WP_GDPR_Cookie_Notice\Tests\Framework;
 
-use WP_UnitTestCase;
+use WP_UnitTestCase_Base;
 
 /**
  * Integration test case base class.
  */
-class Integration_Test_Case extends WP_UnitTestCase {
+abstract class Integration_Test_Case extends WP_UnitTestCase_Base {
 
 }
