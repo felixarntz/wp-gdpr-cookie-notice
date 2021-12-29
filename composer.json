@@ -48,7 +48,8 @@
     "roots/wordpress": ">=4.9.6",
     "squizlabs/php_codesniffer": "^3.3",
     "wp-coding-standards/wpcs": "^2",
-    "wp-phpunit/wp-phpunit": ">=4.9.6"
+    "wp-phpunit/wp-phpunit": ">=4.9.6",
+    "yoast/phpunit-polyfills": "^1.0"
   },
   "extra": {
     "wordpress-install-dir": "vendor/roots/wordpress"
