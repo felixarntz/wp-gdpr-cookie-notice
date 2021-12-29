@@ -1,7 +1,7 @@
 {
   "name": "felixarntz/wp-gdpr-cookie-notice",
   "description": "Simple performant cookie consent notice that supports AMP, Web Stories, granular cookie control and live preview customization.",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",
   "keywords": [

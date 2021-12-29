@@ -2,9 +2,9 @@
 
 Contributors:      flixos90
 Requires at least: 4.9.6
-Tested up to:      5.7
+Tested up to:      5.8
 Requires PHP:      7.0
-Stable tag:        1.0.0-rc.1
+Stable tag:        1.0.0-rc.2
 License:           GNU General Public License v2 (or later)
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              gdpr, cookie notice, cookie consent, amp, web stories, granular cookie control, customizer
@@ -82,6 +82,10 @@ You can also contribute to the plugin by translating it. Simply visit [translate
 3. Customizing the cookie notice appearance
 
 == Changelog ==
+
+= 1.0.0-rc.2 =
+
+* Introduce filter `wp_gdpr_cookie_notice_amp_use_submission_endpoint` to allow disabling usage of the form submission endpoint for cookie consent preferences in AMP.
 
 = 1.0.0-rc.1 =
 
