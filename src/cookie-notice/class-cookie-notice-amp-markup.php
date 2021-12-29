@@ -57,7 +57,7 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 	 *
 	 * @return array Data to pass to the `<amp-consent>` element.
 	 */
-	protected function get_consent_data() {
+	protected function get_consent_data() : array {
 		$consent_data = [
 			'consentInstanceId' => self::AMP_INSTANCE,
 			'consentRequired'   => true,
@@ -65,8 +65,10 @@ class Cookie_Notice_AMP_Markup extends Cookie_Notice_Markup {
 		];
 
 		/**
-		 * Filters whether to use an ajax endpoint for determining if the notice should be shown
+		 * Filters whether to use the AJAX endpoint in AMP for determining if the notice should be shown
 		 * or whether to use local storage to determine that.
+		 *
+		 * Note that the granular cookie consent per cookie type is not supported without using the endpoint.
 		 *
 		 * @since 1.0.0
 		 *
