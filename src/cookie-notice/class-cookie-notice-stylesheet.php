@@ -388,12 +388,6 @@ class Cookie_Notice_Stylesheet implements Inline_Asset {
 			color: <?php echo esc_attr( $options[ self::SETTING_BUTTON_TEXT_COLOR ] ); ?>;
 			background-color: <?php echo esc_attr( $this->darken_color( $options[ self::SETTING_BUTTON_BACKGROUND_COLOR ], 25 ) ); ?>;
 		}
-
-		@media print {
-			.wp-gdpr-cookie-notice {
-				display: none;
-			}
-		}
 		<?php
 	}
 
